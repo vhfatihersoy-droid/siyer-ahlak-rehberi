@@ -1592,7 +1592,7 @@ function MainApp() {
                       type="text"
                       value={sahabeSearch}
                       onChange={(e) => setSahabeSearch(e.target.value)}
-                      placeholder="Sahabe ismi ara..."
+                      placeholder={t("Sahabe ismi ara...", "Search companion...")}
                       className="bg-transparent text-xs w-full focus:outline-none text-slate-700 dark:text-slate-200"
                     />
                   </div>
@@ -1923,17 +1923,17 @@ function MainApp() {
                 <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                   <div className="grid grid-cols-3 gap-6">
                     <div>
-                      <span className="text-xs text-slate-500 dark:text-slate-400 block">Okuma İlerlemesi</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block">{t("Okuma İlerlemesi", "Reading Progress")}</span>
                       <span className="text-2xl font-bold text-[#0B4F3F] dark:text-emerald-400">
                         %{progressPercent}
                       </span>
                     </div>
                     <div className="border-l border-slate-200 dark:border-slate-800 pl-6">
-                      <span className="text-xs text-slate-500 dark:text-slate-400 block">Haftalık İstikrar</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block">{t("Haftalık İstikrar", "Weekly Consistency")}</span>
                       <span className="text-2xl font-bold text-[#9A6B28] dark:text-amber-400">%{habitScore}</span>
                     </div>
                     <div className="border-l border-slate-200 dark:border-slate-800 pl-6">
-                      <span className="text-xs text-slate-500 dark:text-slate-400 block">Kayıtlı Not & Favori</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 block">{t("Kayıtlı Not & Favori", "Notes & Saved")}</span>
                       <span className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                         {Object.keys(notes).length + favorites.length}
                       </span>
@@ -1954,21 +1954,21 @@ function MainApp() {
                       className="inline-flex items-center gap-1.5 bg-[#0B4F3F] hover:bg-[#08382C] text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors"
                     >
                       <Printer className="w-3.5 h-3.5" />
-                      <span>Çalışma Günlüğü Yazdır (PDF)</span>
+                      <span>{t("Çalışma Günlüğü Yazdır (PDF)", "Print Reflection Journal (PDF)")}</span>
                     </button>
                     <button
                       onClick={exportUserData}
                       className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 px-3.5 py-2 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-colors"
                     >
                       <Download className="w-3.5 h-3.5" />
-                      <span>Yedek İndir (JSON)</span>
+                      <span>{t("Yedek İndir (JSON)", "Export Backup (JSON)")}</span>
                     </button>
                     <button
                       onClick={() => fileInputRef.current?.click()}
                       className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 px-3.5 py-2 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-colors"
                     >
                       <Upload className="w-3.5 h-3.5" />
-                      <span>Yedek Yükle</span>
+                      <span>{t("Yedek Yükle", "Import Backup")}</span>
                     </button>
                     <input
                       ref={fileInputRef}
@@ -1984,10 +1984,13 @@ function MainApp() {
                 <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
                   <div>
                     <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                      Haftalık Ahlaki Muhasebe Çetelesi
+                      {t("Haftalık Ahlaki Muhasebe Çetelesi", "Weekly Character & Habit Tracker")}
                     </h2>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                      Nebevî ilkeleri günlük hayata tatbik etme durumunuzu haftalık olarak işaretleyin.
+                      {t(
+                        "Nebevî ilkeleri günlük hayata tatbik etme durumunuzu haftalık olarak işaretleyin.",
+                        "Track your daily practice of Prophetic character principles across the week."
+                      )}
                     </p>
                   </div>
 
@@ -1995,12 +1998,15 @@ function MainApp() {
                     <table className="w-full text-left border-collapse">
                       <thead>
                         <tr className="border-b border-slate-200 dark:border-slate-800 text-xs text-slate-500">
-                          <th className="py-3 pr-4 font-semibold">İlke / Davranış</th>
-                          {weekDays.map((d) => (
-                            <th key={d} className="py-3 px-2 text-center font-semibold">
-                              {d}
-                            </th>
-                          ))}
+                          <th className="py-3 pr-4 font-semibold">{t("İlke / Davranış", "Principle / Habit")}</th>
+                          {weekDays.map((d, idx) => {
+                            const enDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+                            return (
+                              <th key={d} className="py-3 px-2 text-center font-semibold">
+                                {isEn ? enDays[idx] || d : d}
+                              </th>
+                            );
+                          })}
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
@@ -2043,10 +2049,12 @@ function MainApp() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
                     <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                      Kaydedilen Maddeler ({favorites.length})
+                      {t("Kaydedilen Maddeler", "Saved Bookmarks")} ({favorites.length})
                     </h3>
                     {favorites.length === 0 ? (
-                      <p className="text-xs text-slate-500">Henüz kaydedilen bir madde bulunmuyor.</p>
+                      <p className="text-xs text-slate-500">
+                        {t("Henüz kaydedilen bir madde bulunmuyor.", "No saved bookmarks yet.")}
+                      </p>
                     ) : (
                       <ul className="space-y-2 text-xs sm:text-sm">
                         {favorites.map((favId) => {
@@ -2073,11 +2081,14 @@ function MainApp() {
 
                   <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
                     <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                      Kişisel Çalışma Notlarım ({Object.keys(notes).length})
+                      {t("Kişisel Çalışma Notlarım", "My Reflection Notes")} ({Object.keys(notes).length})
                     </h3>
                     {Object.keys(notes).length === 0 ? (
                       <p className="text-xs text-slate-500">
-                        Maddelerin altındaki "Çalışma Notu Ekle" bağlantısıyla kendi notlarınızı kaydedebilirsiniz.
+                        {t(
+                          'Maddelerin altındaki "Çalışma Notu Ekle" bağlantısıyla kendi notlarınızı kaydedebilirsiniz.',
+                          'Use the "Add Reflection Note" link beneath any card to save your personal thoughts.'
+                        )}
                       </p>
                     ) : (
                       <div className="space-y-2.5">
@@ -2148,14 +2159,14 @@ function MainApp() {
                 <div className="flex items-center gap-2">
                   <Search className="w-4 h-4 text-amber-300" />
                   <span className="text-xs font-bold uppercase tracking-wider">
-                    Hızlı Fihrist & Komut Paleti (⌘K)
+                    {t("Hızlı Fihrist & Komut Paleti (⌘K)", "Quick Index & Search Palette (⌘K)")}
                   </span>
                 </div>
                 <button
                   onClick={() => setIsCmdKOpen(false)}
                   className="text-xs bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-md font-semibold"
                 >
-                  ESC • Kapat
+                  {t("ESC • Kapat", "ESC • Close")}
                 </button>
               </div>
 
@@ -2165,7 +2176,10 @@ function MainApp() {
                   autoFocus
                   value={cmdKQuery}
                   onChange={(e) => setCmdKQuery(e.target.value)}
-                  placeholder="Ayet, hadis, sahabe, sosyal rol (öğretmen, esnaf, anne-baba) veya mektup ara..."
+                  placeholder={t(
+                    "Ayet, hadis, sahabe, sosyal rol veya mektup ara...",
+                    "Search verses, hadith, companions, roles, or prayer times..."
+                  )}
                   className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-[#0B4F3F]"
                 />
               </div>
@@ -2173,7 +2187,7 @@ function MainApp() {
               <div className="max-h-96 overflow-y-auto p-3 space-y-1.5">
                 {cmdKQuickActions.length === 0 ? (
                   <p className="text-xs text-slate-500 text-center py-6">
-                    Eşleşen fihrist başlığı bulunamadı.
+                    {t("Eşleşen fihrist başlığı bulunamadı.", "No matching entries found.")}
                   </p>
                 ) : (
                   cmdKQuickActions.map((item) => (

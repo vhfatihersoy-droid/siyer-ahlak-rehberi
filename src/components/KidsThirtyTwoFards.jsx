@@ -6,10 +6,17 @@ import {
   kidsThirtyTwoFardsCategories,
   kidsThirtyTwoFardsQuizData
 } from '../data/thirtyTwoFardsData';
+import {
+  enFardsCategoriesMap,
+  enFardsItemsMap,
+  enFardsQuizMap
+} from '../data/kidsEnglishContent';
 import { safeStorage, speakTurkish, stopSpeaking } from '../services/storageService';
+import { useLanguage, localizeItem } from '../services/i18n';
 
 export function KidsThirtyTwoFards({ onAwardStars }) {
-  const [subMode, setSubMode] = useState("learn"); // "learn" | "quiz"
+  const { lang, isEn, t } = useLanguage();
+  const [subMode, setSubMode] = useState("learn");
   const [activeCatId, setActiveCatId] = useState(kidsThirtyTwoFardsCategories[0].id);
   const [learnedIds, setLearnedIds] = useState(() => safeStorage.get("siyer_kids_32farz_learned", []));
   const [solvedQuizIds, setSolvedQuizIds] = useState(() => safeStorage.get("siyer_kids_32farz_quiz", []));
@@ -28,8 +35,13 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
     return () => stopSpeaking();
   }, []);
 
-  const activeCategoryIndex = kidsThirtyTwoFardsCategories.findIndex((c) => c.id === activeCatId);
-  const activeCategory = kidsThirtyTwoFardsCategories[activeCategoryIndex] || kidsThirtyTwoFardsCategories[0];
+  const localizedCategories = kidsThirtyTwoFardsCategories.map((cat) => ({
+    ...localizeItem(cat, enFardsCategoriesMap, lang),
+    items: cat.items.map((it) => localizeItem(it, enFardsItemsMap, lang))
+  }));
+
+  const activeCategoryIndex = localizedCategories.findIndex((c) => c.id === activeCatId);
+  const activeCategory = localizedCategories[activeCategoryIndex] || localizedCategories[0];
 
   const learnedPercent = Math.round((learnedIds.length / 32) * 100);
 
@@ -50,7 +62,7 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
       return;
     }
     setSpeakingKey(key);
-    speakTurkish(text, () => setSpeakingKey(null));
+    speakTurkish(text, () => setSpeakingKey(null), lang);
   };
 
   const handleAnswerQuestion = (q, optIdx) => {
@@ -71,17 +83,22 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-              Temel Dinî Bilgiler Atölyesi • Adım Adım Öğren ve Pekiştir
+              {t("Temel Dinî Bilgiler Atölyesi • Adım Adım Öğren ve Pekiştir", "Islamic Essentials Workshop • Learn Step by Step")}
             </span>
             <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
-              🌟 Çocuklar İçin 32 Farz Öğrenme ve Soru-Cevap Atölyesi
+              {t(
+                "🌟 Çocuklar İçin 32 Farz Öğrenme ve Soru-Cevap Atölyesi",
+                "🌟 32 Fards Interactive Learning & Q&A Workshop"
+              )}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Önce 7 kolay bölümde 32 farzı sesli dinleyip öğren (+2 ⭐), ardından 12 soruluk pekiştirme oyunuyla yıldızları topla (+5 ⭐)!
+              {t(
+                "Önce 7 kolay bölümde 32 farzı sesli dinleyip öğren (+2 ⭐), ardından 12 soruluk pekiştirme oyunuyla yıldızları topla (+5 ⭐)!",
+                "First learn all 32 Fards across 7 easy sections with audio (+2 ⭐ each), then reinforce with the 12-question Q&A game (+5 ⭐ each)!"
+              )}
             </p>
           </div>
 
-          {/* 2 Adımlı Mod Geçişi */}
           <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl shrink-0">
             <button
               onClick={() => setSubMode("learn")}
@@ -92,7 +109,7 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
               }`}
             >
               <BookOpen className="w-3.5 h-3.5" />
-              <span>1. Öğren ({learnedIds.length}/32)</span>
+              <span>{t("1. Öğren", "1. Learn")} ({learnedIds.length}/32)</span>
             </button>
             <button
               onClick={() => setSubMode("quiz")}
@@ -103,7 +120,7 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
               }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
-              <span>2. Soru-Cevap ({solvedQuizIds.length}/{kidsThirtyTwoFardsQuizData.length})</span>
+              <span>{t("2. Soru-Cevap", "2. Q&A Quiz")} ({solvedQuizIds.length}/{kidsThirtyTwoFardsQuizData.length})</span>
             </button>
           </div>
         </div>
@@ -112,10 +129,11 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
         <div className="bg-[#FAF9F6] dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200/80 dark:border-slate-700 space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
             <span className="font-bold text-slate-700 dark:text-slate-200">
-              🧩 32 Farz Şifresi: <span className="text-[#0B4F3F] dark:text-emerald-400">6 + 5 + 4 + 3 + 2 + 6 + 6 = 32</span>
+              {t("🧩 32 Farz Şifresi:", "🧩 32 Fards Formula:")}{" "}
+              <span className="text-[#0B4F3F] dark:text-emerald-400">6 + 5 + 4 + 3 + 2 + 6 + 6 = 32</span>
             </span>
             <span className="font-extrabold text-[#0B4F3F] dark:text-emerald-400">
-              Öğrenme İlerlemen: %{learnedPercent} ({learnedIds.length}/32)
+              {t("Öğrenme İlerlemen:", "Learning Progress:")} %{learnedPercent} ({learnedIds.length}/32)
             </span>
           </div>
 
@@ -126,9 +144,8 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
             />
           </div>
 
-          {/* 7 Kategori Tıklanabilir Şifre Kartları */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 pt-1">
-            {kidsThirtyTwoFardsCategories.map((cat) => {
+            {localizedCategories.map((cat) => {
               const doneInCat = cat.items.filter((i) => learnedIds.includes(i.id)).length;
               const complete = doneInCat === cat.count;
               const isSelected = subMode === "learn" && activeCatId === cat.id;
@@ -169,12 +186,9 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
         </div>
       </div>
 
-      {/* =================================================================
-          MOD 1: 32 FARZ ÖĞRENME ALANI (SEÇİLİ KATEGORİ KARTLARI)
-         ================================================================= */}
+      {/* MOD 1: 32 FARZ ÖĞRENME ALANI */}
       {subMode === "learn" && (
         <div className="space-y-5">
-          {/* Seçili Kategori Başlığı ve Özet İpucu */}
           <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3.5">
               <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-[#0B4F3F]/30 flex items-center justify-center text-2xl shrink-0">
@@ -183,11 +197,11 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
               <div>
                 <div className="flex items-center gap-2">
                   <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                    {activeCategory.title} ({activeCategory.count} Farz)
+                    {activeCategory.title} ({activeCategory.count} {t("Farz", "Fards")})
                   </h4>
                   {isCurrentCatComplete && (
                     <span className="text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-[#0B4F3F] dark:text-emerald-300 px-2.5 py-0.5 rounded-full">
-                      ✓ Bölüm Tamamlandı
+                      ✓ {t("Bölüm Tamamlandı", "Section Complete")}
                     </span>
                   )}
                 </div>
@@ -202,9 +216,13 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
               onClick={() =>
                 handleSpeakItem(
                   `cat-${activeCategory.id}`,
-                  `${activeCategory.title}. ${activeCategory.count} farz vardır. ${activeCategory.items
-                    .map((it, i) => `${i + 1}: ${it.title}.`)
-                    .join(" ")}`
+                  isEn
+                    ? `${activeCategory.title}. There are ${activeCategory.count} fards: ${activeCategory.items
+                        .map((it, i) => `${i + 1}: ${it.title}.`)
+                        .join(" ")}`
+                    : `${activeCategory.title}. ${activeCategory.count} farz vardır. ${activeCategory.items
+                        .map((it, i) => `${i + 1}: ${it.title}.`)
+                        .join(" ")}`
                 )
               }
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-colors shrink-0 ${
@@ -219,12 +237,13 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                 <Volume2 className="w-4 h-4" />
               )}
               <span>
-                {speakingKey === `cat-${activeCategory.id}` ? "Okumayı Durdur" : "Bölümü Sesli Dinle"}
+                {speakingKey === `cat-${activeCategory.id}`
+                  ? t("Okumayı Durdur", "Stop Audio")
+                  : t("Bölümü Sesli Dinle", "Listen to Section")}
               </span>
             </button>
           </div>
 
-          {/* Kategoriye Ait Farz Kartları */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {activeCategory.items.map((item) => {
               const isLearned = learnedIds.includes(item.id);
@@ -246,13 +265,18 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                         </span>
                         <span className="text-2xl">{item.emoji}</span>
                         <span className="text-xs font-semibold text-slate-400">
-                          {item.no} / 32. Farz
+                          {t(`${item.no} / 32. Farz`, `Fard ${item.no} of 32`)}
                         </span>
                       </div>
 
                       <button
                         onClick={() =>
-                          handleSpeakItem(item.id, `${item.no}. Farz: ${item.title}. ${item.kidDesc}`)
+                          handleSpeakItem(
+                            item.id,
+                            isEn
+                              ? `Fard number ${item.no}: ${item.title}. ${item.kidDesc}`
+                              : `${item.no}. Farz: ${item.title}. ${item.kidDesc}`
+                          )
                         }
                         className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
                           isSpeaking
@@ -261,7 +285,7 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                         }`}
                       >
                         {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-                        <span>{isSpeaking ? "Durdur" : "Dinle"}</span>
+                        <span>{isSpeaking ? t("Durdur", "Stop") : t("Dinle", "Listen")}</span>
                       </button>
                     </div>
 
@@ -272,7 +296,9 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                     </p>
 
                     <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#B4833E] px-3 py-2 rounded-r-lg text-xs text-slate-700 dark:text-slate-300">
-                      <strong className="text-[#9A6B28] dark:text-amber-400">Aklında Kalsın: </strong>
+                      <strong className="text-[#9A6B28] dark:text-amber-400">
+                        {t("Aklında Kalsın: ", "Remember: ")}
+                      </strong>
                       {item.tip}
                     </div>
                   </div>
@@ -286,30 +312,38 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                     }`}
                   >
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>{isLearned ? "✓ Öğrendim (+2 ⭐ Kazanıldı)" : "Öğrendim (+2 ⭐ Kazan)"}</span>
+                    <span>
+                      {isLearned
+                        ? t("✓ Öğrendim (+2 ⭐ Kazanıldı)", "✓ Learned (+2 ⭐ Earned)")
+                        : t("Öğrendim (+2 ⭐ Kazan)", "I Learned This! (+2 ⭐)")}
+                    </span>
                   </button>
                 </div>
               );
             })}
           </div>
 
-          {/* Alt Adım Yönlendirici: Sonraki Bölüm veya Soru-Cevap Testi */}
           <div className="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <span className="text-xs text-slate-600 dark:text-slate-300">
-              Bu bölümde <strong>{currentCatDoneCount}/{activeCategory.count}</strong> farzı işaretledin.
+              {t(
+                `Bu bölümde ${currentCatDoneCount}/${activeCategory.count} farzı işaretledin.`,
+                `You've learned ${currentCatDoneCount}/${activeCategory.count} fards in this section.`
+              )}
             </span>
 
             <div className="flex flex-wrap items-center gap-2">
-              {activeCategoryIndex < kidsThirtyTwoFardsCategories.length - 1 && (
+              {activeCategoryIndex < localizedCategories.length - 1 && (
                 <button
                   onClick={() => {
                     stopSpeaking();
                     setSpeakingKey(null);
-                    setActiveCatId(kidsThirtyTwoFardsCategories[activeCategoryIndex + 1].id);
+                    setActiveCatId(localizedCategories[activeCategoryIndex + 1].id);
                   }}
                   className="inline-flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-800 dark:text-slate-100 px-4 py-2 rounded-xl text-xs font-bold transition-colors"
                 >
-                  <span>Sonraki Bölüm: {kidsThirtyTwoFardsCategories[activeCategoryIndex + 1].title}</span>
+                  <span>
+                    {t("Sonraki Bölüm:", "Next Section:")} {localizedCategories[activeCategoryIndex + 1].title}
+                  </span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               )}
@@ -323,37 +357,41 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                 className="inline-flex items-center gap-1.5 bg-[#B4833E] hover:bg-[#9A6B28] text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Soru-Cevap ile Pekiştir →</span>
+                <span>{t("Soru-Cevap ile Pekiştir →", "Practice with Q&A Quiz →")}</span>
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* =================================================================
-          MOD 2: 32 FARZ SORU-CEVAP PEKİŞTİRME OYUNU (12 SORU)
-         ================================================================= */}
+      {/* MOD 2: 32 FARZ SORU-CEVAP PEKİŞTİRME OYUNU (12 SORU) */}
       {subMode === "quiz" && (
         <div className="space-y-5">
           <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                🎯 32 Farz Soru-Cevap Pekiştirme Oyunu (+5 ⭐ / Doğru Cevap)
+                {t(
+                  "🎯 32 Farz Soru-Cevap Pekiştirme Oyunu (+5 ⭐ / Doğru Cevap)",
+                  "🎯 32 Fards Q&A Reinforcement Game (+5 ⭐ / Correct Answer)"
+                )}
               </h4>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Öğrendiğin 32 farzı eğlenceli sorularla test et; her doğru cevapta +5 Yıldız kazan!
+                {t(
+                  "Öğrendiğin 32 farzı eğlenceli sorularla test et; her doğru cevapta +5 Yıldız kazan!",
+                  "Test what you learned with fun questions and earn +5 Stars for every right answer!"
+                )}
               </p>
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
               <span className="text-xs font-bold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-3.5 py-1.5 rounded-lg border border-amber-200 dark:border-amber-800">
-                Doğru Bilinen: {solvedQuizIds.length} / {kidsThirtyTwoFardsQuizData.length}
+                {t("Doğru Bilinen:", "Solved:")} {solvedQuizIds.length} / {kidsThirtyTwoFardsQuizData.length}
               </span>
               {Object.keys(quizAnswers).length > 0 && (
                 <button
                   onClick={() => setQuizAnswers({})}
                   className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-800"
-                  title="Cevapları Yeniden Dene"
+                  title={t("Cevapları Yeniden Dene", "Try Again")}
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
@@ -366,17 +404,21 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
               <span className="text-4xl">🏆</span>
               <div>
                 <h5 className="text-base font-extrabold text-[#0B4F3F] dark:text-emerald-300">
-                  Tebrikler! 32 Farz Kahramanı Oldun!
+                  {t("Tebrikler! 32 Farz Kahramanı Oldun!", "Congratulations! You're a 32 Fards Champion!")}
                 </h5>
                 <p className="text-xs text-slate-700 dark:text-slate-200">
-                  Tüm pekiştirme sorularını başarıyla tamamladın. Dilersen Sünnet Pasaportum & Berat sekmesinden başarı belgeni indirebilirsin!
+                  {t(
+                    "Tüm pekiştirme sorularını başarıyla tamamladın. Dilersen Sünnet Pasaportum & Berat sekmesinden başarı belgeni indirebilirsin!",
+                    "You completed every single quiz question! Visit the Sunnah Passport & Award tab to download your certificate!"
+                  )}
                 </p>
               </div>
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {kidsThirtyTwoFardsQuizData.map((q, idx) => {
+            {kidsThirtyTwoFardsQuizData.map((rawQ, idx) => {
+              const q = localizeItem(rawQ, enFardsQuizMap, lang);
               const picked = quizAnswers[q.id];
               const isAnswered = picked !== undefined;
               const isCorrect = picked === q.correctIndex;
@@ -390,7 +432,7 @@ export function KidsThirtyTwoFards({ onAwardStars }) {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                        {q.emoji} Soru {idx + 1} • {q.category}
+                        {q.emoji} {t(`Soru ${idx + 1}`, `Question ${idx + 1}`)} • {q.category}
                       </span>
                       {alreadyRewarded && (
                         <span className="text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2.5 py-0.5 rounded-full">
