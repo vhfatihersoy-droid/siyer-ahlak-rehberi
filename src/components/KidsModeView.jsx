@@ -188,8 +188,8 @@ export function KidsModeView() {
       setSpeakingId(st.id);
       speakTurkish(
         isEn
-          ? `Story ${idx + 1}: ${st.title}. ${st.story} Lesson: ${st.lesson}`
-          : `${idx + 1}. Kıssa: ${st.title}. ${st.story} Sünnet dersimiz: ${st.lesson}`,
+          ? `${st.title}. ${st.story} Our Sunnah lesson: ${st.lesson}`
+          : `${st.title}. ${st.story} Bu kıssadan öğrendiğimiz ders: ${st.lesson}`,
         () => playAt(idx + 1),
         lang
       );

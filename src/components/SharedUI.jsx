@@ -90,14 +90,20 @@ export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
   const { lang, t } = useLanguage();
   const [speaking, setSpeaking] = useState(false);
 
+  React.useEffect(() => {
+    const onGlobalStop = () => setSpeaking(false);
+    window.addEventListener("siyer-audio-stop", onGlobalStop);
+    return () => window.removeEventListener("siyer-audio-stop", onGlobalStop);
+  }, []);
+
   const handleToggleSpeak = () => {
     if (!speakText) return;
     if (speaking) {
       stopSpeaking();
       setSpeaking(false);
     } else {
-      setSpeaking(true);
       speakTurkish(speakText, () => setSpeaking(false), lang);
+      setSpeaking(true);
     }
   };
 
