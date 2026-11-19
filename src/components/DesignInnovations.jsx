@@ -21,17 +21,36 @@ import {
 } from '../data/siyerData';
 import { GlossaryText, CitationFooter } from './SharedUI';
 import { safeStorage, printTopicHandout } from '../services/storageService';
+import { useLanguage, localizeItem } from '../services/i18n';
+import {
+  enVakaMap,
+  enPrayersMap,
+  enPrayersCategoryMap,
+  enFortyHadithMap,
+  enDeclarationsMap,
+  enLettersMap,
+  enPrayerAnchorsMap,
+  enMuhasabaMap,
+  enQuranMap,
+  enEsmaMap,
+  enSocialRolesMap,
+  enBalanceMap,
+  enRemediesMap
+} from '../data/englishContent';
 
 // 1. KURUMSAL HİLYE-İ ŞERÎF LEVHASI (SESLİ OKUMA YOK)
 export function HilyeSerifBoard() {
+  const { t } = useLanguage();
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
       <div className="bg-[#0B4F3F] text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#9A6B28]/40">
         <div>
           <span className="text-xs font-semibold uppercase tracking-widest text-amber-200/90 block">
-            Klasik İslam Sanatları & Şemâil Tertibi
+            {t("Klasik İslam Sanatları & Şemâil Tertibi", "Classical Islamic Arts & Shama'il Tradition")}
           </span>
-          <h3 className="text-lg font-bold">Hilye-i Şerîf Levhası — Hz. Ali (r.a.) Rivayeti</h3>
+          <h3 className="text-lg font-bold">
+            {t("Hilye-i Şerîf Levhası — Hz. Ali (r.a.) Rivayeti", "Hilyah-i Sharif Panel — Narrated by Ali (r.a.)")}
+          </h3>
         </div>
         <span className="text-xs text-emerald-100/80 font-medium">{hilyeSerifData.source}</span>
       </div>
@@ -110,25 +129,31 @@ export function HilyeSerifBoard() {
 
 // 2. YETİŞKİNLER İÇİN KURUMSAL VAKA ANALİZİ (AHLAK İKİLEMLERİ)
 export function AdultVakaSection() {
+  const { lang, t } = useLanguage();
   const [selectedOptions, setSelectedOptions] = useState({});
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
       <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
         <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-          Uygulamalı Ahlak & Vaka Analizi
+          {t("Uygulamalı Ahlak & Vaka Analizi", "Applied Ethics & Case Analysis")}
         </span>
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-          Günlük Hayat İkilemlerinde Nebevî Ölçü
+          {t("Günlük Hayat İkilemlerinde Nebevî Ölçü", "Prophetic Ethics in Everyday Dilemmas")}
         </h3>
         <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
-          Aşağıdaki örnek vakalarda yaklaşımınızı seçerek ilgili hadis ve tefsir hükümlerini inceleyebilirsiniz.
+          {t(
+            "Aşağıdaki örnek vakalarda yaklaşımınızı seçerek ilgili hadis ve tefsir hükümlerini inceleyebilirsiniz.",
+            "Choose your response in each real-life scenario to see the Prophetic ethical reflection."
+          )}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {adultVakaScenarios.map((vaka) => {
+        {adultVakaScenarios.map((rawVaka) => {
+          const vaka = localizeItem(rawVaka, enVakaMap, lang);
           const picked = selectedOptions[vaka.id];
+          const activePicked = picked ? vaka.options.find((o) => o.id === picked.id) || picked : null;
           return (
             <div
               key={vaka.id}
@@ -144,7 +169,7 @@ export function AdultVakaSection() {
 
               <div className="space-y-2">
                 {vaka.options.map((opt) => {
-                  const isChosen = picked?.id === opt.id;
+                  const isChosen = activePicked?.id === opt.id;
                   return (
                     <button
                       key={opt.id}
@@ -162,28 +187,34 @@ export function AdultVakaSection() {
                   );
                 })}
 
-                {picked && (
+                {activePicked && (
                   <div
                     className={`p-3.5 rounded-lg border text-xs space-y-1.5 ${
-                      picked.isProphetic
+                      activePicked.isProphetic
                         ? "bg-emerald-50/80 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-slate-800 dark:text-slate-200"
                         : "bg-amber-50/80 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-slate-800 dark:text-slate-200"
                     }`}
                   >
                     <div className="flex items-center gap-1.5 font-bold text-[#0B4F3F] dark:text-emerald-400">
-                      {picked.isProphetic ? (
+                      {activePicked.isProphetic ? (
                         <CheckCircle2 className="w-4 h-4 shrink-0" />
                       ) : (
                         <AlertCircle className="w-4 h-4 text-[#9A6B28] shrink-0" />
                       )}
-                      <span>{picked.isProphetic ? "Nebevî Ölçüye Uygun Yaklaşım" : "Fıkhi ve Ahlaki Değerlendirme"}</span>
+                      <span>
+                        {activePicked.isProphetic
+                          ? t("Nebevî Ölçüye Uygun Yaklaşım", "Aligned with Prophetic Ethics")
+                          : t("Fıkhi ve Ahlaki Değerlendirme", "Ethical Reflection")}
+                      </span>
                     </div>
                     <p className="leading-relaxed">
-                      <GlossaryText text={picked.analysis} />
+                      <GlossaryText text={activePicked.analysis} />
                     </p>
-                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium pt-1">
-                      Kaynak: {picked.citation}
-                    </div>
+                    {activePicked.citation && (
+                      <div className="text-xs text-slate-500 dark:text-slate-400 font-medium pt-1">
+                        {t("Kaynak:", "Source:")} {activePicked.citation}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -197,6 +228,7 @@ export function AdultVakaSection() {
 
 // 3. NEBEVÎ DUALAR VE ZİKİRLER REHBERİ
 export function PropheticPrayersSection({ onOpenCard }) {
+  const { lang, isEn, t } = useLanguage();
   const [catFilter, setCatFilter] = useState("Tümü");
   const categories = ["Tümü", "Sabah & Akşam", "Huzur & Sıkıntı Anı", "İlim, Aile & Bereket", "Günlük Hayat & İbadet"];
 
@@ -205,10 +237,13 @@ export function PropheticPrayersSection({ onOpenCard }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Nebevî Dualar ve Zikirler Rehberi
+            {t("Nebevî Dualar ve Zikirler Rehberi", "Prophetic Prayers & Supplications (Duas)")}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Hadis kaynaklarında yer alan sahih duaların Arapça metni, Türkçe okunuşu, meali ve okunduğu vakitler.
+            {t(
+              "Hadis kaynaklarında yer alan sahih duaların Arapça metni, Türkçe okunuşu, meali ve okunduğu vakitler.",
+              "Authentic Prophetic supplications with Arabic text, transliteration, translation, and occasions."
+            )}
           </p>
         </div>
 
@@ -223,7 +258,7 @@ export function PropheticPrayersSection({ onOpenCard }) {
                   : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800"
               }`}
             >
-              {c}
+              {isEn ? enPrayersCategoryMap[c] || c : c}
             </button>
           ))}
         </div>
@@ -232,51 +267,54 @@ export function PropheticPrayersSection({ onOpenCard }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {propheticPrayersData
           .filter((d) => catFilter === "Tümü" || d.category === catFilter)
-          .map((dua) => (
-            <div
-              key={dua.id}
-              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                    {dua.category}
-                  </span>
+          .map((rawDua) => {
+            const dua = localizeItem(rawDua, enPrayersMap, lang);
+            return (
+              <div
+                key={dua.id}
+                className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                      {dua.category}
+                    </span>
+                  </div>
+
+                  <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{dua.title}</h4>
+
+                  <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2.5">
+                    <p className="text-right font-serif text-lg sm:text-xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
+                      {dua.arabic}
+                    </p>
+                    <p className="text-xs text-[#9A6B28] dark:text-amber-400 font-semibold border-t border-slate-200/80 dark:border-slate-700 pt-2">
+                      {t("Okunuşu:", "Transliteration:")} <span className="font-normal italic">{dua.pronunciation}</span>
+                    </p>
+                    <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200">
+                      {t("Meali:", "Meaning:")} "{dua.meaning}"
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <GlossaryText text={dua.occasion} />
+                  </p>
                 </div>
 
-                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{dua.title}</h4>
-
-                <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2.5">
-                  <p className="text-right font-serif text-lg sm:text-xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
-                    {dua.arabic}
-                  </p>
-                  <p className="text-xs text-[#9A6B28] dark:text-amber-400 font-semibold border-t border-slate-200/80 dark:border-slate-700 pt-2">
-                    Okunuşu: <span className="font-normal italic">{dua.pronunciation}</span>
-                  </p>
-                  <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200">
-                    Meali: "{dua.meaning}"
-                  </p>
-                </div>
-
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <GlossaryText text={dua.occasion} />
-                </p>
+                <CitationFooter
+                  source={dua.source}
+                  speakText={`${dua.title}. ${dua.meaning}. ${dua.occasion}`}
+                  onOpenCard={() =>
+                    onOpenCard({
+                      title: dua.title,
+                      arabic: dua.arabic,
+                      quote: dua.meaning,
+                      source: dua.source
+                    })
+                  }
+                />
               </div>
-
-              <CitationFooter
-                source={dua.source}
-                speakText={`${dua.title}. Meali: ${dua.meaning}. ${dua.occasion}`}
-                onOpenCard={() =>
-                  onOpenCard({
-                    title: dua.title,
-                    arabic: dua.arabic,
-                    quote: dua.meaning,
-                    source: dua.source
-                  })
-                }
-              />
-            </div>
-          ))}
+            );
+          })}
       </div>
     </div>
   );
@@ -284,24 +322,29 @@ export function PropheticPrayersSection({ onOpenCard }) {
 
 // 4. TEMEL AHLAK HADİSLERİ SEÇKİSİ (40 HADİS GELENEĞİ)
 export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCard }) {
+  const { lang, t } = useLanguage();
   return (
     <div className="space-y-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Temel Ahlak Hadisleri Seçkisi (Kırk Hadis Geleneği)
+            {t("Temel Ahlak Hadisleri Seçkisi (Kırk Hadis Geleneği)", "Core Ethical Hadiths (Forty Hadith Tradition)")}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            İslam ahlakının temelini oluşturan özlü hadis-i şerifler, kısa şerhleri ve okuma/ezber takibi.
+            {t(
+              "İslam ahlakının temelini oluşturan özlü hadis-i şerifler, kısa şerhleri ve okuma/ezber takibi.",
+              "Foundational Prophetic sayings on character, commentary, and study tracking."
+            )}
           </p>
         </div>
         <span className="text-xs font-bold bg-emerald-50 dark:bg-emerald-950 text-[#0B4F3F] dark:text-emerald-300 px-3.5 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
-          Tamamlanan Hadis: {fortyHadithSelectionData.filter((h) => completedItems.includes(h.id)).length} / {fortyHadithSelectionData.length}
+          {t("Tamamlanan Hadis:", "Completed:")} {fortyHadithSelectionData.filter((h) => completedItems.includes(h.id)).length} / {fortyHadithSelectionData.length}
         </span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {fortyHadithSelectionData.map((hd) => {
+        {fortyHadithSelectionData.map((rawHd) => {
+          const hd = localizeItem(rawHd, enFortyHadithMap, lang);
           const isDone = completedItems.includes(hd.id);
           return (
             <div
@@ -322,7 +365,7 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
                     }`}
                   >
                     <Check className="w-3.5 h-3.5" />
-                    <span>{isDone ? "Ezberlendi / Okundu" : "İşaretle"}</span>
+                    <span>{isDone ? t("Ezberlendi / Okundu", "Studied") : t("İşaretle", "Mark Read")}</span>
                   </button>
                 </div>
 
@@ -337,7 +380,7 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
                   </p>
                 </div>
 
-                {hd.vurudStory && (
+                {hd.vurudStory && lang === "tr" && (
                   <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                     <span className="font-bold text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
                       Esbâb-ı Vürûd (Hadisin Söylenme Hikayesi):
@@ -347,7 +390,9 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
                 )}
 
                 <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#B4833E] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                  <span className="font-bold text-slate-900 dark:text-slate-100 block mb-0.5">Kısa Şerh & Hikmet:</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100 block mb-0.5">
+                    {t("Kısa Şerh & Hikmet:", "Commentary & Wisdom:")}
+                  </span>
                   {hd.commentary}
                 </div>
               </div>
@@ -364,15 +409,15 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
                         arabic: hd.arabic,
                         quote: hd.translation,
                         body: hd.commentary,
-                        vurud: hd.vurudStory,
+                        vurud: lang === "tr" ? hd.vurudStory : "",
                         source: hd.source
                       })
                     }
-                    className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
-                    title="Ders Föyü Olarak Yazdır (PDF)"
+                    className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-2 py-1 rounded-md font-medium transition-colors"
+                    title={t("Ders Föyü Olarak Yazdır (PDF)", "Print Study Sheet (PDF)")}
                   >
                     <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
-                    <span>Ders Föyü</span>
+                    <span>{t("Ders Föyü", "PDF")}</span>
                   </button>
                 }
                 onOpenCard={() =>
@@ -394,138 +439,138 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
 
 // 5. VEDA HUTBESİ, MEDİNE VESİKASI VE NEBEVÎ MEKTUPLAR / AHİTNAMELER (SESLİ OKUMA YOK)
 export function UniversalDeclarationsSection({ onOpenCard }) {
+  const { lang, t } = useLanguage();
   return (
     <div className="space-y-8">
       <div className="space-y-5">
         <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
           <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-            Temel İnsan Hakları ve Hukuk Metinleri
+            {t("Temel İnsan Hakları ve Hukuk Metinleri", "Universal Human Rights & Legal Charters")}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Veda Hutbesi ve Medine Sözleşmesi'nde Evrensel İlkeler
+            {t(
+              "Veda Hutbesi ve Medine Sözleşmesi'nde Evrensel İlkeler",
+              "Universal Principles in the Farewell Sermon & Charter of Medina"
+            )}
           </h3>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Hz. Peygamber'in (s.a.v.) insan onuru, eşitlik, kadın hakları ve bir arada yaşama hukukunu tesis eden tarihi beyannameleri.
+            {t(
+              "Hz. Peygamber'in (s.a.v.) insan onuru, eşitlik, kadın hakları ve bir arada yaşama hukukunu tesis eden tarihi beyannameleri.",
+              "Historic charters establishing human dignity, racial equality, women's rights, and pluralistic coexistence."
+            )}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {universalDeclarationsData.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                    {item.document}
-                  </span>
-                  <span className="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-[#9A6B28] dark:text-amber-400 px-2.5 py-0.5 rounded-md">
-                    {item.articleNo}
-                  </span>
+          {universalDeclarationsData.map((rawItem) => {
+            const item = localizeItem(rawItem, enDeclarationsMap, lang);
+            return (
+              <div
+                key={item.id}
+                className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                      {item.document}
+                    </span>
+                    <span className="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-[#9A6B28] dark:text-amber-400 px-2.5 py-0.5 rounded-md">
+                      {item.articleNo}
+                    </span>
+                  </div>
+
+                  <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{item.title}</h4>
+
+                  <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#0B4F3F] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
+                    "{item.quote}"
+                  </blockquote>
+
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <strong className="text-slate-900 dark:text-slate-100">
+                      {t("Evrensel Hukuk İlkesi: ", "Universal Legal Principle: ")}
+                    </strong>
+                    {item.principle}
+                  </p>
                 </div>
 
-                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{item.title}</h4>
-
-                <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#0B4F3F] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
-                  "{item.quote}"
-                </blockquote>
-
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <strong className="text-slate-900 dark:text-slate-100">Evrensel Hukuk İlkesi: </strong>
-                  {item.principle}
-                </p>
+                <CitationFooter
+                  source={item.source}
+                  onOpenCard={() =>
+                    onOpenCard({
+                      title: `${item.document} • ${item.title}`,
+                      quote: item.quote,
+                      source: item.source
+                    })
+                  }
+                />
               </div>
-
-              <CitationFooter
-                source={item.source}
-                onOpenCard={() =>
-                  onOpenCard({
-                    title: `${item.document} • ${item.title}`,
-                    quote: item.quote,
-                    source: item.source
-                  })
-                }
-              />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      {/* YENİ BÖLÜM: NEBEVÎ MEKTUPLAR VE AHİTNAMELER (DİPLOMATİK NEZAKET & HUKUK DİLİ - SESLİ OKUMA YOK) */}
+      {/* NEBEVÎ MEKTUPLAR VE AHİTNAMELER (SESLİ OKUMA YOK) */}
       <div className="space-y-5">
         <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
           <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block mb-1">
-            Diplomatik Nezaket, Kamu Yönetimi ve İnanç Özgürlüğü Belgeleri
+            {t(
+              "Diplomatik Nezaket, Kamu Yönetimi ve İnanç Özgürlüğü Belgeleri",
+              "Diplomatic Courtesy, Governance & Freedom of Faith Charters"
+            )}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Nebevî Mektuplar, Vali Talimatnameleri ve Ahitnameler (4 Tarihi Vesika)
+            {t(
+              "Nebevî Mektuplar, Vali Talimatnameleri ve Ahitnameler (4 Tarihi Vesika)",
+              "Prophetic Letters, Governance Instructions & Covenants (4 Historic Documents)"
+            )}
           </h3>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Hz. Peygamber'in (s.a.v.) devlet başkanlarına gönderdiği davet mektupları, valilere verdiği idari-ahlaki talimatlar ve gayrimüslim tebaaya tanıdığı ahitnameler.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {propheticLettersData.map((lt) => (
-            <div
-              key={lt.id}
-              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                    {lt.recipient}
-                  </span>
-                  <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
-                    {lt.year} • {lt.envoy}
-                  </span>
+          {propheticLettersData.map((rawLt) => {
+            const lt = localizeItem(rawLt, enLettersMap, lang);
+            return (
+              <div
+                key={lt.id}
+                className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                      {lt.recipient}
+                    </span>
+                    <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
+                      {lt.year} • {lt.envoy}
+                    </span>
+                  </div>
+
+                  <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{lt.title}</h4>
+
+                  <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#B4833E] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
+                    "{lt.excerpt}"
+                  </blockquote>
+
+                  <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+                      {t("Diplomatik ve Hukuki İlke:", "Diplomatic & Legal Principle:")}
+                    </strong>
+                    <GlossaryText text={lt.diplomaticPrinciple} />
+                  </div>
                 </div>
 
-                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{lt.title}</h4>
-
-                <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#B4833E] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
-                  "{lt.excerpt}"
-                </blockquote>
-
-                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
-                    Diplomatik ve Hukuki İlke:
-                  </strong>
-                  <GlossaryText text={lt.diplomaticPrinciple} />
-                </div>
+                <CitationFooter
+                  source={lt.source}
+                  onOpenCard={() =>
+                    onOpenCard({
+                      title: lt.title,
+                      quote: lt.excerpt,
+                      source: lt.source
+                    })
+                  }
+                />
               </div>
-
-              <CitationFooter
-                source={lt.source}
-                rightAction={
-                  <button
-                    onClick={() =>
-                      printTopicHandout({
-                        title: lt.title,
-                        badge: `${lt.recipient} (${lt.year})`,
-                        quote: lt.excerpt,
-                        body: lt.diplomaticPrinciple,
-                        source: lt.source
-                      })
-                    }
-                    className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
-                    title="Vesikayı Ders Föyü Olarak Yazdır (PDF)"
-                  >
-                    <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
-                    <span>Ders Föyü</span>
-                  </button>
-                }
-                onOpenCard={() =>
-                  onOpenCard({
-                    title: lt.title,
-                    quote: lt.excerpt,
-                    source: lt.source
-                  })
-                }
-              />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -651,6 +696,7 @@ export function WeeklyCurriculumSection() {
 
 // 8. 5 VAKİT NAMAZ EKSENLİ SÜNNET DURAKLARI & SAYISAL TESBİH/ZİKİR SAYACI + AKŞAM MUHASEBESİ
 export function FivePrayerAnchorsSection() {
+  const { lang, t } = useLanguage();
   const [counts, setCounts] = useState(() => safeStorage.get("siyer_zikir_counts", {}));
   const [muhasabaChecks, setMuhasabaChecks] = useState(() => safeStorage.get("siyer_evening_muhasaba", {}));
 
@@ -681,18 +727,19 @@ export function FivePrayerAnchorsSection() {
     <div className="space-y-6">
       <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
         <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-          Vakit Merkezli Sünnet ve Zikir Takibi
+          {t("Vakit Merkezli Sünnet ve Zikir Takibi", "Prayer-Anchored Sunnah & Dhikr Tracker")}
         </span>
         <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-          5 Vakit Namaz Eksenli Günlük Sünnet Durakları & Tesbih Sayacı
+          {t(
+            "5 Vakit Namaz Eksenli Günlük Sünnet Durakları & Tesbih Sayacı",
+            "5 Daily Prayer Sunnah Anchors & Digital Tasbih Counter"
+          )}
         </h3>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          Günü beş vakit namaz durağı etrafında planlayarak her vaktin sünnetini ve tesbih/istiğfar sayısını takip edin.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {fivePrayerAnchorsData.map((item) => {
+        {fivePrayerAnchorsData.map((rawItem) => {
+          const item = localizeItem(rawItem, enPrayerAnchorsMap, lang);
           const current = counts[item.id] || 0;
           const done = current >= item.targetCount;
           const pct = Math.min(100, Math.round((current / item.targetCount) * 100));
@@ -717,7 +764,6 @@ export function FivePrayerAnchorsSection() {
                 </p>
               </div>
 
-              {/* Sayısal Tesbih / Zikir Sayacı */}
               <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 space-y-2.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-semibold text-slate-700 dark:text-slate-200 truncate pr-2">
@@ -745,13 +791,13 @@ export function FivePrayerAnchorsSection() {
                     }`}
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>{done ? "✓ Hedef Tamamlandı" : "Tesbih Çek (+1)"}</span>
+                    <span>{done ? t("✓ Hedef Tamamlandı", "✓ Completed") : t("Tesbih Çek (+1)", "Count (+1)")}</span>
                   </button>
                   {current > 0 && (
                     <button
                       onClick={() => resetZikir(item.id)}
                       className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-700"
-                      title="Sayacı Sıfırla"
+                      title={t("Sayacı Sıfırla", "Reset Counter")}
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                     </button>
@@ -766,18 +812,16 @@ export function FivePrayerAnchorsSection() {
         <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border-2 border-[#B4833E]/40 shadow-xs flex flex-col justify-between space-y-4">
           <div className="space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block">
-              Gece Tefekkürü • Muhasaba
+              {t("Gece Tefekkürü • Muhasaba", "Evening Reflection • Muhasaba")}
             </span>
             <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
-              Gün Sonu 3 Nefis Muhasebesi Sorusu
+              {t("Gün Sonu 3 Nefis Muhasebesi Sorusu", "3 Evening Self-Reflection Questions")}
             </h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Hz. Ömer'in (r.a.) "Hesaba çekilmeden önce kendinizi hesaba çekin" tavsiyesiyle günü kapatırken işaretleyin:
-            </p>
           </div>
 
           <div className="space-y-2">
-            {eveningMuhasabaQuestions.map((mq) => {
+            {eveningMuhasabaQuestions.map((rawMq) => {
+              const mq = localizeItem(rawMq, enMuhasabaMap, lang);
               const checked = !!muhasabaChecks[mq.id];
               return (
                 <button
@@ -1048,132 +1092,114 @@ export function CorporateQuizAndCertificateSection() {
 
 // 9. KUR'AN-I KERİM'DE PEYGAMBER AHLAKI (ÜSVE-İ HASENE AYETLERİ) & ESMÂ-İ NEBÎ MODÜLÜ
 export function QuranAndEsmaiNebiSection({ onOpenCard }) {
+  const { lang, t } = useLanguage();
   return (
     <div className="space-y-8">
       {/* Üsve-i Hasene Ayetleri */}
       <div className="space-y-5">
         <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
           <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-            Kur'an-ı Kerim & Tefsir Bütünlüğü
+            {t("Kur'an-ı Kerim & Tefsir Bütünlüğü", "Quranic Verses & Prophetic Character")}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Kur'an-ı Kerim'de Peygamber Ahlakı (Üsve-i Hasene Ayetleri)
+            {t("Kur'an-ı Kerim'de Peygamber Ahlakı (Üsve-i Hasene Ayetleri)", "Prophetic Character in the Quran (Uswah Hasanah)")}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Hz. Âişe'nin (r.a.) "Onun ahlakı Kur'an'dı" buyurduğu üzere, Resûl-i Ekrem'in (s.a.v.) şahsiyetini ve örnekliğini anlatan temel ayetler ve Kur'an Yolu Tefsiri şerhleri.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {quranPropheticMoralsData.map((ayet) => (
-            <div
-              key={ayet.id}
-              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                    {ayet.surah}
-                  </span>
-                  <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
-                    {ayet.virtue}
-                  </span>
+          {quranPropheticMoralsData.map((rawAyet) => {
+            const ayet = localizeItem(rawAyet, enQuranMap, lang);
+            return (
+              <div
+                key={ayet.id}
+                className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                      {ayet.surah}
+                    </span>
+                    <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
+                      {ayet.virtue}
+                    </span>
+                  </div>
+
+                  <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{ayet.title}</h4>
+
+                  <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2.5">
+                    <p className="text-right font-serif text-lg sm:text-xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
+                      {ayet.arabic}
+                    </p>
+                    <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 italic border-t border-slate-200/80 dark:border-slate-700 pt-2">
+                      "{ayet.translation}"
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#0B4F3F] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <span className="font-bold text-slate-900 dark:text-slate-100 block mb-0.5">
+                      {t("Tefsir & Siyer Yansıması:", "Reflection & Seerah Context:")}
+                    </span>
+                    <GlossaryText text={ayet.tafsirNote} />
+                  </div>
                 </div>
 
-                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{ayet.title}</h4>
-
-                <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2.5">
-                  <p className="text-right font-serif text-lg sm:text-xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
-                    {ayet.arabic}
-                  </p>
-                  <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 italic border-t border-slate-200/80 dark:border-slate-700 pt-2">
-                    Meali: "{ayet.translation}"
-                  </p>
-                </div>
-
-                <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#0B4F3F] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                  <span className="font-bold text-slate-900 dark:text-slate-100 block mb-0.5">
-                    Kur'an Yolu Tefsiri'nden Hikmet & Siyer Yansıması:
-                  </span>
-                  <GlossaryText text={ayet.tafsirNote} />
-                </div>
+                <CitationFooter
+                  source={ayet.source}
+                  speakText={`${ayet.surah}. ${ayet.title}. ${ayet.translation}. ${ayet.tafsirNote}`}
+                  onOpenCard={() =>
+                    onOpenCard({
+                      title: `${ayet.surah} • ${ayet.title}`,
+                      arabic: ayet.arabic,
+                      quote: ayet.translation,
+                      source: ayet.source
+                    })
+                  }
+                />
               </div>
-
-              <CitationFooter
-                source={ayet.source}
-                speakText={`${ayet.surah}. ${ayet.title}. Meali: ${ayet.translation}. ${ayet.tafsirNote}`}
-                rightAction={
-                  <button
-                    onClick={() =>
-                      printTopicHandout({
-                        title: `${ayet.surah} • ${ayet.title}`,
-                        badge: ayet.virtue,
-                        arabic: ayet.arabic,
-                        quote: ayet.translation,
-                        body: ayet.tafsirNote,
-                        source: ayet.source
-                      })
-                    }
-                    className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
-                    title="Ders Föyü Olarak Yazdır (PDF)"
-                  >
-                    <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
-                    <span>Ders Föyü</span>
-                  </button>
-                }
-                onOpenCard={() =>
-                  onOpenCard({
-                    title: `${ayet.surah} • ${ayet.title}`,
-                    arabic: ayet.arabic,
-                    quote: ayet.translation,
-                    source: ayet.source
-                  })
-                }
-              />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
-      {/* Esmâ-i Nebî (Peygamberimizin Güzel İsim ve Vasıfları) */}
+      {/* Esmâ-i Nebî */}
       <div className="space-y-5">
         <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
           <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block mb-1">
-            Şemâil ve Siyer Geleneği
+            {t("Şemâil ve Siyer Geleneği", "Noble Names & Attributes")}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Esmâ-i Nebî • Hz. Peygamber'in (s.a.v.) Güzel İsimleri ve Ahlaki Vasıfları (8 İsim)
+            {t("Esmâ-i Nebî • Hz. Peygamber'in (s.a.v.) Güzel İsimleri (8)", "Asma al-Nabi • Noble Names of the Prophet ﷺ (8)")}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Kur'an-ı Kerim ve sahih hadislerde yer alan mübarek isimlerin anlamları ve müminin şahsiyetine kazandırdığı ölçüler.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {esmaiNebiData.map((esma) => (
-            <div
-              key={esma.id}
-              className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-3"
-            >
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">
-                    {esma.reference}
-                  </span>
-                  <span className="text-xl font-serif text-[#0B4F3F] dark:text-emerald-400">
-                    {esma.arabic}
-                  </span>
+          {esmaiNebiData.map((rawEsma) => {
+            const esma = localizeItem(rawEsma, enEsmaMap, lang);
+            return (
+              <div
+                key={esma.id}
+                className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-3"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">
+                      {esma.reference}
+                    </span>
+                    <span className="text-xl font-serif text-[#0B4F3F] dark:text-emerald-400">
+                      {esma.arabic}
+                    </span>
+                  </div>
+                  <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{esma.name}</h4>
+                  <p className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400">
+                    {esma.meaning}
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {esma.reflection}
+                  </p>
                 </div>
-                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{esma.name}</h4>
-                <p className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400">
-                  {esma.meaning}
-                </p>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {esma.reflection}
-                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -1182,26 +1208,23 @@ export function QuranAndEsmaiNebiSection({ onOpenCard }) {
 
 // 10. "BENİM ROLÜMDE SÜNNET" — SOSYAL ROL VE MESLEK REHBERİ (6 ROL)
 export function SocialRolesSunnahSection({ onOpenCard }) {
+  const { lang, t } = useLanguage();
   const [selectedRoleId, setSelectedRoleId] = useState("Tümü");
 
+  const localizedRoles = socialRolesSunnahData.map((r) => localizeItem(r, enSocialRolesMap, lang));
   const visibleRoles =
-    selectedRoleId === "Tümü"
-      ? socialRolesSunnahData
-      : socialRolesSunnahData.filter((r) => r.id === selectedRoleId);
+    selectedRoleId === "Tümü" ? localizedRoles : localizedRoles.filter((r) => r.id === selectedRoleId);
 
   return (
     <div className="space-y-5">
       <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-            Meslek ve Sosyal Sorumluluk Ahlakı
+            {t("Meslek ve Sosyal Sorumluluk Ahlakı", "Social Roles & Professional Ethics")}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            "Benim Rolümde Sünnet" • Sosyal Rol ve Meslek Rehberi
+            {t('"Benim Rolümde Sünnet" • Sosyal Rol ve Meslek Rehberi', "Sunnah in My Role • Social & Professional Guide")}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Toplum içerisindeki rol ve sorumluluk alanınıza göre temel nebevî ölçüyü, örnek sahabeyi ve 3 pratik uygulama adımını inceleyin.
-          </p>
         </div>
 
         <div className="flex flex-wrap gap-1.5">
@@ -1213,9 +1236,9 @@ export function SocialRolesSunnahSection({ onOpenCard }) {
                 : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
             }`}
           >
-            Tüm Roller (6)
+            {t("Tüm Roller (6)", "All Roles (6)")}
           </button>
-          {socialRolesSunnahData.map((r) => (
+          {localizedRoles.map((r) => (
             <button
               key={r.id}
               onClick={() => setSelectedRoleId(r.id)}
@@ -1252,13 +1275,15 @@ export function SocialRolesSunnahSection({ onOpenCard }) {
               </blockquote>
 
               <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-200/80 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
-                <strong className="text-[#9A6B28] dark:text-amber-400">Örnek Sahabe Modeli: </strong>
+                <strong className="text-[#9A6B28] dark:text-amber-400">
+                  {t("Örnek Sahabe Modeli: ", "Companion Role Model: ")}
+                </strong>
                 <GlossaryText text={role.sahabeModel} />
               </div>
 
               <div className="space-y-1.5">
                 <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block">
-                  Bu Rolde 3 Nebevî Uygulama Adımı:
+                  {t("Bu Rolde 3 Nebevî Uygulama Adımı:", "3 Practical Prophetic Steps:")}
                 </span>
                 <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
                   {role.principles.map((pr, idx) => (
@@ -1271,36 +1296,19 @@ export function SocialRolesSunnahSection({ onOpenCard }) {
               </div>
 
               <div className="bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 rounded-lg p-3 text-xs text-slate-700 dark:text-slate-300">
-                <strong className="text-[#9A6B28] dark:text-amber-400">Kaçınılması Gereken Tutum: </strong>
+                <strong className="text-[#9A6B28] dark:text-amber-400">
+                  {t("Kaçınılması Gereken Tutum: ", "Attitude to Avoid: ")}
+                </strong>
                 {role.avoid}
               </div>
             </div>
 
             <CitationFooter
               source={role.source}
-              speakText={`${role.role}. ${role.hadith}. Örnek sahabe: ${role.sahabeModel}`}
-              rightAction={
-                <button
-                  onClick={() =>
-                    printTopicHandout({
-                      title: `${role.role} • Sünnet Rehberi`,
-                      badge: role.badge,
-                      quote: role.hadith,
-                      body: `Örnek Sahabe: ${role.sahabeModel} • İlkeler: ${role.principles.join(" / ")}`,
-                      practice: `Sakınılacak Tutum: ${role.avoid}`,
-                      source: role.source
-                    })
-                  }
-                  className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
-                  title="Ders Föyü Olarak Yazdır (PDF)"
-                >
-                  <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
-                  <span>Ders Föyü</span>
-                </button>
-              }
+              speakText={`${role.role}. ${role.hadith}`}
               onOpenCard={() =>
                 onOpenCard({
-                  title: `${role.role} • Sünnet Ölçüsü`,
+                  title: `${role.role}`,
                   quote: role.hadith,
                   source: role.source
                 })
@@ -1315,45 +1323,46 @@ export function SocialRolesSunnahSection({ onOpenCard }) {
 
 // 11. NEBEVÎ DENGE (İTİDAL) PUSULASI & KALBİ YORAN 6 AHLAK ZAFİYETİNE NEBEVÎ REÇETELER
 export function MoralBalanceAndRemediesSection({ onOpenCard }) {
+  const { lang, t } = useLanguage();
   return (
     <div className="space-y-8">
       {/* Nebevî Denge (İtidal) Pusulası */}
       <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
         <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
           <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-            İslam Ahlakında Vasat ve Ölçü
+            {t("İslam Ahlakında Vasat ve Ölçü", "Golden Mean in Islamic Ethics")}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Nebevî Denge (İtidal) Pusulası — Tefrit, İtidal ve İfrat
+            {t("Nebevî Denge (İtidal) Pusulası — Tefrit, İtidal ve İfrat", "Prophetic Balance Compass — Deficiency, Balance & Excess")}
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Klasik İslam ahlak geleneğinde her erdem, iki aşırılık arasındaki dengedir.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {propheticBalanceData.map((b) => (
-            <div
-              key={b.id}
-              className="bg-[#FAF9F6] dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 space-y-3"
-            >
-              <div className="grid grid-cols-3 gap-2 items-center text-center text-xs">
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2">
-                  <span className="text-slate-400 block">Eksiklik</span>
-                  <span className="font-semibold text-slate-600 dark:text-slate-300">{b.tefrit}</span>
+          {propheticBalanceData.map((rawB) => {
+            const b = localizeItem(rawB, enBalanceMap, lang);
+            return (
+              <div
+                key={b.id}
+                className="bg-[#FAF9F6] dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 space-y-3"
+              >
+                <div className="grid grid-cols-3 gap-2 items-center text-center text-xs">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2">
+                    <span className="text-slate-400 block">{t("Eksiklik", "Deficiency")}</span>
+                    <span className="font-semibold text-slate-600 dark:text-slate-300">{b.tefrit}</span>
+                  </div>
+                  <div className="bg-[#0B4F3F] text-white rounded-lg p-2.5 shadow-2xs">
+                    <span className="text-amber-300 text-xs font-bold block">{t("Nebevî Denge", "Prophetic Balance")}</span>
+                    <span className="font-bold">{b.itidal}</span>
+                  </div>
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2">
+                    <span className="text-slate-400 block">{t("Aşırılık", "Excess")}</span>
+                    <span className="font-semibold text-slate-600 dark:text-slate-300">{b.ifrat}</span>
+                  </div>
                 </div>
-                <div className="bg-[#0B4F3F] text-white rounded-lg p-2.5 shadow-2xs">
-                  <span className="text-amber-300 text-xs font-bold block">Nebevî Denge</span>
-                  <span className="font-bold">{b.itidal}</span>
-                </div>
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2">
-                  <span className="text-slate-400 block">Aşırılık</span>
-                  <span className="font-semibold text-slate-600 dark:text-slate-300">{b.ifrat}</span>
-                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{b.note}</p>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{b.note}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -1361,53 +1370,60 @@ export function MoralBalanceAndRemediesSection({ onOpenCard }) {
       <div className="space-y-4">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block">
-            Manevî Öz-Farkındalık & Pratik İlaçlar
+            {t("Manevî Öz-Farkındalık & Pratik İlaçlar", "Spiritual Self-Awareness & Practical Remedies")}
           </span>
           <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-            Kalbi Yoran 6 Ahlak Zafiyetine Nebevî Reçeteler
+            {t("Kalbi Yoran 6 Ahlak Zafiyetine Nebevî Reçeteler", "Prophetic Remedies for 6 Spiritual & Ethical Struggles")}
           </h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {moralRemediesData.map((r) => (
-            <div
-              key={r.id}
-              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
-            >
-              <div className="space-y-3">
-                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{r.affliction}</h4>
+          {moralRemediesData.map((rawR) => {
+            const r = localizeItem(rawR, enRemediesMap, lang);
+            return (
+              <div
+                key={r.id}
+                className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{r.affliction}</h4>
 
-                <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300">
-                  <strong className="text-slate-900 dark:text-slate-100 block mb-0.5">Belirtisi:</strong>
-                  {r.symptom}
+                  <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300">
+                    <strong className="text-slate-900 dark:text-slate-100 block mb-0.5">
+                      {t("Belirtisi:", "How It Appears:")}
+                    </strong>
+                    {r.symptom}
+                  </div>
+
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+                      {t("Nebevî Teşhis:", "Prophetic Diagnosis:")}
+                    </strong>
+                    <GlossaryText text={r.propheticDiagnosis} />
+                  </p>
+
+                  <div className="bg-emerald-50/60 dark:bg-emerald-950/30 border-l-4 border-[#0B4F3F] p-3 rounded-r-lg text-xs text-slate-800 dark:text-slate-200 leading-relaxed">
+                    <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+                      {t("Hemen Uygulanabilir Pratik İlaç:", "Practical Immediate Remedy:")}
+                    </strong>
+                    {r.remedy}
+                  </div>
                 </div>
 
-                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                  <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">Nebevî Teşhis:</strong>
-                  <GlossaryText text={r.propheticDiagnosis} />
-                </p>
-
-                <div className="bg-emerald-50/60 dark:bg-emerald-950/30 border-l-4 border-[#0B4F3F] p-3 rounded-r-lg text-xs text-slate-800 dark:text-slate-200 leading-relaxed">
-                  <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
-                    Hemen Uygulanabilir Pratik İlaç:
-                  </strong>
-                  {r.remedy}
-                </div>
+                <CitationFooter
+                  source={r.source}
+                  speakText={`${r.affliction}. ${r.propheticDiagnosis} ${r.remedy}`}
+                  onOpenCard={() =>
+                    onOpenCard({
+                      title: `${r.affliction}`,
+                      quote: r.remedy,
+                      source: r.source
+                    })
+                  }
+                />
               </div>
-
-              <CitationFooter
-                source={r.source}
-                speakText={`${r.affliction}. ${r.propheticDiagnosis} Pratik ilaç: ${r.remedy}`}
-                onOpenCard={() =>
-                  onOpenCard({
-                    title: `${r.affliction} • Nebevî Reçete`,
-                    quote: r.remedy,
-                    source: r.source
-                  })
-                }
-              />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

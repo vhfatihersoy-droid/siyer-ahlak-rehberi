@@ -11,13 +11,12 @@ import {
   discoverFirstStepsData
 } from '../data/discoverIslamData';
 import { PortalLogo } from './PortalLogo';
+import { useLanguage } from '../services/i18n';
 
 export function DiscoverIslamView({ onOpenCard }) {
-  const [lang, setLang] = useState("en"); // "en" | "tr"
+  const { lang, setLang, isEn } = useLanguage();
   const [activeSubTab, setActiveSubTab] = useState("meet"); // "meet" | "stories" | "qa" | "first-steps"
   const [openQaId, setOpenQaId] = useState(discoverHonestQAData[0].id);
-
-  const isEn = lang === "en";
 
   const subTabs = [
     {

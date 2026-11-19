@@ -17,8 +17,10 @@ import {
 import { safeStorage, speakTurkish, stopSpeaking } from '../services/storageService';
 import { PortalLogo } from './PortalLogo';
 import { KidsThirtyTwoFards } from './KidsThirtyTwoFards';
+import { useLanguage } from '../services/i18n';
 
 export function KidsModeView() {
+  const { t } = useLanguage();
   const [activeKidsTab, setActiveKidsTab] = useState("kissalar");
   const [stars, setStars] = useState(() => safeStorage.get("siyer_kids_stars", 25));
   const [completedTasks, setCompletedTasks] = useState(() => safeStorage.get("siyer_kids_tasks", []));
@@ -290,12 +292,12 @@ export function KidsModeView() {
   };
 
   const kidsTabs = [
-    { id: "kissalar", label: `Siyer Kıssaları & Radyo (${kidsStoriesData.length})`, icon: BookOpen },
-    { id: "32farz", label: "32 Farz Atölyesi & Testi", icon: Sparkles },
-    { id: "gorevler", label: `İyilik Görevlerim (${completedTasks.length}/${kidsDailyTasks.length})`, icon: CheckCircle2 },
-    { id: "kahramanlar", label: "Genç Sahabeler & Kavramlar", icon: Users },
-    { id: "senaryolar", label: "Ahlak & Eşleştirme Oyunu", icon: HelpCircle },
-    { id: "berat", label: "Sünnet Pasaportum & Berat", icon: Award }
+    { id: "kissalar", label: t(`Siyer Kıssaları & Radyo (${kidsStoriesData.length})`, `Prophetic Stories & Audio (${kidsStoriesData.length})`), icon: BookOpen },
+    { id: "32farz", label: t("32 Farz Atölyesi & Testi", "32 Fards Workshop & Quiz"), icon: Sparkles },
+    { id: "gorevler", label: t(`İyilik Görevlerim (${completedTasks.length}/${kidsDailyTasks.length})`, `Good Deeds (${completedTasks.length}/${kidsDailyTasks.length})`), icon: CheckCircle2 },
+    { id: "kahramanlar", label: t("Genç Sahabeler & Kavramlar", "Young Heroes & Words"), icon: Users },
+    { id: "senaryolar", label: t("Ahlak & Eşleştirme Oyunu", "Ethics & Matching Games"), icon: HelpCircle },
+    { id: "berat", label: t("Sünnet Pasaportum & Berat", "Sunnah Passport & Award"), icon: Award }
   ];
 
   const taskCategories = ["Ev & Aile", "Nezaket & Arkadaşlık", "Doğa & Emanet"];
@@ -310,14 +312,17 @@ export function KidsModeView() {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg sm:text-xl font-bold text-white">
-                  Peygamberimizin Güzel Ahlak Bahçesi
+                  {t("Peygamberimizin Güzel Ahlak Bahçesi", "Garden of Prophetic Character")}
                 </h2>
                 <span className="text-xs font-semibold bg-[#B4833E] text-white px-2.5 py-0.5 rounded-full">
-                  Çocuk Portalı
+                  {t("Çocuk Portalı", "Kids Portal")}
                 </span>
               </div>
               <p className="text-xs text-emerald-100/85">
-                Kıssaları oku veya sesli dinle, iyilik görevlerini tamamla ve erdem madalyalarını topla!
+                {t(
+                  "Kıssaları oku veya sesli dinle, iyilik görevlerini tamamla ve erdem madalyalarını topla!",
+                  "Read or listen to stories, learn the 32 Fards, complete good deeds, and collect virtue medals!"
+                )}
               </p>
             </div>
           </div>
@@ -326,8 +331,8 @@ export function KidsModeView() {
             <div className="bg-white/10 border border-white/20 px-4 py-2 rounded-xl flex items-center gap-2">
               <Star className="w-5 h-5 text-amber-300 fill-amber-300" />
               <div>
-                <span className="text-xs text-emerald-100 block leading-none">Toplam Puanım</span>
-                <span className="text-base font-extrabold text-amber-300">{stars} Yıldız</span>
+                <span className="text-xs text-emerald-100 block leading-none">{t("Toplam Puanım", "My Score")}</span>
+                <span className="text-base font-extrabold text-amber-300">{stars} {t("Yıldız", "Stars")}</span>
               </div>
             </div>
 
@@ -335,7 +340,7 @@ export function KidsModeView() {
               onClick={() => setShowParentCorner(!showParentCorner)}
               className="bg-white text-[#0B4F3F] hover:bg-emerald-50 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors"
             >
-              {showParentCorner ? "Rehberi Kapat" : "Ebeveyn Rehberi"}
+              {showParentCorner ? t("Rehberi Kapat", "Close Guide") : t("Ebeveyn Rehberi", "Parents Guide")}
             </button>
           </div>
         </div>

@@ -39,6 +39,18 @@ import { DiscoverIslamView } from './components/DiscoverIslamView';
 import { PortalLogo } from './components/PortalLogo';
 import { PrayerTimesDashboard } from './components/PrayerTimesSection';
 import { CITIES_LIST, getNextPrayerStatus } from './services/prayerTimesService';
+import { LanguageProvider, useLanguage, localizeItem } from './services/i18n';
+import {
+  enSunnahMap,
+  enMoodsMap,
+  enThematicMap,
+  enThematicCategoryMap,
+  enContemporaryMap,
+  enSemailMap,
+  enHabitsMap,
+  enSahabeGroupMap,
+  enPrayerNamesMap
+} from './data/englishContent';
 import {
   HilyeSerifBoard,
   AdultVakaSection,
@@ -84,6 +96,7 @@ class ErrorBoundary extends React.Component {
 }
 
 function MainApp() {
+  const { lang, setLang, isEn, t } = useLanguage();
   const [isKidsMode, setIsKidsMode] = useState(false);
   const [isDiscoverMode, setIsDiscoverMode] = useState(false);
   const [readingTheme, setReadingTheme] = useState(() => safeStorage.get("siyer_reading_theme", "light"));
@@ -160,8 +173,10 @@ function MainApp() {
   const [habitLogs, setHabitLogs] = useState(() => safeStorage.get("siyer_habits", {}));
   const fileInputRef = useRef(null);
 
-  const currentSunnah = dailySunnahList[sunnahIndex] || dailySunnahList[0];
-  const activeMood = moodsData.find((m) => m.id === selectedMoodId) || moodsData[0];
+  const rawSunnah = dailySunnahList[sunnahIndex] || dailySunnahList[0];
+  const currentSunnah = localizeItem(rawSunnah, enSunnahMap, lang);
+  const rawMood = moodsData.find((m) => m.id === selectedMoodId) || moodsData[0];
+  const activeMood = localizeItem(rawMood, enMoodsMap, lang);
 
   useEffect(() => {
     safeStorage.set("siyer_reading_theme", readingTheme);
@@ -288,14 +303,14 @@ function MainApp() {
       "Ensar & Fedakârlık Öncüleri"
     ];
     return [
-      { key: "Tümü", label: "Tüm Sahabeler", count: allSahabesList.length },
+      { key: "Tümü", label: isEn ? "All Companions" : "Tüm Sahabeler", count: allSahabesList.length },
       ...groupKeys.map((g) => ({
         key: g,
-        label: g,
+        label: isEn ? enSahabeGroupMap[g] || g : g,
         count: allSahabesList.filter(([, item]) => item.group === g).length
       }))
     ];
-  }, [allSahabesList]);
+  }, [allSahabesList, isEn]);
 
   const globalSearchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -702,11 +717,11 @@ function MainApp() {
 
   // Sadeleştirilmiş 5 Ana Kurumsal Modül
   const tabs = [
-    { id: "gunun-sunneti", label: "Sünnet & Rehberlik", icon: Sparkles },
-    { id: "ahlak-meseleler", label: "Ahlak & Çağdaş Meseleler", icon: BookOpen },
-    { id: "sahabeler", label: `Ashâb-ı Kirâm (${allSahabesList.length})`, icon: Users },
-    { id: "semail-siyer", label: "Şemâil-i Şerîf & Siyer", icon: Award },
-    { id: "muhasebe", label: "Çalışma & Muhasebe", icon: CheckCircle2 }
+    { id: "gunun-sunneti", label: t("Sünnet & Rehberlik", "Sunnah & Guidance"), icon: Sparkles },
+    { id: "ahlak-meseleler", label: t("Ahlak & Çağdaş Meseleler", "Morals & Modern Issues"), icon: BookOpen },
+    { id: "sahabeler", label: t(`Ashâb-ı Kirâm (${allSahabesList.length})`, `Companions (${allSahabesList.length})`), icon: Users },
+    { id: "semail-siyer", label: t("Şemâil-i Şerîf & Siyer", "Shama'il & Seerah"), icon: Award },
+    { id: "muhasebe", label: t("Çalışma & Muhasebe", "Study & Reflection"), icon: CheckCircle2 }
   ];
 
   return (
@@ -736,10 +751,10 @@ function MainApp() {
               <PortalLogo className="w-9 h-9" />
               <div>
                 <h1 className="text-sm sm:text-base font-bold tracking-tight text-white leading-tight">
-                  Siyer ve Ahlak Portalı
+                  {t("Siyer ve Ahlak Portalı", "Seerah & Ethics Portal")}
                 </h1>
                 <p className="text-xs text-emerald-100/75 hidden sm:block">
-                  Sahih Kaynaklı Dijital Rehber
+                  {t("Sahih Kaynaklı Dijital Rehber", "Authentic Digital Guide to Prophetic Character")}
                 </p>
               </div>
             </button>
@@ -748,12 +763,12 @@ function MainApp() {
             {!isKidsMode && !isDiscoverMode && (
               <button
                 onClick={() => setIsCmdKOpen(true)}
-                className="hidden md:flex items-center justify-between gap-3 bg-white/10 hover:bg-white/15 px-3.5 py-2 rounded-lg border border-white/15 w-72 lg:w-80 text-xs text-emerald-100/85 transition-all"
-                title="Portalda Hızlı Arama ve Fihrist (⌘K / Ctrl+K)"
+                className="hidden md:flex items-center justify-between gap-3 bg-white/10 hover:bg-white/15 px-3.5 py-2 rounded-lg border border-white/15 w-64 lg:w-72 text-xs text-emerald-100/85 transition-all"
+                title={t("Portalda Hızlı Arama ve Fihrist (⌘K / Ctrl+K)", "Quick Search & Index (⌘K / Ctrl+K)")}
               >
                 <span className="inline-flex items-center gap-2 truncate">
                   <Search className="w-3.5 h-3.5 opacity-80 shrink-0" />
-                  <span>Hadis, ayet, sahabe veya konu ara...</span>
+                  <span>{t("Hadis, ayet, sahabe veya konu ara...", "Search hadith, verses, topics...")}</span>
                 </span>
                 <kbd className="bg-black/25 px-1.5 py-0.5 rounded text-xs font-bold text-amber-300 shrink-0">
                   ⌘K
@@ -761,13 +776,13 @@ function MainApp() {
               </button>
             )}
 
-            {/* Sağ: Yalnızca 3 Temel Kontrol (Canlı Vakit + Aa Görünüm + Çocuk Portalı) */}
-            <div className="flex items-center gap-2">
-              {!isKidsMode && (
+            {/* Sağ: Canlı Vakit + TR/EN + Aa Görünüm + Discover + Çocuk */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {!isKidsMode && !isDiscoverMode && (
                 <button
                   onClick={() => setIsCmdKOpen(true)}
                   className="md:hidden p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white border border-white/15"
-                  title="Portalda Ara"
+                  title={t("Portalda Ara", "Search Portal")}
                 >
                   <Search className="w-4 h-4" />
                 </button>
@@ -775,16 +790,40 @@ function MainApp() {
               {!isKidsMode && prayerStatus && (
                 <button
                   onClick={openPrayerTimesView}
-                  className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg border border-white/15 text-xs transition-all"
-                  title="Namaz Vakitleri ve 7 Günlük İmsakiye"
+                  className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 px-2.5 py-1.5 rounded-lg border border-white/15 text-xs transition-all"
+                  title={t("Namaz Vakitleri ve 7 Günlük İmsakiye", "Prayer Times & 7-Day Schedule")}
                 >
                   <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                  <span className="hidden sm:inline font-medium text-emerald-50">{selectedCity.name}</span>
-                  <span className="text-white/40 hidden sm:inline">•</span>
-                  <span className="font-semibold text-white">{prayerStatus.nextPrayer.label}</span>
+                  <span className="hidden lg:inline font-medium text-emerald-50">{selectedCity.name}</span>
+                  <span className="text-white/40 hidden lg:inline">•</span>
+                  <span className="font-semibold text-white">
+                    {isEn ? enPrayerNamesMap[prayerStatus.nextPrayer.key]?.label || prayerStatus.nextPrayer.label : prayerStatus.nextPrayer.label}
+                  </span>
                   <span className="font-mono font-bold text-amber-300">{prayerStatus.countdown}</span>
                 </button>
               )}
+
+              {/* Global Dil Seçici (TR | EN) */}
+              <div className="flex items-center bg-white/10 p-0.5 rounded-lg border border-white/15 shrink-0">
+                <button
+                  onClick={() => setLang("tr")}
+                  className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${
+                    !isEn ? "bg-white text-[#0B4F3F]" : "text-emerald-100 hover:text-white"
+                  }`}
+                  title="Türkçe"
+                >
+                  TR
+                </button>
+                <button
+                  onClick={() => setLang("en")}
+                  className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${
+                    isEn ? "bg-white text-[#0B4F3F]" : "text-emerald-100 hover:text-white"
+                  }`}
+                  title="English"
+                >
+                  EN
+                </button>
+              </div>
 
               {/* Tek Birleşik Görünüm & Okuma Ayarları Menüsü (Aa) */}
               <div className="relative">
@@ -809,13 +848,13 @@ function MainApp() {
                     <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 p-4 space-y-4 z-50">
                       <div className="space-y-1.5">
                         <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-                          Okuma Zemini
+                          {t("Okuma Zemini", "Reading Theme")}
                         </span>
                         <div className="grid grid-cols-3 gap-1.5">
                           {[
-                            { id: "light", label: "Beyaz" },
-                            { id: "sepia", label: "Sepya" },
-                            { id: "dark", label: "Gece" }
+                            { id: "light", label: t("Beyaz", "Light") },
+                            { id: "sepia", label: t("Sepya", "Sepia") },
+                            { id: "dark", label: t("Gece", "Dark") }
                           ].map((tm) => (
                             <button
                               key={tm.id}
@@ -861,7 +900,7 @@ function MainApp() {
 
                           <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                             <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
-                              Odaklanmış Kitap Modu
+                              {t("Odaklanmış Kitap Modu", "Focus Reading Mode")}
                             </span>
                             <button
                               onClick={() => setIsFocusMode(!isFocusMode)}
@@ -871,13 +910,13 @@ function MainApp() {
                                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
                               }`}
                             >
-                              {isFocusMode ? "Açık" : "Kapalı"}
+                              {isFocusMode ? t("Açık", "On") : t("Kapalı", "Off")}
                             </button>
                           </div>
 
                           <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                            <span>Okuma: <strong className="text-[#0B4F3F] dark:text-emerald-400">%{progressPercent}</strong></span>
-                            <span>Favoriler: <strong className="text-slate-800 dark:text-slate-200">{favorites.length}</strong></span>
+                            <span>{t("Okuma:", "Progress:")} <strong className="text-[#0B4F3F] dark:text-emerald-400">%{progressPercent}</strong></span>
+                            <span>{t("Favoriler:", "Saved:")} <strong className="text-slate-800 dark:text-slate-200">{favorites.length}</strong></span>
                           </div>
                         </>
                       )}
@@ -896,10 +935,10 @@ function MainApp() {
                     ? "bg-white text-[#0B4F3F] border-white font-bold"
                     : "bg-white/10 hover:bg-white/20 text-white border-white/20"
                 }`}
-                title="Discover Islam & Prophet Muhammad ﷺ (EN / TR)"
+                title="Discover Islam & Prophet Muhammad ﷺ"
               >
                 <Globe className="w-3.5 h-3.5 text-amber-300" />
-                <span>{isDiscoverMode ? "Ana Portal" : "EN / Discover"}</span>
+                <span>{isDiscoverMode ? t("Ana Portal", "Home") : t("Keşfet", "Discover")}</span>
               </button>
 
               <button
@@ -914,7 +953,7 @@ function MainApp() {
                 }`}
               >
                 <Sun className="w-3.5 h-3.5" />
-                <span>{isKidsMode ? "Ana Portal" : "Çocuk"}</span>
+                <span>{isKidsMode ? t("Ana Portal", "Home") : t("Çocuk", "Kids")}</span>
               </button>
             </div>
           </div>
@@ -1042,11 +1081,11 @@ function MainApp() {
                 {/* Ferah Alt Sekme Şeridi */}
                 <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                   {[
-                    { id: "sunnet", label: "Günün Sünneti & Rehberlik" },
-                    { id: "vakitler", label: "Namaz Vakitleri" },
-                    { id: "kuran-esma", label: "Kur'an'da Ahlak & Esmâ-i Nebî" },
-                    { id: "dualar", label: "Nebevî Dualar" },
-                    { id: "kirkhadis", label: "40 Hadis Seçkisi" }
+                    { id: "sunnet", label: t("Günün Sünneti & Rehberlik", "Daily Sunnah & Guidance") },
+                    { id: "vakitler", label: t("Namaz Vakitleri", "Prayer Times") },
+                    { id: "kuran-esma", label: t("Kur'an'da Ahlak & Esmâ-i Nebî", "Quran & Asma al-Nabi") },
+                    { id: "dualar", label: t("Nebevî Dualar", "Prophetic Prayers") },
+                    { id: "kirkhadis", label: t("40 Hadis Seçkisi", "40 Hadith Selection") }
                   ].map((sub) => (
                     <button
                       key={sub.id}
@@ -1095,7 +1134,7 @@ function MainApp() {
                     <div className="bg-slate-50 dark:bg-slate-800/70 px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                          Günün Sünneti • {currentSunnah.dayLabel}
+                          {t("Günün Sünneti", "Daily Sunnah")} • {currentSunnah.dayLabel}
                         </span>
                       </div>
 
@@ -1193,7 +1232,7 @@ function MainApp() {
 
                         <div className="bg-slate-50 dark:bg-slate-800/40 border-l-4 border-[#0B4F3F] dark:border-emerald-500 p-4 rounded-r-lg">
                           <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-                            Günlük Hayata Tatbik
+                            {t("Günlük Hayata Tatbik", "Practice Today")}
                           </span>
                           <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                             {currentSunnah.application}
@@ -1244,16 +1283,17 @@ function MainApp() {
                 <div className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
                   <div className="bg-slate-50 dark:bg-slate-800/70 px-6 py-3.5 border-b border-slate-200 dark:border-slate-800">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
-                      Nebevî Rehberlik
+                      {t("Nebevî Rehberlik", "Prophetic Guidance")}
                     </span>
                     <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                      Ruh Haline Göre Sünnet Tavsiyeleri
+                      {t("Ruh Haline Göre Sünnet Tavsiyeleri", "Sunnah Reflections by Emotional State")}
                     </h3>
                   </div>
 
                   <div className="p-6 space-y-5">
                     <div className="grid grid-cols-3 gap-2">
-                      {moodsData.map((m) => {
+                      {moodsData.map((rawM) => {
+                        const m = localizeItem(rawM, enMoodsMap, lang);
                         const active = m.id === activeMood.id;
                         return (
                           <button
@@ -1319,11 +1359,11 @@ function MainApp() {
                 {/* Ferah Alt Sekme Şeridi */}
                 <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                   {[
-                    { id: "tematik", label: `Tematik Ahlak (${thematicData.length})` },
-                    { id: "cagdas", label: `Çağdaş Sorunlar (${contemporaryIssuesData.length})` },
-                    { id: "roller", label: "Meslek & Sosyal Roller (6)" },
-                    { id: "receteler", label: "Denge & Ahlak Reçeteleri" },
-                    { id: "vaka", label: "Vaka Analizi (6)" }
+                    { id: "tematik", label: t(`Tematik Ahlak (${thematicData.length})`, `Thematic Ethics (${thematicData.length})`) },
+                    { id: "cagdas", label: t(`Çağdaş Sorunlar (${contemporaryIssuesData.length})`, `Modern Issues (${contemporaryIssuesData.length})`) },
+                    { id: "roller", label: t("Meslek & Sosyal Roller (6)", "Social Roles (6)") },
+                    { id: "receteler", label: t("Denge & Ahlak Reçeteleri", "Balance & Remedies") },
+                    { id: "vaka", label: t("Vaka Analizi (6)", "Case Analysis (6)") }
                   ].map((sub) => (
                     <button
                       key={sub.id}
@@ -1365,7 +1405,7 @@ function MainApp() {
                                 : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-50"
                             }`}
                           >
-                            {cat} ({count})
+                            {isEn ? enThematicCategoryMap[cat] || cat : cat} ({count})
                           </button>
                         );
                       })}
@@ -1374,7 +1414,8 @@ function MainApp() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       {thematicData
                         .filter((item) => thematicCategory === "Tümü" || item.category === thematicCategory)
-                        .map((item) => {
+                        .map((rawItem) => {
+                          const item = localizeItem(rawItem, enThematicMap, lang);
                           const isFav = favorites.includes(item.id);
                           const isDone = completedItems.includes(item.id);
                           return (
@@ -1453,7 +1494,8 @@ function MainApp() {
 
                 {ahlakSubView === "cagdas" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {contemporaryIssuesData.map((item) => {
+                    {contemporaryIssuesData.map((rawItem) => {
+                      const item = localizeItem(rawItem, enContemporaryMap, lang);
                       const isDone = completedItems.includes(item.id);
                       return (
                         <div
@@ -1472,7 +1514,7 @@ function MainApp() {
                                     ? "border-[#0B4F3F] text-[#0B4F3F] dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50"
                                     : "border-slate-200 dark:border-slate-700 text-slate-400"
                                 }`}
-                                title="Okundu İşaretle"
+                                title={t("Okundu İşaretle", "Mark Studied")}
                               >
                                 <CheckCircle2 className="w-3.5 h-3.5" />
                               </button>
@@ -1483,21 +1525,21 @@ function MainApp() {
                             <div className="space-y-3 text-xs sm:text-sm">
                               <div className="bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-slate-600 dark:text-slate-300">
                                 <span className="font-semibold text-slate-900 dark:text-slate-100 block mb-0.5">
-                                  Günümüzdeki Sorun:
+                                  {t("Günümüzdeki Sorun:", "Modern Challenge:")}
                                 </span>
                                 {item.dilemma}
                               </div>
 
                               <div className="text-slate-700 dark:text-slate-300 leading-relaxed">
                                 <span className="font-semibold text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
-                                  Nebevî Ölçü ve Yaklaşım:
+                                  {t("Nebevî Ölçü ve Yaklaşım:", "Prophetic Approach:")}
                                 </span>
                                 <GlossaryText text={item.propheticApproach} />
                               </div>
 
                               <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#0B4F3F] p-3 rounded-r-lg text-slate-700 dark:text-slate-200">
                                 <span className="font-semibold text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
-                                  Uygulama Adımı:
+                                  {t("Uygulama Adımı:", "Action Step:")}
                                 </span>
                                 {item.actionStep}
                               </div>
@@ -1684,9 +1726,9 @@ function MainApp() {
                 {/* Ferah Alt Sekme Şeridi */}
                 <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                   {[
-                    { id: "semail", label: "Hilye & Şemâil-i Şerîf" },
-                    { id: "beyanname", label: "Veda Hutbesi, Vesika & Mektuplar" },
-                    { id: "kronoloji", label: "Siyer Kronolojisi" }
+                    { id: "semail", label: t("Hilye & Şemâil-i Şerîf", "Hilyah & Shama'il") },
+                    { id: "beyanname", label: t("Veda Hutbesi, Vesika & Mektuplar", "Charters & Prophetic Letters") },
+                    { id: "kronoloji", label: t("Siyer Kronolojisi", "Seerah Timeline") }
                   ].map((sub) => (
                     <button
                       key={sub.id}
@@ -1712,7 +1754,9 @@ function MainApp() {
                     <HilyeSerifBoard />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      {semailAndSpecialData.map((s) => (
+                      {semailAndSpecialData.map((rawS) => {
+                        const s = localizeItem(rawS, enSemailMap, lang);
+                        return (
                         <div
                           key={s.id}
                           className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between"
@@ -1740,7 +1784,8 @@ function MainApp() {
                             />
                           </div>
                         </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -1822,10 +1867,10 @@ function MainApp() {
                 {/* Ferah Alt Sekme Şeridi */}
                 <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                   {[
-                    { id: "cetele", label: "Muhasebe & Notlarım" },
-                    { id: "vakitler", label: "5 Vakit Sünnet & Tesbih" },
-                    { id: "mufredat", label: "8 Haftalık Müfredat" },
-                    { id: "degerlendirme", label: "Bilgi Testi & Belge" }
+                    { id: "cetele", label: t("Muhasebe & Notlarım", "Habit Tracker & Notes") },
+                    { id: "vakitler", label: t("5 Vakit Sünnet & Tesbih", "5 Daily Prayer Anchors") },
+                    { id: "mufredat", label: t("8 Haftalık Müfredat", "8-Week Study Circle") },
+                    { id: "degerlendirme", label: t("Bilgi Testi & Belge", "Quiz & Certificate") }
                   ].map((sub) => (
                     <button
                       key={sub.id}
@@ -1959,7 +2004,9 @@ function MainApp() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-xs sm:text-sm">
-                        {defaultHabits.map((h) => (
+                        {defaultHabits.map((rawH) => {
+                          const h = localizeItem(rawH, enHabitsMap, lang);
+                          return (
                           <tr key={h.id}>
                             <td className="py-3 pr-4">
                               <span className="font-semibold text-slate-800 dark:text-slate-100 block">{h.title}</span>
@@ -1985,7 +2032,8 @@ function MainApp() {
                               );
                             })}
                           </tr>
-                        ))}
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -2067,14 +2115,19 @@ function MainApp() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-2.5">
               <PortalLogo className="w-7 h-7" />
-              <p>© 2026 Siyer ve Ahlak Portalı • Kaynakçada temel hadis ve siyer eserleri ile TDV ve Diyanet yayınlarından yararlanılmıştır.</p>
+              <p>
+                {t(
+                  "© 2026 Siyer ve Ahlak Portalı • Kaynakçada temel hadis ve siyer eserleri ile TDV ve Diyanet yayınlarından yararlanılmıştır.",
+                  "© 2026 Seerah & Ethics Portal • Drawn from authentic classical hadith, Quranic commentary, and Seerah sources."
+                )}
+              </p>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-[#0B4F3F] dark:text-emerald-400 font-semibold">
-                Bağımsız Dijital Eğitim Portalı
+                {t("Bağımsız Dijital Eğitim Portalı", "Independent Educational Portal")}
               </span>
               <span>•</span>
-              <span>Hadislerle İslam & TDV İslâm Ansiklopedisi</span>
+              <span>{t("Türkçe / English", "English / Türkçe")}</span>
             </div>
           </div>
         </footer>
@@ -2162,7 +2215,9 @@ function MainApp() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <MainApp />
+      <LanguageProvider>
+        <MainApp />
+      </LanguageProvider>
     </ErrorBoundary>
   );
 }

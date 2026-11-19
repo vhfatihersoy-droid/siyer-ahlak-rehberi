@@ -21,12 +21,12 @@ export const safeStorage = {
   }
 };
 
-export function speakTurkish(text, onEnd) {
+export function speakTurkish(text, onEnd, lang = "tr") {
   try {
     if (!window.speechSynthesis) return false;
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "tr-TR";
+    utterance.lang = lang === "en" ? "en-US" : "tr-TR";
     utterance.rate = 0.96;
     if (onEnd) {
       utterance.onend = onEnd;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, BookMarked, Image, Edit3, Volume2, VolumeX } from 'lucide-react';
 import { glossaryAndSahabeData } from '../data/siyerData';
 import { speakTurkish, stopSpeaking } from '../services/storageService';
+import { useLanguage } from '../services/i18n';
 
 export function GlossaryText({ text }) {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -86,6 +87,7 @@ export function GlossaryText({ text }) {
 }
 
 export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
+  const { lang, t } = useLanguage();
   const [speaking, setSpeaking] = useState(false);
 
   const handleToggleSpeak = () => {
@@ -95,7 +97,7 @@ export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
       setSpeaking(false);
     } else {
       setSpeaking(true);
-      speakTurkish(speakText, () => setSpeaking(false));
+      speakTurkish(speakText, () => setSpeaking(false), lang);
     }
   };
 
@@ -117,17 +119,17 @@ export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
             }`}
           >
             {speaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-            <span>{speaking ? "Durdur" : "Dinle"}</span>
+            <span>{speaking ? t("Durdur", "Stop") : t("Dinle", "Listen")}</span>
           </button>
         )}
         {onOpenCard && (
           <button
             onClick={onOpenCard}
             className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-2 py-1 rounded-md font-medium transition-colors"
-            title="Alıntı Kartı İndir"
+            title={t("Alıntı Kartı İndir", "Download Quote Card")}
           >
             <Image className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
-            <span>Kart</span>
+            <span>{t("Kart", "Card")}</span>
           </button>
         )}
       </div>
@@ -136,6 +138,7 @@ export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
 }
 
 export function PersonalReflectionNote({ itemId, notes, onSaveNote }) {
+  const { t } = useLanguage();
   const existing = notes[itemId] || "";
   const [isEditing, setIsEditing] = useState(false);
   const [draft, setDraft] = useState(existing);
@@ -157,20 +160,22 @@ export function PersonalReflectionNote({ itemId, notes, onSaveNote }) {
           className="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 hover:text-[#0B4F3F] dark:hover:text-emerald-400 font-medium transition-colors"
         >
           <Edit3 className="w-3.5 h-3.5" />
-          <span>Çalışma Notu Ekle</span>
+          <span>{t("Çalışma Notu Ekle", "Add Reflection Note")}</span>
         </button>
       )}
 
       {!isEditing && existing && (
         <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-700 dark:text-slate-200 flex items-start justify-between gap-2">
           <div>
-            <span className="font-semibold text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">Kişisel Not:</span>
+            <span className="font-semibold text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+              {t("Kişisel Not:", "Personal Note:")}
+            </span>
             <p className="leading-relaxed">{existing}</p>
           </div>
           <button
             onClick={() => setIsEditing(true)}
             className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-1"
-            title="Notu Düzenle"
+            title={t("Notu Düzenle", "Edit Note")}
           >
             <Edit3 className="w-3.5 h-3.5" />
           </button>
@@ -183,7 +188,7 @@ export function PersonalReflectionNote({ itemId, notes, onSaveNote }) {
             rows={2}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder="Bu maddeyle ilgili kişisel çalışma notunuzu yazın..."
+            placeholder={t("Bu maddeyle ilgili kişisel çalışma notunuzu yazın...", "Write your personal reflection note here...")}
             className="w-full text-xs bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-md p-2 focus:outline-none focus:border-[#0B4F3F]"
           />
           <div className="flex items-center justify-end gap-2">
@@ -195,20 +200,20 @@ export function PersonalReflectionNote({ itemId, notes, onSaveNote }) {
                 }}
                 className="text-xs text-rose-600 hover:underline px-2 py-1"
               >
-                Sil
+                {t("Sil", "Delete")}
               </button>
             )}
             <button
               onClick={() => setIsEditing(false)}
               className="text-xs text-slate-500 hover:text-slate-700 px-2.5 py-1"
             >
-              İptal
+              {t("İptal", "Cancel")}
             </button>
             <button
               onClick={handleSave}
               className="text-xs bg-[#0B4F3F] text-white px-3 py-1 rounded-md font-medium hover:bg-[#08382C]"
             >
-              Kaydet
+              {t("Kaydet", "Save")}
             </button>
           </div>
         </div>
