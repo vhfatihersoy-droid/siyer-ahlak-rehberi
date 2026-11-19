@@ -30,7 +30,9 @@ import {
 import { safeStorage, speakTurkish, stopSpeaking } from '../services/storageService';
 import { PortalLogo } from './PortalLogo';
 import { KidsThirtyTwoFards } from './KidsThirtyTwoFards';
+import { GrowingGoodnessTree } from './GrowingGoodnessTree';
 import { useLanguage, localizeItem } from '../services/i18n';
+import kidsGardenBannerImg from '../assets/kids-garden-banner.jpg';
 
 export function KidsModeView() {
   const { lang, isEn, t } = useLanguage();
@@ -403,29 +405,37 @@ export function KidsModeView() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* 1. ÜST KARŞILAMA, İYİLİK AĞACI VE ERDEM MADALYALARI PANELİ */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
-        <div className="bg-[#0B4F3F] text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#B4833E]">
-          <div className="flex items-center gap-3">
-            <PortalLogo className="w-10 h-10" />
+        <div className="relative overflow-hidden bg-[#0B4F3F] text-white px-6 py-7 sm:py-8 flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#B4833E]">
+          <img
+            src={kidsGardenBannerImg}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-55 pointer-events-none select-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#07382D]/92 via-[#0B4F3F]/78 to-[#0B4F3F]/45 pointer-events-none" />
+
+          <div className="relative z-10 flex items-center gap-3.5">
+            <PortalLogo className="w-12 h-12 shadow-md" />
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-lg sm:text-xl font-bold text-white">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="font-editorial text-xl sm:text-2xl font-bold text-white drop-shadow-xs">
                   {t("Peygamberimizin Güzel Ahlak Bahçesi", "Garden of Prophetic Character")}
                 </h2>
-                <span className="text-xs font-semibold bg-[#B4833E] text-white px-2.5 py-0.5 rounded-full">
+                <span className="text-xs font-semibold bg-[#B4833E] text-white px-2.5 py-0.5 rounded-full shadow-xs">
                   {t("Çocuk Portalı", "Kids Portal")}
                 </span>
               </div>
-              <p className="text-xs text-emerald-100/85">
+              <p className="text-xs sm:text-sm text-emerald-50/95 mt-0.5 max-w-xl">
                 {t(
-                  "Kıssaları oku veya sesli dinle, iyilik görevlerini tamamla ve erdem madalyalarını topla!",
-                  "Read or listen to stories, learn the 32 Fards, complete good deeds, and collect virtue medals!"
+                  "Kıssaları oku veya sesli dinle, 32 Farz'ı öğren, iyilik görevleriyle ağacını büyüt!",
+                  "Read or listen to stories, learn the 32 Fards, complete good deeds, and grow your Tree of Goodness!"
                 )}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
-            <div className="bg-white/10 border border-white/20 px-4 py-2 rounded-xl flex items-center gap-2">
+          <div className="relative z-10 flex items-center gap-2.5">
+            <div className="bg-[#07382D]/75 backdrop-blur-xs border border-white/25 px-4 py-2 rounded-xl flex items-center gap-2 shadow-xs">
               <Star className="w-5 h-5 text-amber-300 fill-amber-300" />
               <div>
                 <span className="text-xs text-emerald-100 block leading-none">{t("Toplam Puanım", "My Score")}</span>
@@ -435,7 +445,7 @@ export function KidsModeView() {
 
             <button
               onClick={() => setShowParentCorner(!showParentCorner)}
-              className="bg-white text-[#0B4F3F] hover:bg-emerald-50 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors"
+              className="bg-white text-[#0B4F3F] hover:bg-emerald-50 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors shadow-xs"
             >
               {showParentCorner ? t("Rehberi Kapat", "Close Guide") : t("Ebeveyn Rehberi", "Parents Guide")}
             </button>
@@ -463,10 +473,10 @@ export function KidsModeView() {
         )}
 
         {/* İyilik Ağacı & 5 Erdem Madalyası Özeti */}
-        <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-[#FAF9F6] dark:bg-slate-900/60">
-          <div className="lg:col-span-4 bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border-2 border-[#0B4F3F]/30 flex items-center justify-center text-4xl shrink-0">
-              {treeStage.emoji}
+        <div className="p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-[#FAF9F6] dark:bg-slate-900/60 islamic-pattern-light">
+          <div className="lg:col-span-4 bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 flex items-center gap-4 shadow-2xs">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-b from-sky-50 to-emerald-50 dark:from-slate-900 dark:to-emerald-950/60 border-2 border-[#0B4F3F]/25 flex items-center justify-center p-1 shrink-0 overflow-hidden">
+              <GrowingGoodnessTree stars={stars} className="w-full h-full" />
             </div>
             <div className="flex-1 space-y-1.5">
               <div className="flex items-center justify-between">

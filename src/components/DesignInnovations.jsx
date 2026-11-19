@@ -38,88 +38,101 @@ import {
   enRemediesMap
 } from '../data/englishContent';
 
-// 1. KURUMSAL HİLYE-İ ŞERÎF LEVHASI (SESLİ OKUMA YOK)
+// 1. KLASİK MÜZE ESTETİĞİNDE HİLYE-İ ŞERÎF LEVHASI (SESLİ OKUMA YOK)
 export function HilyeSerifBoard() {
   const { t } = useLanguage();
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
-      <div className="bg-[#0B4F3F] text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#9A6B28]/40">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl border-2 border-[#B4833E]/50 shadow-sm overflow-hidden">
+      <div className="bg-[#0B4F3F] islamic-pattern-bg text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#B4833E]">
         <div>
           <span className="text-xs font-semibold uppercase tracking-widest text-amber-200/90 block">
             {t("Klasik İslam Sanatları & Şemâil Tertibi", "Classical Islamic Arts & Shama'il Tradition")}
           </span>
-          <h3 className="text-lg font-bold">
+          <h3 className="text-lg font-editorial font-bold">
             {t("Hilye-i Şerîf Levhası — Hz. Ali (r.a.) Rivayeti", "Hilyah-i Sharif Panel — Narrated by Ali (r.a.)")}
           </h3>
         </div>
-        <span className="text-xs text-emerald-100/80 font-medium">{hilyeSerifData.source}</span>
+        <span className="text-xs text-emerald-100/85 font-medium">{hilyeSerifData.source}</span>
       </div>
 
-      <div className="p-6 sm:p-8 space-y-6 bg-[#FAF9F6] dark:bg-slate-900/80">
-        <div className="text-center pb-5 border-b border-slate-200 dark:border-slate-800">
-          <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 block mb-1">
-            Başmakam
-          </span>
-          <div className="text-2xl sm:text-3xl font-serif text-[#0B4F3F] dark:text-emerald-400">
-            {hilyeSerifData.besmele}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-          <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-3">
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex flex-col justify-center">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400">
-                Sadakat • Es-Sıddîk
+      {/* Çift Altın Cetvel Çerçeveli Klasik Levha Alanı */}
+      <div className="p-5 sm:p-8 bg-[#FAF7F0] dark:bg-slate-900/90 islamic-pattern-light">
+        <div className="border-2 border-[#0B4F3F]/30 dark:border-emerald-700/40 rounded-2xl p-1.5 bg-white/60 dark:bg-slate-900/60">
+          <div className="border border-[#B4833E]/60 rounded-xl p-5 sm:p-8 space-y-7 bg-[#FDFBF7] dark:bg-slate-900/95">
+            {/* Başmakam */}
+            <div className="text-center pb-5 border-b border-[#B4833E]/30">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#9A6B28] dark:text-amber-400 block mb-1.5">
+                {t("Başmakam", "Basmalah")}
               </span>
-              <span className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                {hilyeSerifData.corners[0]}
-              </span>
+              <div className="text-2xl sm:text-3xl font-arabic text-[#0B4F3F] dark:text-emerald-400">
+                {hilyeSerifData.besmele}
+              </div>
             </div>
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex flex-col justify-center">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400">
-                Adalet • El-Fârûk
-              </span>
-              <span className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                {hilyeSerifData.corners[1]}
-              </span>
-            </div>
-          </div>
 
-          <div className="lg:col-span-6 bg-white dark:bg-slate-800 border-2 border-[#0B4F3F]/30 dark:border-emerald-500/30 rounded-xl p-6 flex flex-col justify-center text-center space-y-3 shadow-xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-              Göbek Makamı • {hilyeSerifData.gobekTitle}
-            </span>
-            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed font-serif">
-              "{hilyeSerifData.gobekText}"
-            </p>
-          </div>
+            {/* Orta Alan: Sol 2 Halife Madalyonu + Merkez Dairesel Göbek Madalyonu + Sağ 2 Halife Madalyonu */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-4 justify-items-center">
+                <div className="w-36 h-36 rounded-full bg-white dark:bg-slate-800 border-2 border-[#B4833E] shadow-xs p-1.5 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full border border-[#0B4F3F]/30 flex flex-col items-center justify-center text-center px-3">
+                    <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">Es-Sıddîk</span>
+                    <span className="text-sm font-editorial font-bold text-[#0B4F3F] dark:text-emerald-300 mt-0.5">
+                      {hilyeSerifData.corners[0]}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-36 h-36 rounded-full bg-white dark:bg-slate-800 border-2 border-[#B4833E] shadow-xs p-1.5 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full border border-[#0B4F3F]/30 flex flex-col items-center justify-center text-center px-3">
+                    <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">El-Fârûk</span>
+                    <span className="text-sm font-editorial font-bold text-[#0B4F3F] dark:text-emerald-300 mt-0.5">
+                      {hilyeSerifData.corners[1]}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-          <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-3">
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex flex-col justify-center">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400">
-                Hayâ & İnfak • Zinnûreyn
-              </span>
-              <span className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                {hilyeSerifData.corners[2]}
-              </span>
-            </div>
-            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 flex flex-col justify-center">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400">
-                İlim & Hikmet • El-Murtazâ
-              </span>
-              <span className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                {hilyeSerifData.corners[3]}
-              </span>
-            </div>
-          </div>
-        </div>
+              {/* Merkez Klasik Yuvarlak Göbek Madalyonu */}
+              <div className="lg:col-span-6 flex justify-center">
+                <div className="w-full max-w-md aspect-square sm:aspect-auto sm:min-h-[300px] rounded-3xl sm:rounded-full bg-white dark:bg-slate-800 border-4 border-[#0B4F3F] shadow-md p-2 flex items-center justify-center">
+                  <div className="w-full h-full rounded-2xl sm:rounded-full border-2 border-[#B4833E] p-6 sm:p-10 flex flex-col items-center justify-center text-center space-y-3 bg-[#FAF8F3] dark:bg-slate-800/90">
+                    <span className="text-xs font-bold uppercase tracking-widest text-[#9A6B28] dark:text-amber-400">
+                      {t("Göbek Makamı", "Central Medallion")}
+                    </span>
+                    <p className="text-sm sm:text-base font-editorial text-slate-800 dark:text-slate-100 leading-relaxed italic">
+                      "{hilyeSerifData.gobekText}"
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 text-center space-y-1">
-          <div className="text-lg sm:text-xl font-serif text-[#0B4F3F] dark:text-emerald-400">
-            {hilyeSerifData.ayetArabic}
-          </div>
-          <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium">
-            "{hilyeSerifData.ayetMeaning}"
+              <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-4 justify-items-center">
+                <div className="w-36 h-36 rounded-full bg-white dark:bg-slate-800 border-2 border-[#B4833E] shadow-xs p-1.5 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full border border-[#0B4F3F]/30 flex flex-col items-center justify-center text-center px-3">
+                    <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">Zinnûreyn</span>
+                    <span className="text-sm font-editorial font-bold text-[#0B4F3F] dark:text-emerald-300 mt-0.5">
+                      {hilyeSerifData.corners[2]}
+                    </span>
+                  </div>
+                </div>
+                <div className="w-36 h-36 rounded-full bg-white dark:bg-slate-800 border-2 border-[#B4833E] shadow-xs p-1.5 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full border border-[#0B4F3F]/30 flex flex-col items-center justify-center text-center px-3">
+                    <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">El-Murtazâ</span>
+                    <span className="text-sm font-editorial font-bold text-[#0B4F3F] dark:text-emerald-300 mt-0.5">
+                      {hilyeSerifData.corners[3]}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Ayet Kuşağı */}
+            <div className="bg-[#0B4F3F] islamic-pattern-bg text-white rounded-xl p-5 text-center space-y-1.5 border border-[#B4833E]">
+              <div className="text-xl sm:text-2xl font-arabic text-amber-200">
+                {hilyeSerifData.ayetArabic}
+              </div>
+              <div className="text-xs sm:text-sm text-emerald-50 font-editorial italic">
+                "{t(hilyeSerifData.ayetMeaning, "And We have not sent you except as a mercy to all the worlds. (Al-Anbiya, 21:107)")}"
+              </div>
+            </div>
           </div>
         </div>
       </div>

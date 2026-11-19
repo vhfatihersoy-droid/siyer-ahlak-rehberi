@@ -3,7 +3,7 @@ import {
   BookOpen, Heart, Compass, Clock, Calendar, CheckCircle2, Search,
   Sparkles, ShieldCheck, Users, Award, Moon, Sun, Download,
   Image, Volume2, VolumeX, Check, Trash2, ChevronRight, ChevronLeft,
-  AlertCircle, Upload, Printer, Bookmark, MapPin, Globe
+  AlertCircle, Upload, Printer, Bookmark, MapPin, Globe, X
 } from 'lucide-react';
 
 import {
@@ -38,6 +38,7 @@ import { KidsModeView } from './components/KidsModeView';
 import { DiscoverIslamView } from './components/DiscoverIslamView';
 import { PortalLogo } from './components/PortalLogo';
 import { PrayerTimesDashboard } from './components/PrayerTimesSection';
+import portalHeroBannerImg from './assets/portal-hero-banner.jpg';
 import { CITIES_LIST, getNextPrayerStatus } from './services/prayerTimesService';
 import { LanguageProvider, useLanguage, localizeItem } from './services/i18n';
 import {
@@ -113,6 +114,7 @@ function MainApp() {
   const [thematicCategory, setThematicCategory] = useState("Tümü");
   const [sahabeGroupFilter, setSahabeGroupFilter] = useState("Tümü");
   const [sahabeSearch, setSahabeSearch] = useState("");
+  const [selectedSahabeKey, setSelectedSahabeKey] = useState(null);
   const [semailSubView, setSemailSubView] = useState("semail");
   const [chronoPeriodFilter, setChronoPeriodFilter] = useState("Tümü");
   const [muhasebeSubView, setMuhasebeSubView] = useState("cetele");
@@ -155,6 +157,7 @@ function MainApp() {
       } else if (e.key === "Escape") {
         setIsCmdKOpen(false);
         setShowAppearanceMenu(false);
+        setSelectedSahabeKey(null);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -194,10 +197,9 @@ function MainApp() {
     const entry = glossaryAndSahabeData[termKey];
     if (!entry || entry.type !== "Sahabe Profili") return;
     setSahabeGroupFilter("Tümü");
-    setSahabeSearch(termKey);
     setCurrentTab("sahabeler");
+    setSelectedSahabeKey(termKey);
     recordVisit(entry.title, "sahabeler", "", termKey);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -736,7 +738,7 @@ function MainApp() {
         }`}
       >
         {/* FERAH VE SADE KURUMSAL ÜST BAR (2 KATMANLI) */}
-        <header className="bg-[#0B4F3F] text-white border-b-2 border-[#B4833E] sticky top-0 z-40 shadow-sm">
+        <header className="bg-[#0B4F3F] islamic-pattern-bg text-white border-b-2 border-[#B4833E] sticky top-0 z-40 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
             {/* Sol: Logo & Başlık */}
             <button
@@ -1127,10 +1129,139 @@ function MainApp() {
                 )}
 
                 {sunnetSubView === "sunnet" && (
+              <div className="space-y-6">
+                {/* EDİTORYAL KARŞILAMA HERO ŞERİDİ + 4 BENTO HIZLI ERİŞİM KARTI */}
+                <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
+                  <div className="relative overflow-hidden bg-[#0B4F3F] px-6 py-7 sm:px-8 sm:py-9 text-white border-b border-[#B4833E]/50">
+                    <img
+                      src={portalHeroBannerImg}
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute inset-0 w-full h-full object-cover object-center opacity-50 pointer-events-none select-none"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#07362B]/95 via-[#0B4F3F]/82 to-[#0B4F3F]/45 pointer-events-none" />
+                    <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+                      <div className="space-y-2 max-w-2xl">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-300">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span>{t("Üsve-i Hasene • En Güzel Örnek", "Al-Uswat al-Hasanah • The Finest Example")}</span>
+                        </span>
+                        <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-white leading-snug drop-shadow-xs">
+                          {t(
+                            "Hz. Peygamber'in (s.a.v.) Ahlakını ve Sünnetini Hayatımıza Taşıyalım",
+                            "Bringing the Mercy & Living Sunnah of Prophet Muhammad ﷺ Into Daily Life"
+                          )}
+                        </h2>
+                        <p className="text-xs sm:text-sm text-emerald-50/90 leading-relaxed">
+                          {t(
+                            "Günün sünneti, sahih hadis seçkisi, 50 Ashâb-ı Kirâm ansiklopedisi, çağdaş ahlak rehberi ve çocuklar için 32 Farz atölyesi tek çatı altında.",
+                            "Daily Sunnah, authentic hadith, 50 Companions encyclopedia, contemporary ethics, prayer times, and an interactive Kids Portal in one peaceful space."
+                          )}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 shrink-0">
+                        <button
+                          onClick={() => setSunnetSubView("kuran-esma")}
+                          className="bg-white text-[#0B4F3F] hover:bg-emerald-50 px-4 py-2 rounded-xl text-xs font-bold transition-colors shadow-xs"
+                        >
+                          {t("Kur'an'da Peygamber Ahlakı →", "Prophetic Ethics in the Quran →")}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsKidsMode(false);
+                            setIsDiscoverMode(true);
+                          }}
+                          className="bg-[#07362B]/70 hover:bg-[#07362B]/90 text-white border border-white/25 backdrop-blur-xs px-4 py-2 rounded-xl text-xs font-semibold transition-colors"
+                        >
+                          {t("Uluslararası Tanışma (EN/TR)", "Discover Islam (EN/TR)")}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4 Bento Hızlı Erişim Kartı */}
+                  <div className="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-800 bg-[#FAF9F6] dark:bg-slate-900/70">
+                    <button
+                      onClick={openPrayerTimesView}
+                      className="p-4 text-left hover:bg-white dark:hover:bg-slate-800/80 transition-colors flex items-start gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-[#0B4F3F]/20 flex items-center justify-center text-[#0B4F3F] dark:text-emerald-400 shrink-0 group-hover:scale-105 transition-transform">
+                        <Clock className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block truncate">
+                          {t("Namaz Vakitleri", "Prayer Times")}
+                        </span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 block truncate">
+                          {selectedCity.name} • {prayerStatus ? prayerStatus.countdown : ""}
+                        </span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => setCurrentTab("sahabeler")}
+                      className="p-4 text-left hover:bg-white dark:hover:bg-slate-800/80 transition-colors flex items-start gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-[#B4833E]/30 flex items-center justify-center text-[#9A6B28] dark:text-amber-400 shrink-0 group-hover:scale-105 transition-transform">
+                        <Users className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block truncate">
+                          {t(`${allSahabesList.length} Ashâb-ı Kirâm`, `${allSahabesList.length} Companions`)}
+                        </span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 block truncate">
+                          {t("Ansiklopedik Fihrist", "Encyclopedia Index")}
+                        </span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setIsDiscoverMode(false);
+                        setIsKidsMode(true);
+                      }}
+                      className="p-4 text-left hover:bg-white dark:hover:bg-slate-800/80 transition-colors flex items-start gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/50 border border-[#B4833E]/30 flex items-center justify-center text-[#B4833E] shrink-0 group-hover:scale-105 transition-transform">
+                        <Sun className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block truncate">
+                          {t("Çocuk & 32 Farz", "Kids & 32 Fards")}
+                        </span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 block truncate">
+                          {t("Sesli Kıssalar & İyilik Ağacı", "Audio Stories & Tree")}
+                        </span>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setCurrentTab("semail-siyer");
+                        setSemailSubView("semail");
+                      }}
+                      className="p-4 text-left hover:bg-white dark:hover:bg-slate-800/80 transition-colors flex items-start gap-3 group"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-[#0B4F3F]/20 flex items-center justify-center text-[#0B4F3F] dark:text-emerald-400 shrink-0 group-hover:scale-105 transition-transform">
+                        <BookOpen className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block truncate">
+                          {t("Hilye & Şemâil-i Şerîf", "Hilyah & Shama'il")}
+                        </span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 block truncate">
+                          {t("Klasik Levha & Siyer", "Classical Board & Seerah")}
+                        </span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 {/* Sol Sütun (7 Birim): Günün Sünneti */}
                 <div className="lg:col-span-7 space-y-4">
-                  <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
+                  <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 border-t-4 border-t-[#B4833E] shadow-xs overflow-hidden">
                     <div className="bg-slate-50 dark:bg-slate-800/70 px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
@@ -1177,7 +1308,7 @@ function MainApp() {
 
                     <div className="p-6 sm:p-8 space-y-5">
                       <div className="flex items-start justify-between gap-4">
-                        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
+                        <h2 className="font-editorial text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
                           {currentSunnah.title}
                         </h2>
                         <div className="flex items-center gap-1.5 shrink-0">
@@ -1207,11 +1338,11 @@ function MainApp() {
                       </div>
 
                       {/* Hadis Metni & Meal Kutusu */}
-                      <div className="bg-[#FAF9F6] dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl p-5 space-y-3">
-                        <p className="text-right font-serif text-xl sm:text-2xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
+                      <div className="bg-[#FAF9F6] dark:bg-slate-800/60 islamic-pattern-light border border-[#B4833E]/30 dark:border-slate-700 rounded-xl p-5 space-y-3">
+                        <p className="font-arabic text-right text-2xl sm:text-3xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
                           {currentSunnah.arabic}
                         </p>
-                        <p className="text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200 italic border-t border-slate-200/80 dark:border-slate-700 pt-3">
+                        <p className="font-editorial text-sm sm:text-base font-medium text-slate-800 dark:text-slate-200 italic border-t border-slate-200/80 dark:border-slate-700 pt-3">
                           "{currentSunnah.translation}"
                         </p>
                       </div>
@@ -1346,6 +1477,7 @@ function MainApp() {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
                 )}
               </div>
@@ -1579,10 +1711,10 @@ function MainApp() {
                 <div className="lg:col-span-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs p-5 space-y-4 lg:sticky lg:top-32">
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
-                      Ansiklopedik Fihrist
+                      {t("Ansiklopedik Fihrist", "Encyclopedia Index")}
                     </span>
-                    <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                      Ashâb-ı Kirâm Tasnifi
+                    <h2 className="font-editorial text-base font-bold text-slate-900 dark:text-slate-100">
+                      {t("Ashâb-ı Kirâm Tasnifi", "Companions Categories")}
                     </h2>
                   </div>
 
@@ -1624,8 +1756,33 @@ function MainApp() {
                   </div>
                 </div>
 
-                {/* Sağ Sütun (9 Birim): Sahabe Maddeleri Listesi */}
-                <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-5">
+                {/* Sağ Sütun (9 Birim): Kompakt Ansiklopedik Fihrist Kartları (Tıklayınca Detay Modalı Açılır) */}
+                <div className="lg:col-span-9 space-y-4">
+                  <div className="bg-[#FAF9F6] dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+                    <span className="text-slate-600 dark:text-slate-300">
+                      {t(
+                        "Kompakt ansiklopedik fihrist görünümü — detaylı biyografi, örnek menkıbe ve çapraz başvurular için herhangi bir sahabe kartına tıklayın.",
+                        "Compact encyclopedia index — click any companion card to open the full biography, anecdote, and cross-references."
+                      )}
+                    </span>
+                    <span className="font-bold text-[#0B4F3F] dark:text-emerald-400 shrink-0">
+                      {
+                        Object.entries(glossaryAndSahabeData)
+                          .filter(([, item]) => item.type === "Sahabe Profili")
+                          .filter(([, item]) => sahabeGroupFilter === "Tümü" || item.group === sahabeGroupFilter)
+                          .filter(
+                            ([, item]) =>
+                              !sahabeSearch.trim() ||
+                              item.title.toLowerCase().includes(sahabeSearch.toLowerCase()) ||
+                              item.badge.toLowerCase().includes(sahabeSearch.toLowerCase()) ||
+                              item.desc.toLowerCase().includes(sahabeSearch.toLowerCase())
+                          ).length
+                      }{" "}
+                      {t("Madde", "Entries")}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {Object.entries(glossaryAndSahabeData)
                     .filter(([, item]) => item.type === "Sahabe Profili")
                     .filter(([, item]) => sahabeGroupFilter === "Tümü" || item.group === sahabeGroupFilter)
@@ -1638,82 +1795,61 @@ function MainApp() {
                     )
                     .map(([key, item]) => {
                       const isFav = favorites.includes(key);
+                      const hasNote = Boolean(notes[key]);
                       return (
                         <div
                           key={key}
-                          className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between"
+                          onClick={() => {
+                            setSelectedSahabeKey(key);
+                            recordVisit(item.title, "sahabeler", "", key);
+                          }}
+                          className="group cursor-pointer bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 hover:border-[#0B4F3F] dark:hover:border-emerald-500 hover:shadow-md transition-all flex flex-col justify-between gap-3"
                         >
-                          <div>
-                            <div className="flex items-start justify-between gap-2 mb-2">
-                              <div>
-                                <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
-                                  {item.group || "Ashâb-ı Kirâm"}
+                          <div className="space-y-2">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="min-w-0">
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block truncate">
+                                  {isEn ? enSahabeGroupMap[item.group] || item.group || "Companions" : item.group || "Ashâb-ı Kirâm"}
                                 </span>
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-0.5">
+                                <h3 className="font-editorial text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5 group-hover:text-[#0B4F3F] dark:group-hover:text-emerald-400 transition-colors">
                                   {item.title}
                                 </h3>
-                                <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">
+                                <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400 block truncate">
                                   {item.badge}
                                 </span>
                               </div>
                               <button
-                                onClick={() => toggleFavorite(key)}
-                                className={`p-1.5 rounded-md border shrink-0 ${
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleFavorite(key);
+                                }}
+                                className={`p-1.5 rounded-md border shrink-0 transition-colors ${
                                   isFav
                                     ? "border-[#B4833E] text-[#B4833E] bg-amber-50 dark:bg-amber-950/50"
-                                    : "border-slate-200 dark:border-slate-700 text-slate-400"
+                                    : "border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-600"
                                 }`}
-                                title="Kaydet"
+                                title={t("Kaydet", "Save")}
                               >
                                 <Bookmark className="w-3.5 h-3.5 fill-current" />
                               </button>
                             </div>
 
-                            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed my-3">
+                            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
                               {item.desc}
                             </p>
-
-                            <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#0B4F3F] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                              <span className="font-semibold text-slate-900 dark:text-slate-100 block mb-0.5">
-                                Örnek Kıssa & Menkıbe:
-                              </span>
-                              {item.story}
-                            </div>
-
-                            {crossReferencesMap[key]?.filter((relKey) => glossaryAndSahabeData[relKey]?.type === "Sahabe Profili").length > 0 && (
-                              <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5">
-                                <span className="text-xs font-semibold text-slate-400">Bakınız (İlgili Sahabeler):</span>
-                                {crossReferencesMap[key]
-                                  .filter((relKey) => glossaryAndSahabeData[relKey]?.type === "Sahabe Profili")
-                                  .map((relKey) => (
-                                    <button
-                                      key={relKey}
-                                      onClick={() => handleCrossReferenceClick(relKey)}
-                                      className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors"
-                                    >
-                                      {relKey} →
-                                    </button>
-                                  ))}
-                              </div>
-                            )}
                           </div>
 
-                          <div>
-                            <PersonalReflectionNote itemId={key} notes={notes} onSaveNote={handleSaveNote} />
-                            <CitationFooter
-                              source={item.source}
-                              onOpenCard={() =>
-                                setCardModalData({
-                                  title: item.title,
-                                  quote: item.story,
-                                  source: item.source
-                                })
-                              }
-                            />
+                          <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                            <span className="text-slate-400 truncate max-w-[55%]">{item.source}</span>
+                            <span className="inline-flex items-center gap-1 font-bold text-[#0B4F3F] dark:text-emerald-400 group-hover:translate-x-0.5 transition-transform shrink-0">
+                              {hasNote && <span className="w-1.5 h-1.5 rounded-full bg-[#B4833E]" title={t("Notunuz var", "Has note")} />}
+                              <span>{t("Maddeyi Oku →", "Read Entry →")}</span>
+                            </span>
                           </div>
                         </div>
                       );
                     })}
+                  </div>
                 </div>
               </div>
             )}
@@ -2144,6 +2280,106 @@ function MainApp() {
         </footer>
 
         <QuoteCardModal data={cardModalData} onClose={() => setCardModalData(null)} />
+
+        {/* SAHABE ANSİKLOPEDİ OKUMA MODALI (SESLİ OKUMA YOK) */}
+        {selectedSahabeKey && glossaryAndSahabeData[selectedSahabeKey] && (() => {
+          const sKey = selectedSahabeKey;
+          const sItem = glossaryAndSahabeData[sKey];
+          const isFav = favorites.includes(sKey);
+          const relatedSahabes = (crossReferencesMap[sKey] || []).filter(
+            (relKey) => glossaryAndSahabeData[relKey]?.type === "Sahabe Profili"
+          );
+          return (
+            <div
+              className="fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-xs flex items-center justify-center p-4"
+              onClick={() => setSelectedSahabeKey(null)}
+            >
+              <div
+                className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-2xl max-h-[88vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="bg-[#0B4F3F] islamic-pattern-bg text-white px-6 py-5 border-b-2 border-[#B4833E] flex items-start justify-between gap-4 sticky top-0 z-10">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-widest text-amber-300 block">
+                      {isEn ? enSahabeGroupMap[sItem.group] || sItem.group || "Companions" : sItem.group || "Ashâb-ı Kirâm"}
+                    </span>
+                    <h3 className="font-editorial text-xl sm:text-2xl font-bold text-white mt-0.5">
+                      {sItem.title}
+                    </h3>
+                    <span className="text-xs font-semibold text-emerald-100/90 block mt-0.5">
+                      {sItem.badge}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      onClick={() => toggleFavorite(sKey)}
+                      className={`p-2 rounded-lg border transition-colors ${
+                        isFav
+                          ? "bg-[#B4833E] border-[#B4833E] text-white"
+                          : "bg-white/10 border-white/20 text-white hover:bg-white/20"
+                      }`}
+                      title={t("Favorilere Kaydet", "Save to Favorites")}
+                    >
+                      <Bookmark className="w-4 h-4 fill-current" />
+                    </button>
+                    <button
+                      onClick={() => setSelectedSahabeKey(null)}
+                      className="p-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-colors"
+                      title={t("Kapat (ESC)", "Close (ESC)")}
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-6 sm:p-8 space-y-5">
+                  <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed">
+                    {sItem.desc}
+                  </p>
+
+                  <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-[#B4833E]/30 border-l-4 border-l-[#0B4F3F] p-5 rounded-r-xl space-y-1.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
+                      {t("Örnek Kıssa & Menkıbe", "Exemplary Anecdote & Legacy")}
+                    </span>
+                    <p className="font-editorial text-sm sm:text-base text-slate-800 dark:text-slate-200 leading-relaxed">
+                      {sItem.story}
+                    </p>
+                  </div>
+
+                  {relatedSahabes.length > 0 && (
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-2">
+                      <span className="text-xs font-semibold text-slate-500">
+                        {t("Bakınız (İlgili Sahabeler):", "See Also (Related Companions):")}
+                      </span>
+                      {relatedSahabes.map((relKey) => (
+                        <button
+                          key={relKey}
+                          onClick={() => handleCrossReferenceClick(relKey)}
+                          className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-emerald-50/70 dark:bg-slate-800 hover:bg-emerald-100 dark:hover:bg-slate-700 px-2.5 py-1 rounded-md border border-[#0B4F3F]/20 transition-colors"
+                        >
+                          {relKey} →
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <PersonalReflectionNote itemId={sKey} notes={notes} onSaveNote={handleSaveNote} />
+
+                  <CitationFooter
+                    source={sItem.source}
+                    onOpenCard={() =>
+                      setCardModalData({
+                        title: sItem.title,
+                        quote: sItem.story,
+                        source: sItem.source
+                      })
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* HIZLI FİHRİST KOMUT PALETİ (⌘K / Ctrl+K) */}
         {isCmdKOpen && (

@@ -12,6 +12,7 @@ import {
 } from '../data/discoverIslamData';
 import { PortalLogo } from './PortalLogo';
 import { useLanguage } from '../services/i18n';
+import portalHeroBannerImg from '../assets/portal-hero-banner.jpg';
 
 export function DiscoverIslamView({ onOpenCard }) {
   const { lang, setLang, isEn } = useLanguage();
@@ -45,20 +46,28 @@ export function DiscoverIslamView({ onOpenCard }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* WELCOMING BILINGUAL HERO BANNER */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
-        <div className="bg-[#0B4F3F] text-white px-6 py-6 border-b-2 border-[#B4833E] flex flex-col md:flex-row md:items-center justify-between gap-5">
-          <div className="flex items-start gap-4">
-            <PortalLogo className="w-12 h-12" />
-            <div className="space-y-1">
+        <div className="relative overflow-hidden bg-[#0B4F3F] islamic-pattern-bg text-white px-6 py-8 sm:py-10 border-b-2 border-[#B4833E] flex flex-col md:flex-row md:items-center justify-between gap-5">
+          <img
+            src={portalHeroBannerImg}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-45 pointer-events-none select-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#07362B]/95 via-[#0B4F3F]/82 to-[#0B4F3F]/50 pointer-events-none" />
+
+          <div className="relative z-10 flex items-start gap-4">
+            <PortalLogo className="w-12 h-12 shadow-md" />
+            <div className="space-y-1.5">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-amber-300">
                 <Globe className="w-3.5 h-3.5" />
                 <span>{isEn ? "International Welcome Guide • Peace Be Upon You" : "Uluslararası Tanışma Rehberi • Selâmün Aleyküm"}</span>
               </span>
-              <h2 className="text-xl sm:text-2xl font-bold text-white">
+              <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-white drop-shadow-xs">
                 {isEn
                   ? "Discover Islam & Prophet Muhammad ﷺ"
                   : "İslam'ı ve Hz. Muhammed'i (s.a.v.) Tanıyın"}
               </h2>
-              <p className="text-xs sm:text-sm text-emerald-100/90 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-emerald-50/90 max-w-2xl leading-relaxed">
                 {isEn
                   ? "A calm, authentic, and open-hearted introduction to the character, mercy, universal values, and timeless message of Prophet Muhammad ﷺ—written for curious minds everywhere."
                   : "Yabancı misafirler ve merak eden herkes için Hz. Peygamber'in (s.a.v.) merhametini, evrensel insanî değerlerini ve İslam'ın özünü yalın, sıcak ve sahih kaynaklarla anlatan çift dilli rehber."}
@@ -67,7 +76,7 @@ export function DiscoverIslamView({ onOpenCard }) {
           </div>
 
           {/* Instant EN | TR Language Switcher */}
-          <div className="flex items-center gap-1 bg-white/10 p-1 rounded-xl border border-white/20 shrink-0 self-start md:self-center">
+          <div className="relative z-10 flex items-center gap-1 bg-[#07362B]/70 backdrop-blur-xs p-1 rounded-xl border border-white/25 shrink-0 self-start md:self-center">
             <button
               onClick={() => setLang("en")}
               className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
