@@ -15,6 +15,7 @@ import {
   kidsRiddlesData
 } from '../data/siyerData';
 import { safeStorage, speakTurkish, stopSpeaking } from '../services/storageService';
+import { PortalLogo } from './PortalLogo';
 
 export function KidsModeView() {
   const [activeKidsTab, setActiveKidsTab] = useState("kissalar");
@@ -303,7 +304,7 @@ export function KidsModeView() {
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs overflow-hidden">
         <div className="bg-[#0B4F3F] text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#B4833E]">
           <div className="flex items-center gap-3">
-            <span className="text-2xl">🌱</span>
+            <PortalLogo className="w-10 h-10" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg sm:text-xl font-bold text-white">

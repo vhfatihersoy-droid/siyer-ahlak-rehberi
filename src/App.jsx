@@ -36,6 +36,9 @@ import {
 import { GlossaryText, CitationFooter, PersonalReflectionNote } from './components/SharedUI';
 import { QuoteCardModal } from './components/QuoteCardModal';
 import { KidsModeView } from './components/KidsModeView';
+import { PortalLogo } from './components/PortalLogo';
+import { PrayerTimesMiniBar, PrayerTimesDashboard } from './components/PrayerTimesSection';
+import { CITIES_LIST, getNextPrayerStatus } from './services/prayerTimesService';
 import {
   HilyeSerifBoard,
   AdultVakaSection,
@@ -103,6 +106,29 @@ function MainApp() {
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [isCmdKOpen, setIsCmdKOpen] = useState(false);
   const [cmdKQuery, setCmdKQuery] = useState("");
+  const [selectedCity, setSelectedCity] = useState(() => safeStorage.get("siyer_prayer_city", CITIES_LIST[0]));
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    safeStorage.set("siyer_prayer_city", selectedCity);
+  }, [selectedCity]);
+
+  useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const prayerStatus = useMemo(
+    () => getNextPrayerStatus(now, selectedCity.lat, selectedCity.lng, selectedCity.tz),
+    [now, selectedCity]
+  );
+
+  const openPrayerTimesView = () => {
+    setIsKidsMode(false);
+    setCurrentTab("gunun-sunneti");
+    setSunnetSubView("vakitler");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const onKeyDown = (e) => {
@@ -446,6 +472,17 @@ function MainApp() {
     const q = cmdKQuery.trim().toLowerCase();
     const list = [
       {
+        id: "cmd-namaz-vakitleri",
+        group: "Hızlı Bölüm Geçişi",
+        title: `Namaz Vakitleri, Canlı Geri Sayım & 7 Günlük İmsakiye (${selectedCity.name})`,
+        sub: "81 il + Mekke/Medine/Kudüs, Kıble açısı pusulası ve PDF imsakiye çıktısı",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("gunun-sunneti");
+          setSunnetSubView("vakitler");
+        }
+      },
+      {
         id: "cmd-kuran",
         group: "Hızlı Bölüm Geçişi",
         title: "Kur'an-ı Kerim'de Peygamber Ahlakı & Esmâ-i Nebî (6 Ayet & 8 İsim)",
@@ -627,9 +664,7 @@ function MainApp() {
         <header className="bg-[#0B4F3F] text-white border-b-2 border-[#B4833E] sticky top-0 z-40 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center text-amber-300">
-                <Compass className="w-5 h-5" />
-              </div>
+              <PortalLogo className="w-10 h-10" />
               <div>
                 <h1 className="text-sm sm:text-base font-bold tracking-tight text-white">
                   Siyer ve Ahlak Portalı
@@ -794,6 +829,15 @@ function MainApp() {
               </div>
             </div>
           )}
+
+          {/* Canlı Namaz Vakitleri Üst Şeridi */}
+          {!isKidsMode && !isFocusMode && (
+            <PrayerTimesMiniBar
+              city={selectedCity}
+              status={prayerStatus}
+              onOpenFullView={openPrayerTimesView}
+            />
+          )}
         </header>
 
         {isKidsMode ? (
@@ -881,6 +925,7 @@ function MainApp() {
                   <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                     {[
                       { id: "sunnet", label: "Günün Sünneti & Rehberlik" },
+                      { id: "vakitler", label: "Namaz Vakitleri" },
                       { id: "kuran-esma", label: "Kur'an'da Ahlak & Esmâ-i Nebî" },
                       { id: "dualar", label: "Nebevî Dualar Rehberi (8)" },
                       { id: "kirkhadis", label: "40 Hadis Seçkisi (8)" }
@@ -899,6 +944,15 @@ function MainApp() {
                     ))}
                   </div>
                 </div>
+
+                {sunnetSubView === "vakitler" && (
+                  <PrayerTimesDashboard
+                    city={selectedCity}
+                    onSelectCity={setSelectedCity}
+                    now={now}
+                    status={prayerStatus}
+                  />
+                )}
 
                 {sunnetSubView === "kuran-esma" && (
                   <QuranAndEsmaiNebiSection onOpenCard={(card) => setCardModalData(card)} />
@@ -1793,7 +1847,17 @@ function MainApp() {
                   </div>
                 </div>
 
-                {muhasebeSubView === "vakitler" && <FivePrayerAnchorsSection />}
+                {muhasebeSubView === "vakitler" && (
+                  <div className="space-y-6">
+                    <PrayerTimesDashboard
+                      city={selectedCity}
+                      onSelectCity={setSelectedCity}
+                      now={now}
+                      status={prayerStatus}
+                    />
+                    <FivePrayerAnchorsSection />
+                  </div>
+                )}
 
                 {muhasebeSubView === "mufredat" && <WeeklyCurriculumSection />}
 
@@ -1992,7 +2056,10 @@ function MainApp() {
 
         <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-16 py-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-            <p>© 2026 Siyer ve Ahlak Portalı • Diyanet İşleri Başkanlığı ve TDV yayınları kaynak alınmıştır.</p>
+            <div className="flex items-center gap-2.5">
+              <PortalLogo className="w-7 h-7" />
+              <p>© 2026 Siyer ve Ahlak Portalı • Diyanet İşleri Başkanlığı ve TDV yayınları kaynak alınmıştır.</p>
+            </div>
             <div className="flex items-center gap-3">
               <span className="text-[#0B4F3F] dark:text-emerald-400 font-semibold">
                 Kurumsal Dijital Rehber
