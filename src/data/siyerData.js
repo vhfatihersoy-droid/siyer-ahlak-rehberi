@@ -13,6 +13,7 @@ export const dailySunnahList = [
     arabic: "التَّبَسُّمُ فِي وَجْهِ أَخِيكَ صَدَقَةٌ",
     translation: "Din kardeşine tebessüm etmen senin için bir sadakadır.",
     description: "Hz. Muhammed (s.a.v.) karşılaştığı herkese güler yüz gösterir, çocukların başını okşar ve Ensar ile Muhacir arasında sevgi bağlarını güçlendiren nezaketli bir üslupla gönülleri fethederdi.",
+    vurudStory: "Sahabeden Ebû Zer el-Gıfârî (r.a.), maddi imkânı olmayan müminlerin nasıl sadaka sevabı kazanacağını sorduğunda Hz. Peygamber; güler yüz göstermeyi, iyiliği tavsiye etmeyi ve yoldaki bir engeli kaldırmayı sadaka olarak saymıştır.",
     application: "Bugün çevrenizdeki insanlara, iş arkadaşlarınıza ve aile bireylerinize tebessümle yaklaşın; kalpleri kırık birinin halini hatırını sorun.",
     source: "Hadislerle İslam, Cilt 4, s. 112-115",
     publisher: "Diyanet İşleri Başkanlığı Yayınları"
@@ -24,6 +25,7 @@ export const dailySunnahList = [
     arabic: "أَفْشُوا السَّلَامَ بَيْنَكُمْ تَحَابُّوا",
     translation: "Aranızda selamı yayın ki birbirinizi sevesiniz.",
     description: "Hz. Peygamber (s.a.v.) tanıdığı ve tanımadığı herkese selam verir, selamın toplumda güven ve barış iklimi oluşturduğunu vurgulardı. Çocuklara dahi ilk önce kendisi selam vererek onlara değer kazandırırdı.",
+    vurudStory: "Medine'ye hicretin ilk günlerinde Abdullah b. Selâm (r.a.) Peygamberimizi dinlemeye gittiğinde ondan duyduğu ilk söz 'Ey insanlar! Selamı yayın, yemek yedirin ve akrabayı gözetin' tavsiyesi olmuştur.",
     application: "Bugün apartmanınızda, iş yerinizde veya sokakta karşılaştığınız kişilere içtenlikle 'Selâmün aleyküm' veya 'Hayırlı günler' diyerek ilk selamı siz verin.",
     source: "Hadislerle İslam, Cilt 4, s. 139",
     publisher: "Diyanet İşleri Başkanlığı Yayınları"
@@ -35,6 +37,7 @@ export const dailySunnahList = [
     arabic: "يَسِّرُوا وَلَا تُعَسِّرُوا وَبَشِّرُوا وَلَا تُنَفِّرُوا",
     translation: "Kolaylaştırınız, zorlaştırmayınız; müjdeleyiniz, nefret ettirmeyiniz.",
     description: "Peygamber Efendimiz iki iş arasında muhayyer bırakıldığında günah olmadığı sürece daima en kolay olanını seçer, insanlara umut aşılayan yapıcı bir dil kullanırdı.",
+    vurudStory: "Hz. Peygamber, genç sahabeler Muâz b. Cebel ve Ebû Mûsâ el-Eş'arî'yi Yemen'e muallim ve idareci olarak uğurlarken halka nasıl muamele etmeleri gerektiğini bu veciz hadisle tâlim buyurmuştur.",
     application: "Bugün evde veya iş yerinde bir sorunu çözerken karşı tarafın yükünü hafifletecek kolaylaştırıcı ve yapıcı bir yaklaşım sergileyin.",
     source: "Hadislerle İslam, Cilt 1, s. 412",
     publisher: "Diyanet İşleri Başkanlığı Yayınları"
@@ -46,6 +49,7 @@ export const dailySunnahList = [
     arabic: "لَا إِيمَانَ لِمَنْ لَا أَمَانَةَ لَهُ",
     translation: "Güvenilirliği olmayanın (olgun) imanı da yoktur.",
     description: "Peygamberlikten önce bile Mekke'de 'El-Emîn' olarak tanınan Hz. Muhammed (s.a.v.), Hicret gecesi kendisini öldürmek isteyenlerin emanetlerini bile sahiplerine eksiksiz teslim ettirmek için Hz. Ali'yi görevlendirmişti.",
+    vurudStory: "Enes b. Mâlik (r.a.), Hz. Peygamber'in hemen her hutbesinde ashabına emanet bilincini ve ahde vefayı hatırlatarak bu hadisi tekrarladığını nakletmiştir.",
     application: "Bugün verdiğiniz tüm sözleri ve randevu saatlerini titizlikle koruyun; size emanet edilen bir sırrı veya eşyayı özenle muhafaza edin.",
     source: "TDV İslâm Ansiklopedisi, 'Emânet' Maddesi, Cilt 11",
     publisher: "Türkiye Diyanet Vakfı Yayınları"
@@ -57,6 +61,7 @@ export const dailySunnahList = [
     arabic: "مَنْ أَحَبَّ أَنْ يُبْسَطَ لَهُ فِي رِزْقِهِ فَلْيَصِلْ رَحِمَهُ",
     translation: "Kim rızkının genişletilmesini ve ömrünün bereketlenmesini isterse akrabasını gözetsin.",
     description: "Hz. Peygamber Sıla-i Rahim ilkesini toplumsal dayanışmanın temeli saymış; Hz. Hatice validemiz de ilk vahiy heyecanında onu 'Sen akrabayı gözetirsin' sözleriyle teskin etmiştir.",
+    vurudStory: "Bir sahabe gelerek 'Ey Allah'ın Resûlü! Akrabalarımı ziyaret ediyorum ama onlar benimle bağı koparıyorlar' dediğinde Efendimiz; gerçek sıla-i rahmin, ilgiyi kesen akrabaya dahi iyilikle gitmek olduğunu beyan etmiştir.",
     application: "Bugün uzun süredir sesini duymadığınız bir büyüğünüzü veya akrabanızı telefonla arayarak halini hatırını sorun.",
     source: "Hadislerle İslam, Cilt 4, s. 165",
     publisher: "Diyanet İşleri Başkanlığı Yayınları"
@@ -68,6 +73,7 @@ export const dailySunnahList = [
     arabic: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
     translation: "Allah'a ve ahiret gününe iman eden kimse ya hayır söylesin ya da sussun.",
     description: "Peygamber Efendimiz boş ve kırıcı sözlerden uzak durur, konuştuğunda tane tane ve hikmetle konuşur, sükûtu ise bir tefekkür fırsatı olarak değerlendirirdi.",
+    vurudStory: "Muâz b. Cebel (r.a.) 'Ey Allah'ın Resûlü! Konuştuğumuz sözlerden dolayı da hesaba çekilecek miyiz?' diye sorduğunda Efendimiz dilin korunmasının kurtuluşun anahtarı olduğunu vurgulamıştır.",
     application: "Bugün bir konuşmada gıybet veya kırıcı bir eleştiri başladığında konuyu nezaketle hayırlı bir mecraya çevirin ya da sükûtu tercih edin.",
     source: "Hadislerle İslam, Cilt 3, s. 318",
     publisher: "Diyanet İşleri Başkanlığı Yayınları"
@@ -79,6 +85,7 @@ export const dailySunnahList = [
     arabic: "وَيُؤْثِرُونَ عَلَى أَنْفُسِهِمْ وَلَوْ كَانَ بِهِمْ خَصَاصَةٌ",
     translation: "Kendileri ihtiyaç içinde olsalar bile kardeşlerini öz canlarına tercih ederler.",
     description: "Medine'de Ensar ve Muhacir kardeşliği kurulurken sahabeler Îsâr ahlakıyla hareket etmiş, ellerindeki imkanları büyük bir gönül zenginliğiyle paylaşmışlardır.",
+    vurudStory: "Mescid-i Nebevî'ye aç bir misafir geldiğinde Ensar'dan Ebû Talha (r.a.) onu evine götürmüş; evde yalnızca çocuklara yetecek kadar yemek olunca çocukları uyutup misafir rahatça doysun diye kandili düzeltir gibi yaparak ışığı kısmış ve Haşr Suresi 9. ayet bu olay üzerine nazil olmuştur.",
     application: "Bugün sevdiğiniz bir ikramı veya kolaylığı öncelikle yanınızdaki aile ferdine, komşunuza veya iş arkadaşınıza sunun.",
     source: "Kur'an Yolu Tefsiri, Haşr Suresi 9. Ayet",
     publisher: "Diyanet İşleri Başkanlığı Yayınları"
@@ -1490,6 +1497,7 @@ export const fortyHadithSelectionData = [
     title: "Ameller Niyetlere Göredir",
     arabic: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى",
     translation: "Ameller ancak niyetlere göredir ve herkese yalnızca niyet ettiği şey vardır.",
+    vurudStory: "Hz. Ömer'in (r.a.) minberden naklettiği bu hadis, Medine'ye hicret ederken dünyevi bir gaye ile Allah ve Resûlü'nün rızasını hedefleyenlerin farkını açıklamak üzere irad edilmiştir.",
     commentary: "İslam ahlakında her davranışın değerini belirleyen temel ölçü halis niyettir. Gösterişten uzak, yalnızca Allah rızası için yapılan küçük bir iyilik bile büyük değer kazanır.",
     source: "Buhârî, Bed'ü'l-Vahy, 1 • Nevevî Kırk Hadis, No: 1"
   },
@@ -1500,6 +1508,7 @@ export const fortyHadithSelectionData = [
     title: "Elinden ve Dilinden Emin Olunan Müslüman",
     arabic: "الْمُسْلِمُ مَنْ سَلِمَ الْمُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ",
     translation: "Gerçek Müslüman, diğer insanların onun elinden ve dilinden güvende olduğu kimsedir.",
+    vurudStory: "Bir sahabenin 'Ey Allah'ın Resûlü! Müslümanların en faziletlisi kimdir?' sorusu üzerine Peygamber Efendimiz bu evrensel toplumsal güven ölçüsünü bildirmiştir.",
     commentary: "Mümin; çevresine korku veya zarar veren değil, sözüyle ve davranışıyla herkese güven ve emniyet aşılayan insandır.",
     source: "Buhârî, Îmân, 4 • Hadislerle İslam, Cilt 1"
   },
@@ -1510,6 +1519,7 @@ export const fortyHadithSelectionData = [
     title: "Kendin İçin İstediğini Kardeşin İçin de İstemek",
     arabic: "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
     translation: "Sizden biriniz kendisi için arzu ettiği hayrı din kardeşi için de arzu etmedikçe olgun mümin olamaz.",
+    vurudStory: "Enes b. Mâlik (r.a.) tarafından nakledilen bu hadis, Medine'de kurulan kardeşlik toplumunun kalbî ölçüsünü ortaya koymak üzere buyrulmuştur.",
     commentary: "Bencillik ve hasetten arınarak toplumun huzurunu kendi huzuru gibi görmek nebevî kardeşlik ahlakının temelidir.",
     source: "Buhârî, Îmân, 7 • Nevevî Kırk Hadis, No: 13"
   },
@@ -1520,6 +1530,7 @@ export const fortyHadithSelectionData = [
     title: "Yeryüzündekilere Merhamet Etmek",
     arabic: "الرَّاحِمُونَ يَرْحَمُهُمُ الرَّحْمَٰنُ ارْحَمُوا مَنْ فِي الْأَرْضِ يَرْحَمْكُمْ مَنْ فِي السَّمَاءِ",
     translation: "Merhamet edenlere Rahmân olan Allah merhamet eder. Siz yeryüzündekilere merhamet edin ki göktekiler de size merhamet etsin.",
+    vurudStory: "Abdullah b. Amr'ın (r.a.) naklettiği bu hadis, Peygamberimizin çocuklara ve canlılara gösterdiği şefkati hayretle karşılayan katı kalpli kimselere cevaben söylenmiştir.",
     commentary: "Nebevî merhamet yalnızca insanları değil; hayvanları, bitkileri ve tüm mahlûkatı kuşatan evrensel bir şefkat ilkesidir.",
     source: "Ebû Dâvûd, Edeb, 58 • Tirmizî, Birr, 16"
   },
@@ -1530,7 +1541,8 @@ export const fortyHadithSelectionData = [
     title: "Allah'a İman Et ve Dosdoğru Ol",
     arabic: "قُلْ آمَنْتُ بِاللَّهِ ثُمَّ اسْتَقِمْ",
     translation: "'Allah'a iman ettim' de, sonra da dosdoğru ol!",
-    commentary: "Sahabeden Süfyân b. Abdullah'ın 'Bana İslam'ı özetleyecek bir söz söyleyin' talebi üzerine Efendimizin verdiği en özlü hayat düsturudur.",
+    vurudStory: "Tâifli sahabe Süfyân b. Abdullah es-Sekafî (r.a.), 'Ey Allah'ın Resûlü! Bana İslam hakkında öyle bir söz söyle ki sizden sonra kimseye sorma ihtiyacım kalmasın' dediğinde Efendimiz bu cevabı vermiştir.",
+    commentary: "İman ile ahlaki tutarlılığı (istikamet) birbirinden ayrılmaz iki bütün olarak birleştiren en özlü nebevî düsturdur.",
     source: "Müslim, Îmân, 62 • Nevevî Kırk Hadis, No: 21"
   },
   {
@@ -1540,6 +1552,7 @@ export const fortyHadithSelectionData = [
     title: "Hayâ İmandandır",
     arabic: "الْحَيَاءُ لَا يَأْتِي إِلَّا بِخَيْرٍ",
     translation: "Hayâ (utanma ve edep duygusu) insana yalnızca hayır ve güzellik getirir.",
+    vurudStory: "Ensar'dan bir kimsenin, aşırı utangaç olan kardeşini 'Fazla hayâ sana zarar veriyor' diye azarladığını duyan Hz. Peygamber, 'Onu kendi hâline bırak, çünkü hayâ imandandır' buyurmuştur.",
     commentary: "Hayâ, insanı çirkin söz ve davranışlardan koruyan içsel bir ahlak kalkanıdır.",
     source: "Buhârî, Edeb, 77 • Müslim, Îmân, 60"
   },
@@ -1550,6 +1563,7 @@ export const fortyHadithSelectionData = [
     title: "Faydasız İşleri Terk Etmek",
     arabic: "مِنْ حُسْنِ إِسْلَامِ الْمَرْءِ تَرْكُهُ مَا لَا يَعْنِيهِ",
     translation: "Kişinin kendisini ilgilendirmeyen faydasız işleri ve sözleri terk etmesi, İslam'ının güzelliğindendir.",
+    vurudStory: "Hz. Hüseyin (r.a.) ve Ebû Hüreyre (r.a.) tarafından rivayet edilen bu hadis, müminin zamanını ve zihnini lüzumsuz tartışmalardan korumasını öğütlemek üzere irad edilmiştir.",
     commentary: "Ömür ve dikkat sermayesini dedikodu, tecessüs ve boş meşgaleler yerine faydalı ilim ve salih amele yöneltmeyi öğretir.",
     source: "Tirmizî, Zühd, 11 • Nevevî Kırk Hadis, No: 12"
   },
@@ -1560,6 +1574,7 @@ export const fortyHadithSelectionData = [
     title: "İnsanlara Güzel Ahlakla Muamele Etmek",
     arabic: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا وَخَالِقِ النَّاسَ بِخُلُقٍ حَسَنٍ",
     translation: "Nerede olursan ol Allah'a karşı sorumluluğunun bilincinde ol; kötülüğün ardından hemen bir iyilik yap ki onu silsin ve insanlara güzel ahlakla muamele et.",
+    vurudStory: "Hz. Peygamber, Ebû Zer el-Gıfârî (r.a.) ve Muâz b. Cebel'e (r.a.) hayat boyu rehber edinecekleri üç temel nasihat olarak bu hadisi vasiyet etmiştir.",
     commentary: "Kulun hem Yaratıcı'sı ile hem kendi vicdanıyla hem de toplumla olan ilişkisini üç cümlede özetleyen nebevî rehber.",
     source: "Tirmizî, Birr, 55 • Nevevî Kırk Hadis, No: 18"
   }
@@ -1784,3 +1799,123 @@ export const kidsMatchingPairsData = [
   { id: "mp5", left: "Ensar", right: "Evini ve sofrasını paylaşan Medineli dostlar" },
   { id: "mp6", left: "Tebessüm", right: "Kalpleri ısıtan ve sadaka sayılan gülümseme" }
 ];
+
+// ==========================================
+// 20. 5 VAKİT NAMAZ EKSENLİ SÜNNET DURAKLARI & SAYISAL TESBİH/ZİKİR HEDEFLERİ
+// ==========================================
+export const fivePrayerAnchorsData = [
+  {
+    id: "vakit-sabah",
+    prayerName: "Sabah (Fecir & Seher)",
+    badge: "Bereket & İlim Vakti",
+    sunnahTitle: "Seher Bereketinden İstifade ve İlim Duası",
+    sunnahDesc: "Hz. Peygamber (s.a.v.) sabah namazından sonra güneş doğuncaya kadar tefekkür ve zikirle meşgul olur, 'Allah'ım! Ümmetimin sabah vakitlerini bereketli kıl' ve 'Senden faydalı ilim, helal rızık dilerim' diye dua ederdi.",
+    zikirLabel: "Sabah Tesbihi (Sübhanallâhi ve bi-hamdihî)",
+    targetCount: 33,
+    source: "İbn Mâce, İkâme, 32 & Hadislerle İslam, Cilt 1"
+  },
+  {
+    id: "vakit-ogle",
+    prayerName: "Öğle (Zuhr & İş Ortası)",
+    badge: "Dürüstlük & Kaylûle",
+    sunnahTitle: "Helal Kazanç, Selamlaşma ve Kısa Dinlenme (Kaylûle)",
+    sunnahDesc: "Günün en yoğun çalışma saatlerinde ticaret ve iş ahlakını korumak, insanlara güler yüzle muamele etmek ve imkân varsa zihni tazeleyen kısa öğle dinlenmesi (kaylûle) yapmak nebevî sünnettir.",
+    zikirLabel: "Hamd ve Şükür (Elhamdülillâh)",
+    targetCount: 33,
+    source: "Hadislerle İslam, Cilt 4, s. 140"
+  },
+  {
+    id: "vakit-ikindi",
+    prayerName: "İkindi (Asr & İkram)",
+    badge: "Komşuluk & İstiğfar",
+    sunnahTitle: "Asrın Kıymetini Bilmek ve İstiğfar",
+    sunnahDesc: "Günün son çalışma diliminde zaman israfından kaçınmak, bir komşunun veya ihtiyaç sahibinin halini hatırını sormak ve kalbi istiğfarla arındırmak sünnettir.",
+    zikirLabel: "Günlük İstiğfar (Estağfirullâhe'l-Azîm)",
+    targetCount: 33,
+    source: "Kur'an Yolu Tefsiri, Asr Suresi & Hadislerle İslam"
+  },
+  {
+    id: "vakit-aksam",
+    prayerName: "Akşam (Mağrib & Aile)",
+    badge: "Ev Huzuru & Sohbet",
+    sunnahTitle: "Eve Selamla Girmek ve Aile Sofrası",
+    sunnahDesc: "Hz. Peygamber akşam eve girdiğinde ailesine tatlı bir selam verir, sofrada bereket duası eder ve günün yorgunluğunu eşleri ve çocuklarıyla samimi sohbet ederek dinlendirirdi.",
+    zikirLabel: "Salât ü Selâm (Allâhümme salli alâ Muhammed)",
+    targetCount: 10,
+    source: "Hadislerle İslam, Cilt 5 & Kur'an Yolu, Rûm 21"
+  },
+  {
+    id: "vakit-yatsi",
+    prayerName: "Yatsı (İşâ & Gece Muhasebesi)",
+    badge: "Muhasebe & Emanet",
+    sunnahTitle: "Gün Sonu Nefis Muhasebesi ve Abdestli Uyku",
+    sunnahDesc: "Yatsı namazından sonra boş sohbeti terk edip günün muhasebesini yapmak, kırgınlık varsa affetmek ve abdestli olarak İhlâs, Felak, Nâs surelerini okuyup uykuya geçmek sünnettir.",
+    zikirLabel: "Hz. Fâtıma'ya Öğretilen Gece Tekbiri (Allâhü Ekber)",
+    targetCount: 34,
+    source: "Buhârî, Daavât, 11 & Hadislerle İslam, Cilt 8"
+  }
+];
+
+export const eveningMuhasabaQuestions = [
+  {
+    id: "mq1",
+    question: "Bugün diğer insanlar benim elimden ve dilimden emin oldu mu; kimseyi kırdım mı?",
+    principle: "El-Müslimü men selime'l-müslimûne min lisânihî ve yedih"
+  },
+  {
+    id: "mq2",
+    question: "Bugün aileme, bir komşuma veya arkadaşıma tebessüm ve iyilikle dokunabildim mi?",
+    principle: "Et-Tebessümü fî vechi ehîke sadakatün"
+  },
+  {
+    id: "mq3",
+    question: "Bugün işimde, sözümde ve zamanımı kullanırken El-Emîn ahlakına sadık kaldım mı?",
+    principle: "Men ğaşşenâ fe-leyse minnâ"
+  }
+];
+
+// ==========================================
+// 21. TDV İSLÂM ANSİKLOPEDİSİ MODELİ ÇAPRAZ BAĞLANTILAR ("BAKINIZ")
+// ==========================================
+export const crossReferencesMap = {
+  "Hz. Ebû Bekir": ["Hz. Âişe", "Esma bint Ebû Bekir", "Hz. Ömer", "Tevekkül", "Muhacir"],
+  "Hz. Ömer": ["Hz. Hafsa", "Saîd b. Zeyd", "Hz. Ebû Bekir", "İstişare", "Hilfü'l-Fudûl"],
+  "Hz. Osman": ["Abdurrahman b. Avf", "Zeyd b. Sâbit", "Îsâr", "Hz. Ali"],
+  "Hz. Ali": ["Hz. Fâtıma", "Hz. Hasan", "Hz. Hüseyin", "Ca'fer-i Tayyâr", "Suffe"],
+  "Hz. Hatice": ["Hz. Fâtıma", "Sıla-i Rahim", "Hilfü'l-Fudûl", "Hz. Ebû Bekir"],
+  "Hz. Âişe": ["Hz. Ebû Bekir", "Esma bint Ebû Bekir", "Hz. Ümmü Seleme", "Ebû Hüreyre"],
+  "Hz. Fâtıma": ["Hz. Ali", "Hz. Hasan", "Hz. Hüseyin", "Hz. Hatice"],
+  "Hz. Hasan": ["Hz. Hüseyin", "Hz. Fâtıma", "Hz. Ali", "İstişare"],
+  "Hz. Hüseyin": ["Hz. Hasan", "Hz. Fâtıma", "Hz. Ali"],
+  "Hz. Ümmü Seleme": ["Hz. Âişe", "İstişare", "Ca'fer-i Tayyâr"],
+  "Hz. Hafsa": ["Hz. Ömer", "Zeyd b. Sâbit", "Hz. Âişe"],
+  "Talha b. Ubeydullah": ["Zübeyr b. Avvâm", "Hz. Ebû Bekir", "Îsâr"],
+  "Zübeyr b. Avvâm": ["Esma bint Ebû Bekir", "Talha b. Ubeydullah", "Hz. Hamza"],
+  "Abdurrahman b. Avf": ["Hz. Osman", "Ensar", "Muhacir", "Îsâr"],
+  "Sa'd b. Ebû Vakkâs": ["Mus'ab b. Umeyr", "Abdurrahman b. Avf", "Tevekkül"],
+  "Saîd b. Zeyd": ["Hz. Ömer", "Hz. Ebû Bekir"],
+  "Ebû Ubeyde b. Cerrâh": ["Muâz b. Cebel", "Hz. Ömer", "Hz. Ebû Bekir"],
+  "Hz. Hamza": ["Ca'fer-i Tayyâr", "Zübeyr b. Avvâm", "Nesîbe Hatun"],
+  "Ca'fer-i Tayyâr": ["Hz. Ali", "Hz. Ümmü Seleme", "Muhacir"],
+  "Bilâl-i Habeşî": ["Suffe", "Hz. Ebû Bekir", "Ebû Zer el-Gıfârî"],
+  "Mus'ab b. Umeyr": ["Sa'd b. Muâz", "Ensar", "Suffe"],
+  "Abdullah b. Mes'ûd": ["Zeyd b. Sâbit", "Muâz b. Cebel", "Hz. Ali"],
+  "Muâz b. Cebel": ["Ebû Ubeyde b. Cerrâh", "Zeyd b. Sâbit", "Ensar"],
+  "Enes b. Mâlik": ["Hz. Âişe", "Ebû Hüreyre", "Ensar"],
+  "Ebû Hüreyre": ["Suffe", "Enes b. Mâlik", "Hz. Âişe"],
+  "Zeyd b. Sâbit": ["Hz. Hafsa", "Hz. Osman", "Muâz b. Cebel"],
+  "Selmân-ı Fârisî": ["İstişare", "Suffe", "Ebû Zer el-Gıfârî"],
+  "Ebû Zer el-Gıfârî": ["Suffe", "Selmân-ı Fârisî", "Bilâl-i Habeşî"],
+  "Ebû Eyyûb el-Ensârî": ["Ensar", "Muhacir", "Sa'd b. Muâz"],
+  "Sa'd b. Muâz": ["Mus'ab b. Umeyr", "Ensar", "Ebû Eyyûb el-Ensârî"],
+  "Nesîbe Hatun": ["Talha b. Ubeydullah", "Hz. Hamza", "Ensar"],
+  "Esma bint Ebû Bekir": ["Hz. Ebû Bekir", "Hz. Âişe", "Zübeyr b. Avvâm"],
+  "Ensar": ["Muhacir", "Îsâr", "Ebû Eyyûb el-Ensârî", "Sa'd b. Muâz"],
+  "Muhacir": ["Ensar", "Hz. Ebû Bekir", "Mus'ab b. Umeyr"],
+  "Suffe": ["Ebû Hüreyre", "Bilâl-i Habeşî", "Selmân-ı Fârisî"],
+  "Hilfü'l-Fudûl": ["Hz. Ebû Bekir", "Hz. Hatice", "İstişare"],
+  "Sıla-i Rahim": ["Hz. Hatice", "Hz. Fâtıma", "Îsâr"],
+  "Îsâr": ["Ensar", "Muhacir", "Abdurrahman b. Avf", "Hz. Osman"],
+  "İstişare": ["Selmân-ı Fârisî", "Hz. Ümmü Seleme", "Tevekkül"],
+  "Tevekkül": ["Hz. Ebû Bekir", "İstişare", "Esma bint Ebû Bekir"]
+};

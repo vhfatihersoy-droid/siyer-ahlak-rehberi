@@ -24,6 +24,7 @@ export function KidsModeView() {
   const [ageFilter, setAgeFilter] = useState("Tümü");
   const [selectedStoryId, setSelectedStoryId] = useState(kidsStoriesData[0].id);
   const [speakingId, setSpeakingId] = useState(null);
+  const [isRadioMode, setIsRadioMode] = useState(false);
   const [scenarioAnswers, setScenarioAnswers] = useState({});
   const [showParentCorner, setShowParentCorner] = useState(false);
 
@@ -84,6 +85,7 @@ export function KidsModeView() {
   };
 
   const handleSpeak = (story) => {
+    setIsRadioMode(false);
     if (speakingId === story.id) {
       stopSpeaking();
       setSpeakingId(null);
@@ -94,6 +96,37 @@ export function KidsModeView() {
       `${story.title}. ${story.story} Bu kıssadan öğrendiğimiz ders: ${story.lesson}`,
       () => setSpeakingId(null)
     );
+  };
+
+  const toggleRadioMode = () => {
+    if (isRadioMode) {
+      stopSpeaking();
+      setIsRadioMode(false);
+      setSpeakingId(null);
+      return;
+    }
+    const list = kidsStoriesData.filter((s) => ageFilter === "Tümü" || s.ageGroup === ageFilter);
+    const startIdx = Math.max(0, list.findIndex((s) => s.id === selectedStoryId));
+    setIsRadioMode(true);
+
+    const playAt = (idx) => {
+      if (idx >= list.length) {
+        setIsRadioMode(false);
+        setSpeakingId(null);
+        return;
+      }
+      const st = list[idx];
+      setSelectedStoryId(st.id);
+      setSpeakingId(st.id);
+      speakTurkish(
+        `${idx + 1}. Kıssa: ${st.title}. ${st.story} Sünnet dersimiz: ${st.lesson}`,
+        () => {
+          playAt(idx + 1);
+        }
+      );
+    };
+
+    playAt(startIdx);
   };
 
   const treeStage =
@@ -223,11 +256,11 @@ export function KidsModeView() {
   };
 
   const kidsTabs = [
-    { id: "kissalar", label: `Siyer Kıssaları (${kidsStoriesData.length})`, icon: BookOpen },
+    { id: "kissalar", label: `Siyer Kıssaları & Radyo (${kidsStoriesData.length})`, icon: BookOpen },
     { id: "gorevler", label: `İyilik Görevlerim (${completedTasks.length}/${kidsDailyTasks.length})`, icon: CheckCircle2 },
     { id: "kahramanlar", label: "Genç Sahabeler & Kavramlar", icon: Users },
     { id: "senaryolar", label: "Ahlak & Eşleştirme Oyunu", icon: HelpCircle },
-    { id: "berat", label: "Güzel Ahlak Beratım (Sertifika)", icon: Award }
+    { id: "berat", label: "Sünnet Pasaportum & Berat", icon: Award }
   ];
 
   const taskCategories = ["Ev & Aile", "Nezaket & Arkadaşlık", "Doğa & Emanet"];
@@ -425,7 +458,21 @@ export function KidsModeView() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={toggleRadioMode}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors ${
+                    isRadioMode
+                      ? "bg-rose-600 text-white"
+                      : "bg-[#0B4F3F] hover:bg-[#08382C] text-white"
+                  }`}
+                >
+                  {isRadioMode ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                  <span>
+                    {isRadioMode ? "Siyer Radyosunu Durdur" : "📻 Siyer Radyosu (Tümünü Sırayla Dinle)"}
+                  </span>
+                </button>
+
                 <button
                   onClick={() => handleSpeak(featuredStory)}
                   className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-colors ${
@@ -953,10 +1000,61 @@ export function KidsModeView() {
       )}
 
       {/* =================================================================
-          SEKME 5: İSME ÖZEL GÜZEL AHLAK BERATIM (PNG SERTİFİKA STÜDYOSU)
+          SEKME 5: SÜNNET PASAPORTUM (DAMGALI HARİTA) & İSME ÖZEL GÜZEL AHLAK BERATI
          ================================================================= */}
       {activeKidsTab === "berat" && (
-        <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div className="space-y-6">
+          {/* Sünnet Pasaportum - Damgalı Başarı Haritası */}
+          <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
+                  Diyanet Çocuk Sünnet Pasaportu
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                  🛂 Benim Sünnet ve Kıssa Pasaportum
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Tamamladığın her siyer kıssası ve iyilik görevi için pasaportuna özel sünnet damgası basılır!
+                </p>
+              </div>
+              <span className="text-xs font-bold bg-emerald-50 dark:bg-emerald-950 text-[#0B4F3F] dark:text-emerald-300 px-3.5 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                Basılan Damga: {readStories.length + completedTasks.length} / {kidsStoriesData.length + kidsDailyTasks.length}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {kidsStoriesData.map((st, i) => {
+                const stamped = readStories.includes(st.id);
+                return (
+                  <div
+                    key={st.id}
+                    className={`p-3 rounded-xl border text-center space-y-1 transition-all ${
+                      stamped
+                        ? "bg-emerald-50/70 dark:bg-emerald-950/40 border-2 border-[#0B4F3F]"
+                        : "bg-slate-50 dark:bg-slate-800/40 border-dashed border-slate-300 dark:border-slate-700 opacity-60"
+                    }`}
+                  >
+                    <div className="text-xl">{st.emoji}</div>
+                    <div className="text-xs font-bold text-slate-800 dark:text-slate-100 line-clamp-1">
+                      {i + 1}. {st.title}
+                    </div>
+                    <div
+                      className={`text-xs font-extrabold px-2 py-0.5 rounded-full inline-block ${
+                        stamped
+                          ? "bg-[#0B4F3F] text-white"
+                          : "bg-slate-200 dark:bg-slate-700 text-slate-500"
+                      }`}
+                    >
+                      {stamped ? "★ DAMGALANDI" : "Bekliyor"}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-5 space-y-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block mb-1">
@@ -997,6 +1095,7 @@ export function KidsModeView() {
               ref={beratCanvasRef}
               className="w-full max-w-lg h-auto rounded-lg shadow-md border border-slate-200 dark:border-slate-700"
             />
+          </div>
           </div>
         </div>
       )}

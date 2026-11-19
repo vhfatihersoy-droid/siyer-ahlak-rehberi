@@ -16,7 +16,8 @@ import {
   glossaryAndSahabeData,
   semailAndSpecialData,
   defaultHabits,
-  weekDays
+  weekDays,
+  crossReferencesMap
 } from './data/siyerData';
 
 import {
@@ -24,7 +25,8 @@ import {
   speakTurkish,
   stopSpeaking,
   exportUserData,
-  printReflectionJournal
+  printReflectionJournal,
+  printTopicHandout
 } from './services/storageService';
 
 import { GlossaryText, CitationFooter, PersonalReflectionNote } from './components/SharedUI';
@@ -37,7 +39,8 @@ import {
   FortyHadithSection,
   UniversalDeclarationsSection,
   WeeklyCurriculumSection,
-  CorporateQuizAndCertificateSection
+  CorporateQuizAndCertificateSection,
+  FivePrayerAnchorsSection
 } from './components/DesignInnovations';
 
 class ErrorBoundary extends React.Component {
@@ -72,9 +75,12 @@ class ErrorBoundary extends React.Component {
 
 function MainApp() {
   const [isKidsMode, setIsKidsMode] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => safeStorage.get("siyer_dark_mode", false));
+  const [readingTheme, setReadingTheme] = useState(() => safeStorage.get("siyer_reading_theme", "light"));
+  const isDarkMode = readingTheme === "dark";
+  const isSepiaMode = readingTheme === "sepia";
   const [currentTab, setCurrentTab] = useState("gunun-sunneti");
   const [searchQuery, setSearchQuery] = useState("");
+  const [lastVisited, setLastVisited] = useState(() => safeStorage.get("siyer_last_visited", null));
 
   // Alt bölüm filtreleri
   const [sunnetSubView, setSunnetSubView] = useState("sunnet");
@@ -105,8 +111,32 @@ function MainApp() {
   const activeMood = moodsData.find((m) => m.id === selectedMoodId) || moodsData[0];
 
   useEffect(() => {
-    safeStorage.set("siyer_dark_mode", isDarkMode);
-  }, [isDarkMode]);
+    safeStorage.set("siyer_reading_theme", readingTheme);
+  }, [readingTheme]);
+
+  useEffect(() => {
+    safeStorage.set("siyer_last_visited", lastVisited);
+  }, [lastVisited]);
+
+  const recordVisit = (title, tab, subView = "", filterVal = "") => {
+    setLastVisited({ title, tab, subView, filterVal });
+  };
+
+  const handleCrossReferenceClick = (termKey) => {
+    const entry = glossaryAndSahabeData[termKey];
+    if (!entry) return;
+    if (entry.type === "Sahabe Profili") {
+      setSahabeGroupFilter("Tümü");
+      setSahabeSearch(termKey);
+      setCurrentTab("sahabeler");
+      recordVisit(entry.title, "sahabeler", "", termKey);
+    } else {
+      setSemailSubView("kavramlar");
+      setCurrentTab("semail-siyer");
+      recordVisit(entry.title, "semail-siyer", "kavramlar", termKey);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   useEffect(() => {
     safeStorage.set("siyer_favorites", favorites);
@@ -333,7 +363,15 @@ function MainApp() {
 
   return (
     <div className={isDarkMode ? "dark" : ""}>
-      <div className="min-h-screen font-sans bg-[#F5F6F8] dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors">
+      <div
+        className={`min-h-screen font-sans transition-colors ${
+          isDarkMode
+            ? "bg-slate-950 text-slate-100"
+            : isSepiaMode
+            ? "bg-[#F2ECE1] text-[#2C241B]"
+            : "bg-[#F5F6F8] text-slate-800"
+        }`}
+      >
         {/* KURUMSAL ÜST BAR (HEADER) */}
         <header className="bg-[#0B4F3F] text-white border-b-2 border-[#B4833E] sticky top-0 z-40 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
@@ -396,13 +434,26 @@ function MainApp() {
                 </div>
               )}
 
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-2 rounded-lg border border-white/15 bg-white/10 text-emerald-100 hover:bg-white/20 transition-colors"
-                title={isDarkMode ? "Aydınlık Görünüm" : "Koyu Görünüm"}
-              >
-                {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              </button>
+              <div className="flex items-center bg-white/10 p-0.5 rounded-lg border border-white/15">
+                {[
+                  { id: "light", label: "Beyaz" },
+                  { id: "sepia", label: "Sepya" },
+                  { id: "dark", label: "Gece" }
+                ].map((tm) => (
+                  <button
+                    key={tm.id}
+                    onClick={() => setReadingTheme(tm.id)}
+                    className={`px-2 py-1 rounded-md text-xs font-semibold transition-all ${
+                      readingTheme === tm.id
+                        ? "bg-white text-[#0B4F3F] font-bold"
+                        : "text-emerald-100 hover:text-white"
+                    }`}
+                    title="Okuma Zemini"
+                  >
+                    {tm.label}
+                  </button>
+                ))}
+              </div>
 
               <button
                 onClick={() => setIsKidsMode(!isKidsMode)}
@@ -444,6 +495,23 @@ function MainApp() {
                 </div>
 
                 <div className="hidden md:flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 shrink-0">
+                  {lastVisited && (
+                    <button
+                      onClick={() => {
+                        setCurrentTab(lastVisited.tab);
+                        if (lastVisited.subView && lastVisited.tab === "semail-siyer") {
+                          setSemailSubView(lastVisited.subView);
+                        }
+                        if (lastVisited.filterVal && lastVisited.tab === "sahabeler") {
+                          setSahabeSearch(lastVisited.filterVal);
+                        }
+                      }}
+                      className="inline-flex items-center gap-1.5 bg-amber-50 dark:bg-amber-950/50 text-[#9A6B28] dark:text-amber-300 border border-[#B4833E]/40 px-2.5 py-1 rounded-md font-semibold hover:bg-amber-100 transition-colors"
+                      title="Son İncelenen Maddeye Dön"
+                    >
+                      <span>Kaldığım Yer: {lastVisited.title} →</span>
+                    </button>
+                  )}
                   <span>Okuma İlerlemesi: <strong className="text-[#0B4F3F] dark:text-emerald-400">%{progressPercent}</strong></span>
                   <span>•</span>
                   <span>Favoriler: <strong className="text-slate-700 dark:text-slate-200">{favorites.length}</strong></span>
@@ -647,6 +715,16 @@ function MainApp() {
                         <p>
                           <GlossaryText text={currentSunnah.description} />
                         </p>
+
+                        {currentSunnah.vurudStory && (
+                          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 rounded-lg p-3.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            <span className="font-bold text-[#9A6B28] dark:text-amber-400 uppercase tracking-wider block mb-1">
+                              Esbâb-ı Vürûd (Hadisin Arka Planı & Meclis Hatırası)
+                            </span>
+                            <GlossaryText text={currentSunnah.vurudStory} />
+                          </div>
+                        )}
+
                         <div className="bg-slate-50 dark:bg-slate-800/40 border-l-4 border-[#0B4F3F] dark:border-emerald-500 p-4 rounded-r-lg">
                           <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
                             Günlük Hayata Tatbik
@@ -662,6 +740,27 @@ function MainApp() {
                       <CitationFooter
                         source={`${currentSunnah.source} • ${currentSunnah.publisher}`}
                         speakText={`${currentSunnah.title}. ${currentSunnah.translation}. ${currentSunnah.description}`}
+                        rightAction={
+                          <button
+                            onClick={() =>
+                              printTopicHandout({
+                                title: currentSunnah.title,
+                                badge: currentSunnah.dayLabel,
+                                arabic: currentSunnah.arabic,
+                                quote: currentSunnah.translation,
+                                body: currentSunnah.description,
+                                vurud: currentSunnah.vurudStory,
+                                practice: currentSunnah.application,
+                                source: `${currentSunnah.source} • ${currentSunnah.publisher}`
+                              })
+                            }
+                            className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
+                            title="Ders Föyü Olarak Yazdır (PDF)"
+                          >
+                            <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
+                            <span>Ders Föyü</span>
+                          </button>
+                        }
                         onOpenCard={() =>
                           setCardModalData({
                             title: currentSunnah.title,
@@ -1075,6 +1174,21 @@ function MainApp() {
                               </span>
                               {item.story}
                             </div>
+
+                            {crossReferencesMap[key] && (
+                              <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5">
+                                <span className="text-xs font-semibold text-slate-400">Bakınız (İlgili Maddeler):</span>
+                                {crossReferencesMap[key].map((relKey) => (
+                                  <button
+                                    key={relKey}
+                                    onClick={() => handleCrossReferenceClick(relKey)}
+                                    className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors"
+                                  >
+                                    {relKey} →
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </div>
 
                           <div>
@@ -1308,6 +1422,21 @@ function MainApp() {
                               </span>
                               {item.story}
                             </div>
+
+                            {crossReferencesMap[key] && (
+                              <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5">
+                                <span className="text-xs font-semibold text-slate-400">Bakınız (İlgili Maddeler):</span>
+                                {crossReferencesMap[key].map((relKey) => (
+                                  <button
+                                    key={relKey}
+                                    onClick={() => handleCrossReferenceClick(relKey)}
+                                    className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors"
+                                  >
+                                    {relKey} →
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </div>
                           <CitationFooter
                             source={item.source}
@@ -1345,6 +1474,7 @@ function MainApp() {
                   <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                     {[
                       { id: "cetele", label: "Muhasebe & Notlarım" },
+                      { id: "vakitler", label: "5 Vakit Sünnet & Tesbih Sayacı" },
                       { id: "mufredat", label: "8 Haftalık Ders Müfredatı" },
                       { id: "degerlendirme", label: "Bilgi Testi & Çalışma Belgesi" }
                     ].map((sub) => (
@@ -1362,6 +1492,8 @@ function MainApp() {
                     ))}
                   </div>
                 </div>
+
+                {muhasebeSubView === "vakitler" && <FivePrayerAnchorsSection />}
 
                 {muhasebeSubView === "mufredat" && <WeeklyCurriculumSection />}
 

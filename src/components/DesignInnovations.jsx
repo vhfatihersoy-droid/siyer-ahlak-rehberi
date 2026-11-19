@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  CheckCircle2, AlertCircle, Download, Award, BookOpen, Check, RotateCcw
+  CheckCircle2, AlertCircle, Download, Award, BookOpen, Check, RotateCcw, Printer, Plus
 } from 'lucide-react';
 import {
   hilyeSerifData,
@@ -9,10 +9,12 @@ import {
   fortyHadithSelectionData,
   universalDeclarationsData,
   weeklyCurriculumData,
-  siyerQuizData
+  siyerQuizData,
+  fivePrayerAnchorsData,
+  eveningMuhasabaQuestions
 } from '../data/siyerData';
 import { GlossaryText, CitationFooter } from './SharedUI';
-import { safeStorage } from '../services/storageService';
+import { safeStorage, printTopicHandout } from '../services/storageService';
 
 // 1. KURUMSAL HİLYE-İ ŞERÎF LEVHASI (SESLİ OKUMA YOK)
 export function HilyeSerifBoard() {
@@ -329,6 +331,15 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
                   </p>
                 </div>
 
+                {hd.vurudStory && (
+                  <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <span className="font-bold text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+                      Esbâb-ı Vürûd (Hadisin Söylenme Hikayesi):
+                    </span>
+                    <GlossaryText text={hd.vurudStory} />
+                  </div>
+                )}
+
                 <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#B4833E] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                   <span className="font-bold text-slate-900 dark:text-slate-100 block mb-0.5">Kısa Şerh & Hikmet:</span>
                   {hd.commentary}
@@ -338,6 +349,26 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
               <CitationFooter
                 source={hd.source}
                 speakText={`${hd.title}. ${hd.translation}. ${hd.commentary}`}
+                rightAction={
+                  <button
+                    onClick={() =>
+                      printTopicHandout({
+                        title: `${hd.number} • ${hd.title}`,
+                        badge: hd.topic,
+                        arabic: hd.arabic,
+                        quote: hd.translation,
+                        body: hd.commentary,
+                        vurud: hd.vurudStory,
+                        source: hd.source
+                      })
+                    }
+                    className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
+                    title="Ders Föyü Olarak Yazdır (PDF)"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
+                    <span>Ders Föyü</span>
+                  </button>
+                }
                 onOpenCard={() =>
                   onOpenCard({
                     title: hd.title,
@@ -502,13 +533,190 @@ export function WeeklyCurriculumSection() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300">
-                <strong className="text-[#0B4F3F] dark:text-emerald-400">Haftanın Uygulaması: </strong>
-                {w.practice}
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 text-xs text-slate-700 dark:text-slate-300">
+                <div>
+                  <strong className="text-[#0B4F3F] dark:text-emerald-400">Uygulama: </strong>
+                  {w.practice}
+                </div>
+                <button
+                  onClick={() =>
+                    printTopicHandout({
+                      title: `${w.weekNo}: ${w.theme}`,
+                      badge: "Haftalık Ders Halkası Broşürü",
+                      quote: w.hadith,
+                      body: `Örnek Sahabe: ${w.sahabe} • Okuma Maddesi: ${w.reading}`,
+                      practice: w.practice,
+                      discussion: w.discussion,
+                      source: "Siyer ve Ahlak Portalı • 8 Haftalık Ders Müfredatı"
+                    })
+                  }
+                  className="shrink-0 inline-flex items-center gap-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 px-2.5 py-1.5 rounded-md font-semibold border border-slate-200 dark:border-slate-700"
+                >
+                  <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
+                  <span>Ders Föyü (PDF)</span>
+                </button>
               </div>
             </div>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+// 8. 5 VAKİT NAMAZ EKSENLİ SÜNNET DURAKLARI & SAYISAL TESBİH/ZİKİR SAYACI + AKŞAM MUHASEBESİ
+export function FivePrayerAnchorsSection() {
+  const [counts, setCounts] = useState(() => safeStorage.get("siyer_zikir_counts", {}));
+  const [muhasabaChecks, setMuhasabaChecks] = useState(() => safeStorage.get("siyer_evening_muhasaba", {}));
+
+  useEffect(() => {
+    safeStorage.set("siyer_zikir_counts", counts);
+  }, [counts]);
+
+  useEffect(() => {
+    safeStorage.set("siyer_evening_muhasaba", muhasabaChecks);
+  }, [muhasabaChecks]);
+
+  const incrementZikir = (id, target) => {
+    setCounts((prev) => ({
+      ...prev,
+      [id]: Math.min(target, (prev[id] || 0) + 1)
+    }));
+  };
+
+  const resetZikir = (id) => {
+    setCounts((prev) => ({ ...prev, [id]: 0 }));
+  };
+
+  const toggleMuhasaba = (id) => {
+    setMuhasabaChecks((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
+          Vakit Merkezli Sünnet ve Zikir Takibi
+        </span>
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+          5 Vakit Namaz Eksenli Günlük Sünnet Durakları & Tesbih Sayacı
+        </h3>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          Günü beş vakit namaz durağı etrafında planlayarak her vaktin sünnetini ve tesbih/istiğfar sayısını takip edin.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {fivePrayerAnchorsData.map((item) => {
+          const current = counts[item.id] || 0;
+          const done = current >= item.targetCount;
+          const pct = Math.min(100, Math.round((current / item.targetCount) * 100));
+          return (
+            <div
+              key={item.id}
+              className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                    {item.prayerName}
+                  </span>
+                  <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">
+                    {item.badge}
+                  </span>
+                </div>
+
+                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{item.sunnahTitle}</h4>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <GlossaryText text={item.sunnahDesc} />
+                </p>
+              </div>
+
+              {/* Sayısal Tesbih / Zikir Sayacı */}
+              <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-3.5 space-y-2.5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-slate-700 dark:text-slate-200 truncate pr-2">
+                    {item.zikirLabel}
+                  </span>
+                  <span className="font-extrabold text-[#0B4F3F] dark:text-emerald-400 shrink-0">
+                    {current} / {item.targetCount}
+                  </span>
+                </div>
+
+                <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#0B4F3F] dark:bg-emerald-500 transition-all duration-200"
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <button
+                    onClick={() => incrementZikir(item.id, item.targetCount)}
+                    className={`flex-1 inline-flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition-all ${
+                      done
+                        ? "bg-emerald-100 dark:bg-emerald-950 text-[#0B4F3F] dark:text-emerald-300"
+                        : "bg-[#0B4F3F] hover:bg-[#08382C] text-white"
+                    }`}
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>{done ? "✓ Hedef Tamamlandı" : "Tesbih Çek (+1)"}</span>
+                  </button>
+                  {current > 0 && (
+                    <button
+                      onClick={() => resetZikir(item.id)}
+                      className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-700"
+                      title="Sayacı Sıfırla"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* 6. Kart: Gün Sonu 3 Nefis Muhasebesi Sorusu */}
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-5 border-2 border-[#B4833E]/40 shadow-xs flex flex-col justify-between space-y-4">
+          <div className="space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block">
+              Gece Tefekkürü • Muhasaba
+            </span>
+            <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
+              Gün Sonu 3 Nefis Muhasebesi Sorusu
+            </h4>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Hz. Ömer'in (r.a.) "Hesaba çekilmeden önce kendinizi hesaba çekin" tavsiyesiyle günü kapatırken işaretleyin:
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            {eveningMuhasabaQuestions.map((mq) => {
+              const checked = !!muhasabaChecks[mq.id];
+              return (
+                <button
+                  key={mq.id}
+                  onClick={() => toggleMuhasaba(mq.id)}
+                  className={`w-full text-left p-3 rounded-lg border text-xs transition-all flex items-start justify-between gap-2 ${
+                    checked
+                      ? "bg-emerald-50/80 dark:bg-emerald-950/50 border-[#0B4F3F] text-slate-900 dark:text-slate-100 font-semibold"
+                      : "bg-slate-50 dark:bg-slate-800/70 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+                  }`}
+                >
+                  <span>{mq.question}</span>
+                  <span
+                    className={`shrink-0 w-5 h-5 rounded flex items-center justify-center border ${
+                      checked ? "bg-[#0B4F3F] border-[#0B4F3F] text-white" : "border-slate-300"
+                    }`}
+                  >
+                    {checked ? "✓" : ""}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

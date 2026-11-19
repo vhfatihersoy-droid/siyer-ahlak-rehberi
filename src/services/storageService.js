@@ -118,3 +118,104 @@ export function printReflectionJournal({ favoritesCount, completedCount, habitSc
   </html>`);
   win.document.close();
 }
+
+export function printTopicHandout({
+  title,
+  badge = "Siyer ve Ahlak Ders Föyü",
+  arabic = "",
+  quote = "",
+  body = "",
+  vurud = "",
+  practice = "",
+  discussion = "",
+  source = "Diyanet İşleri Başkanlığı & TDV Yayınları"
+}) {
+  const win = window.open("", "_blank", "width=850,height=920");
+  if (!win) return;
+
+  win.document.write(`<!DOCTYPE html>
+  <html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>${title} - Kurumsal Ders Föyü</title>
+    <style>
+      body { font-family: Georgia, serif; color: #0f172a; max-width: 740px; margin: 36px auto; padding: 0 24px; line-height: 1.65; }
+      .header { border-bottom: 3px solid #0B4F3F; padding-bottom: 14px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: flex-end; font-family: sans-serif; }
+      .brand { font-size: 12px; font-weight: bold; color: #0B4F3F; text-transform: uppercase; letter-spacing: 1px; }
+      .badge { background: #0B4F3F; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; }
+      h1 { font-size: 24px; color: #0B4F3F; margin: 8px 0 4px 0; }
+      .quote-box { background: #FAF9F6; border: 1px solid #cbd5e1; border-left: 5px solid #0B4F3F; border-radius: 8px; padding: 16px; margin: 18px 0; }
+      .arabic { font-size: 24px; text-align: right; color: #0B4F3F; margin-bottom: 10px; }
+      .quote { font-style: italic; font-size: 15px; color: #1e293b; }
+      .section { margin: 18px 0; padding: 14px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; }
+      .sec-title { font-family: sans-serif; font-size: 12px; font-weight: bold; color: #9A6B28; text-transform: uppercase; margin-bottom: 6px; }
+      .footer { margin-top: 28px; padding-top: 12px; border-top: 1px solid #cbd5e1; font-family: sans-serif; font-size: 12px; color: #64748b; display: flex; justify-content: space-between; }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <div class="brand">Siyer ve Ahlak Portalı • Ders Halkası Broşürü</div>
+        <h1>${title}</h1>
+      </div>
+      <div class="badge">${badge}</div>
+    </div>
+
+    ${
+      arabic || quote
+        ? `<div class="quote-box">
+            ${arabic ? `<div class="arabic">${arabic}</div>` : ""}
+            ${quote ? `<div class="quote">"${quote}"</div>` : ""}
+          </div>`
+        : ""
+    }
+
+    ${
+      body
+        ? `<div class="section">
+            <div class="sec-title">Konu Açıklaması & Nebevî Ölçü</div>
+            <div>${body}</div>
+          </div>`
+        : ""
+    }
+
+    ${
+      vurud
+        ? `<div class="section">
+            <div class="sec-title">Hadisin Arka Planı (Esbâb-ı Vürûd & Meclis Hatırası)</div>
+            <div>${vurud}</div>
+          </div>`
+        : ""
+    }
+
+    ${
+      practice
+        ? `<div class="section">
+            <div class="sec-title">Günlük Hayata Tatbik & Uygulama Adımı</div>
+            <div>${practice}</div>
+          </div>`
+        : ""
+    }
+
+    ${
+      discussion
+        ? `<div class="section">
+            <div class="sec-title">Aile ve Ders Halkası Müzakere Sorusu</div>
+            <div style="font-style:italic;">"${discussion}"</div>
+          </div>`
+        : ""
+    }
+
+    <div class="section" style="height: 85px;">
+      <div class="sec-title">Kişisel Çalışma ve Ders Notlarım</div>
+    </div>
+
+    <div class="footer">
+      <span>Kaynak: ${source}</span>
+      <span>Tarih: ${new Date().toLocaleDateString("tr-TR")}</span>
+    </div>
+    <script>window.onload = () => { window.print(); };</script>
+  </body>
+  </html>`);
+  win.document.close();
+}
