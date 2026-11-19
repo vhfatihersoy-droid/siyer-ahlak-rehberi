@@ -167,72 +167,97 @@ export const moodsData = [
 ];
 
 // ==========================================
-// 3. TEMATİK AHLAK KISSALARI
+// 3. TEMATİK AHLAK KISSALARI (5 ANA BAŞLIK x 4 KONU = 20 KONU)
 // ==========================================
 export const thematicData = [
+  // 1. AİLE VE İLETİŞİM (4 KONU)
   {
-    id: "ticaret",
-    category: "Ticaret Ahlakı",
-    icon: Award,
-    title: "Dürüst Tacir ve Güvenilirlik",
-    arabic: "مَنْ غَشَّنَا فَلَيْسَ مِنَّا",
-    text: "Hz. Muhammed (s.a.v.) ticaret hayatında dürüstlüğü ve ahde vefayı esas almış, pazarda ıslak buğdayı alta koyan satıcıyı uyararak 'Bizi aldatan bizden değildir' ilkesini benimsetmiştir.",
-    details: "Ticarette kusurlu malı gizlememek, ölçüde ve tartıda adil olmak İslam ahlakının temel taşlarındandır.",
-    source: "Hadislerle İslam, Cilt 6, s. 88"
-  },
-  {
-    id: "aile",
-    category: "Aile Hayatı",
+    id: "aile-1",
+    category: "Aile ve İletişim",
     icon: Users,
-    title: "Eşlere Karşı Nezaket ve Sevgi",
+    title: "Eşlere Karşı Nezaket, Yardımlaşma ve Sevgi",
     arabic: "خَيْرُكُمْ خَيْرُكُمْ لِأَهْلِهِ",
-    text: "'Hayırlınız, ailesine karşı en hayırlı olanınızdır' buyuran Peygamberimiz, Hz. Hatice ve Hz. Âişe başta olmak üzere eşlerine ev işlerinde yardım eder, daima tatlı dille muamele ederdi.",
-    details: "Aile içi iletişimde karşılıklı anlayış, tahammül ve sevgi huzurlu yuvaların temelidir.",
-    source: "Kur'an Yolu Tefsiri, Nisa Suresi 19. Ayet"
+    text: "'Sizin en hayırlınız, ailesine karşı en hayırlı olanınızdır' buyuran Peygamberimiz, Hz. Hatice ve Hz. Âişe başta olmak üzere eşlerine ev işlerinde yardım eder, daima tatlı dille ve zarafetle muamele ederdi.",
+    details: "Aile içi iletişimde karşılıklı anlayış, teşekkür etmek ve ev sorumluluğunu paylaşmak huzurlu yuvaların temelidir.",
+    source: "Tirmizî, Menâkıb, 63 & Kur'an Yolu Tefsiri, Nisâ 19"
   },
   {
-    id: "cocuk",
-    category: "Çocuklarla İletişim",
+    id: "aile-2",
+    category: "Aile ve İletişim",
     icon: Sparkles,
-    title: "Çocuklara Değer Vermek ve Şefkat",
+    title: "Çocuklara Değer Vermek, Dinlemek ve Şefkat",
     arabic: "مَنْ لَا يَرْحَمْ لَا يُرْحَمْ",
-    text: "Peygamberimiz çocukların seviyesine iner, onlarla şakalaşır, yolda karşılaştığında onlara ilk önce kendisi selam verir ve büyük bir birey gibi saygı duyardı.",
-    details: "Çocukların duygusal gelişimleri için dinlenilmek ve değer görülmek en temel ihtiyaçtır.",
-    source: "Hadislerle İslam, Cilt 4, s. 310"
+    text: "Peygamberimiz çocukların seviyesine iner, onlarla şakalaşır, yolda karşılaştığında onlara ilk önce kendisi selam verir ve büyük bir birey gibi sözlerine kıymet verirdi.",
+    details: "Çocukların duygusal gelişimleri için dinlenilmek, başlarının okşanması ve değer görülmek en temel ihtiyaçtır.",
+    source: "Buhârî, Edeb, 18 & Hadislerle İslam, Cilt 4, s. 310"
   },
   {
-    id: "adalet",
-    category: "Adalet ve Merhamet",
+    id: "aile-3",
+    category: "Aile ve İletişim",
+    icon: Heart,
+    title: "Anne-Babaya İyilik ve Akrabalık Bağı (Sıla-i Rahim)",
+    arabic: "رِضَا الرَّبِّ فِي رِضَا الْوَالِدِ",
+    text: "Kur'an-ı Kerim anne-babaya 'öf' bile dememeyi emrederken, Hz. Peygamber de 'Allah'ın rızası anne-babanın rızasındadır' buyurmuş; akrabayı ziyaret etmenin rızka ve ömre bereket kattığını müjdelemiştir.",
+    details: "Anne-babaya hürmet ve akrabaları gözetmek, bireyi yalnızlıktan koruyan en güçlü aile kalkanıdır.",
+    source: "Tirmizî, Birr, 3; Buhârî, Edeb, 12"
+  },
+  {
+    id: "aile-4",
+    category: "Aile ve İletişim",
+    icon: Users,
+    title: "Ahde Vefa ve Kadim Dostlukları Unutmamak",
+    arabic: "حُسْنُ الْعَهْدِ مِنَ الْإِيمَانِ",
+    text: "Hz. Hatice'nin vefatından yıllar sonra bile evinde bir koyun kesildiğinde 'Şunu Hatice'nin arkadaşlarına gönderin' buyurması ve sütannesi Halîme'yi gördüğünde cübbesini yere serip oturtması, vefanın imandan bir parça olduğunu gösterir.",
+    details: "Vefa; sadece kolaylık günlerinde değil, zor zamanlarda ve ayrılıklardan sonra da emeği ve dostluğu unutmamaktır.",
+    source: "Buhârî, Menâkıbü'l-Ensâr, 20 & Hadislerle İslam, Cilt 3"
+  },
+
+  // 2. TİCARET VE İŞ AHLAKI (4 KONU)
+  {
+    id: "ticaret-1",
+    category: "Ticaret ve İş Ahlakı",
+    icon: Award,
+    title: "Dürüst Tacir, Ölçüde Adalet ve Kusuru Gizlememek",
+    arabic: "مَنْ غَشَّنَا فَلَيْسَ مِنَّا",
+    text: "Hz. Muhammed (s.a.v.) ticaret hayatında dürüstlüğü ve şeffaflığı esas almış, pazarda ıslak buğdayı alta koyan satıcıyı uyararak 'Bizi aldatan bizden değildir' ilkesini yerleştirmiştir.",
+    details: "Ticarette kusurlu malı açıkça belirtmek, ölçüde ve tartıda adil olmak bereketin ve toplumsal güvenin anahtarıdır.",
+    source: "Müslim, Îmân, 164 & Hadislerle İslam, Cilt 6, s. 88"
+  },
+  {
+    id: "ticaret-2",
+    category: "Ticaret ve İş Ahlakı",
     icon: ShieldCheck,
-    title: "Herkes İçin Eşit Adalet",
-    arabic: "إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ",
-    text: "Gençliğinde Hilfü'l-Fudûl cemiyetine katılan Hz. Peygamber, toplumsal hayatta adaletten asla taviz vermez, Hz. Ömer ve Hz. Ali gibi sahabelere de hakkı üstün tutmayı öğütlerdi.",
-    details: "Merhamet ile adalet dengesi, erdemli bir toplumun inşasında hayati rol oynar.",
-    source: "TDV İslâm Ansiklopedisi, 'Adalet' Maddesi"
+    title: "İşçinin Hakkını Alın Teri Kurumadan Vermek",
+    arabic: "أَعْطُوا الْأَجِيرَ أَجْرَهُ قَبْلَ أَنْ يَجِفَّ عَرَقُهُ",
+    text: "Peygamber Efendimiz (s.a.v.) çalışanların ücretinin geciktirilmeden ve eksiksiz ödenmesini emretmiş; işçiye taşıyamayacağı yükün yüklenmemesini, yüklenirse kendisine yardım edilmesini öğütlemiştir.",
+    details: "Emeğe saygı, adil ücret ve çalışma şartlarında insani özen göstermek İslam iş hukukunun temelidir.",
+    source: "İbn Mâce, Ruhûn, 4; Buhârî, Îmân, 22"
   },
   {
-    id: "cevre",
-    category: "Çevre Bilinci",
-    icon: Leaf,
-    title: "Doğaya ve Canlılara Şefkat",
-    arabic: "إِنْ قَامَتِ السَّاعَةُ وَبِيَدِ أَحَدِكُمْ فَسِيلَةٌ فَلْيَغْرِسْهَا",
-    text: "'Kıyamet kopuyor olsa bile elinizdeki fidanı dikin' buyuran Hz. Muhammed, yeşilliğin korunmasına, suyun israf edilmemesine ve hayvanlara merhamet edilmesine büyük önem vermiştir.",
-    details: "Çevreyi korumak ve doğal kaynakları idareli kullanmak dini ve ahlaki bir sorumluluktur.",
-    source: "Hadislerle İslam, Cilt 7, s. 215"
+    id: "ticaret-3",
+    category: "Ticaret ve İş Ahlakı",
+    icon: Heart,
+    title: "Alışverişte Kolaylık, Hoşgörü ve Borçluya Mühlet",
+    arabic: "رَحِمَ اللَّهُ رَجُلًا سَمْحًا إِذَا بَاعَ وَإِذَا اشْتَرَى",
+    text: "'Satarken, alırken ve alacağını isterken kolaylık ve hoşgörü gösteren kimseye Allah rahmet etsin' buyuran Hz. Peygamber, darda kalan borçluya mühlet vermeyi büyük bir sadaka saymıştır.",
+    details: "Ticaret yalnızca kâr yarışı değil; karşılıklı rıza, nezaket ve darda olana anlayış gösterme alanıdır.",
+    source: "Buhârî, Büyû', 16 & Hadislerle İslam, Cilt 6"
   },
   {
-    id: "ilim",
-    category: "İlim ve Hikmet",
-    icon: BookOpen,
-    title: "Suffe Mektebi ve İlim Sevdası",
-    arabic: "طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ",
-    text: "Medine'ye hicret edildiğinde ilk iş olarak Mescid-i Nebevî'nin yanına Suffe mektebini kuran Hz. Peygamber, ilim öğrenmeyi ibadet saymış ve Mus'ab b. Umeyr'i Medine'ye ilk muallim olarak göndermiştir.",
-    details: "Faydalı bilgi üretmek, okumak ve öğrendiğini toplumun hayrına sunmak nebevî mirasın özüdür.",
-    source: "TDV İslâm Ansiklopedisi, 'Suffe' Maddesi, Cilt 37"
+    id: "ticaret-4",
+    category: "Ticaret ve İş Ahlakı",
+    icon: Award,
+    title: "Mesleki Özen (İtkan) ve Emanete Riayet",
+    arabic: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ",
+    text: "Resûlullah (s.a.v.) 'Allah, birinizin yaptığı işi sağlam, özenli ve güzel yapmasından hoşnut olur' buyurarak her meslekte kalite, liyakat ve sorumluluk bilincini ibadet derecesine yükseltmiştir.",
+    details: "Kimse denetlemese bile verilen işi eksiksiz ve zamanında teslim etmek mümince iş ahlakının göstergesidir.",
+    source: "Taberânî, el-Mu'cemü'l-Evsat, I, 275 & Hadislerle İslam, Cilt 6"
   },
+
+  // 3. KİŞİSEL ERDEMLER (4 KONU)
   {
-    id: "hilm",
-    category: "Hilm ve Nezaket",
+    id: "erdem-1",
+    category: "Kişisel Erdemler",
     icon: ShieldCheck,
     title: "Öfke Anında Sükûnet ve Yumuşak Huyluluk (Hilm)",
     arabic: "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ",
@@ -241,8 +266,8 @@ export const thematicData = [
     source: "Buhârî, Edeb, 76 & Hadislerle İslam, Cilt 3, s. 245"
   },
   {
-    id: "tevazu",
-    category: "Tevazu ve Kanaat",
+    id: "erdem-2",
+    category: "Kişisel Erdemler",
     icon: Heart,
     title: "Kibirden Uzak Tevazu ve Sade Yaşayış",
     arabic: "مَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلَّا رَفَعَهُ اللَّهُ",
@@ -251,28 +276,8 @@ export const thematicData = [
     source: "Müslim, Birr, 69; İbn Mâce, Et'ime, 30"
   },
   {
-    id: "af",
-    category: "Affedicilik ve Hoşgörü",
-    icon: Sparkles,
-    title: "Güçlüyken Affetmek ve Gönül Genişliği",
-    arabic: "لَا تَثْرِيبَ عَلَيْكُمُ الْيَوْمَ اذْهَبُوا فَأَنْتُمُ الطُّلَقَاءُ",
-    text: "Yıllarca kendisine ve ashabına eziyet eden Mekkeliler karşısında fethin zafer gününde 'Bugün size hiçbir kınama yoktur; gidiniz, hepiniz serbestsiniz' buyurarak insanlık tarihinin en büyük merhamet ve genel af örneğini sergilemiştir.",
-    details: "İntikam anlık bir rahatlama, affetmek ise kalbi hafifleten ve düşmanlıkları dostluğa çeviren kalıcı bir erdemdir.",
-    source: "İbn Hişâm, es-Sîre & TDV İslâm Ansiklopedisi, 'Fetih' Maddesi"
-  },
-  {
-    id: "vefa",
-    category: "Vefa ve Dostluk",
-    icon: Users,
-    title: "Ahde Vefa ve Kadim Dostlukları Unutmamak",
-    arabic: "حُسْنُ الْعَهْدِ مِنَ الْإِيمَانِ",
-    text: "Hz. Hatice'nin vefatından yıllar sonra bile evinde bir koyun kesildiğinde 'Şunu Hatice'nin arkadaşlarına gönderin' buyurması ve sütannesi Halîme'yi gördüğünde cübbesini yere serip oturtması, vefanın imandan bir parça olduğunu gösterir.",
-    details: "Vefa; sadece varlık ve kolaylık zamanlarında değil, zor günlerde ve ayrılıklardan sonra da emeği ve dostluğu unutmamaktır.",
-    source: "Buhârî, Menâkıbü'l-Ensâr, 20 & Hadislerle İslam, Cilt 3"
-  },
-  {
-    id: "haya",
-    category: "Hayâ ve İncelik",
+    id: "erdem-3",
+    category: "Kişisel Erdemler",
     icon: Award,
     title: "Edep, Hayâ ve Kimseyi Yüzüne Karşı Utandırmamak",
     arabic: "الْحَيَاءُ شُعْبَةٌ مِنَ الْإِيمَانِ",
@@ -281,14 +286,98 @@ export const thematicData = [
     source: "Buhârî, Îmân, 3; Ebû Dâvûd, Edeb, 5"
   },
   {
-    id: "comertlik",
-    category: "Cömertlik ve Paylaşma",
+    id: "erdem-4",
+    category: "Kişisel Erdemler",
+    icon: ShieldCheck,
+    title: "Sözünde Durmak, Doğruluk (Sıdk) ve Güvenilirlik",
+    arabic: "عَلَيْكُمْ بِالصِّدْقِ فَإِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ",
+    text: "Peygamberliğinden önce bile Mekke toplumunda 'Muhammedü'l-Emîn' diye anılan Efendimiz, şaka yaparken dahi asla yalan söylememiş ve doğruluğun insanı iyiliğe, iyiliğin de huzura ulaştırdığını bildirmiştir.",
+    details: "Söz ile davranışın tutarlı olması ve güven veren bir şahsiyet inşa etmek müminin en belirgin vasfıdır.",
+    source: "Müslim, Birr, 105 & TDV İslâm Ansiklopedisi, 'Sıdk'"
+  },
+
+  // 4. TOPLUMSAL ADALET VE MERHAMET (4 KONU)
+  {
+    id: "toplum-1",
+    category: "Toplumsal Adalet & Merhamet",
+    icon: ShieldCheck,
+    title: "Herkes İçin Eşit Adalet ve Mazlumun Yanında Durmak",
+    arabic: "إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ وَالْإِحْسَانِ",
+    text: "Gençliğinde Hilfü'l-Fudûl cemiyetine katılan Hz. Peygamber, toplumsal hayatta adaletten asla taviz vermez, akrabalık veya makam gözetmeksizin herkes için eşit hukuku savunurdu.",
+    details: "Merhamet ile adalet dengesi, kimsenin ezilmediği erdemli bir toplumun inşasında hayati rol oynar.",
+    source: "Buhârî, Enbiyâ, 54 & TDV İslâm Ansiklopedisi, 'Adalet'"
+  },
+  {
+    id: "toplum-2",
+    category: "Toplumsal Adalet & Merhamet",
+    icon: Sparkles,
+    title: "Güçlüyken Affetmek ve Gönül Genişliği",
+    arabic: "لَا تَثْرِيبَ عَلَيْكُمُ الْيَوْمَ اذْهَبُوا فَأَنْتُمُ الطُّلَقَاءُ",
+    text: "Yıllarca kendisine ve ashabına eziyet eden Mekkeliler karşısında fethin zafer gününde 'Bugün size hiçbir kınama yoktur; gidiniz, hepiniz serbestsiniz' buyurarak insanlık tarihinin en büyük merhamet ve genel af örneğini sergilemiştir.",
+    details: "İntikam anlık bir rahatlama, affetmek ise kalbi hafifleten ve düşmanlıkları dostluğa çeviren kalıcı bir erdemdir.",
+    source: "İbn Hişâm, es-Sîre & TDV İslâm Ansiklopedisi, 'Fetih'"
+  },
+  {
+    id: "toplum-3",
+    category: "Toplumsal Adalet & Merhamet",
     icon: Leaf,
     title: "İsar, Cömertlik ve Veren El Olmak",
     arabic: "الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى",
-    text: "Hz. Peygamber (s.a.v.) kendisinden bir şey istendiğinde asla 'hayır' demez, elinde olanı paylaşır, yoksa borç alarak ya da yönlendirerek ihtiyaç sahibinin gönlünü alırdı. 'Veren el alan elden üstündür' buyurarak paylaşma kültürünü yerleştirmiştir.",
+    text: "Hz. Peygamber (s.a.v.) kendisinden bir şey istendiğinde asla 'hayır' demez, elinde olanı paylaşır, yoksa yönlendirerek ihtiyaç sahibinin gönlünü alırdı. 'Veren el alan elden üstündür' buyurarak paylaşma kültürünü yerleştirmiştir.",
     details: "Cömertlik yalnız parayla değil; bilgiyi, zamanı, güleryüzü ve imkânları gönülden paylaşmakla yaşanır.",
     source: "Buhârî, Zekât, 18; Müslim, Fedâil, 56"
+  },
+  {
+    id: "toplum-4",
+    category: "Toplumsal Adalet & Merhamet",
+    icon: Users,
+    title: "Komşuluk Hukuku, Misafirperverlik ve Dayanışma",
+    arabic: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيُكْرِمْ جَارَهُ",
+    text: "'Komşusu açken tok yatan bizden değildir' ve 'Allah'a ve ahiret gününe iman eden komşusuna ikram etsin' buyuran Hz. Peygamber, farklı inançtan olan komşuların dahi hasta ziyaretine gider ve ikramda bulunurdu.",
+    details: "Komşuya güler yüz göstermek, sıkıntısında yanında olmak ve eziyet vermemek toplumsal barışın temelidir.",
+    source: "Buhârî, Edeb, 31 & Hadislerle İslam, Cilt 4, s. 198"
+  },
+
+  // 5. İLİM VE ÇEVRE BİLİNCİ (4 KONU)
+  {
+    id: "ilim-1",
+    category: "İlim ve Çevre Bilinci",
+    icon: BookOpen,
+    title: "Suffe Mektebi ve Ömür Boyu İlim Sevdası",
+    arabic: "طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ",
+    text: "Medine'ye hicret edildiğinde ilk iş olarak Mescid-i Nebevî'nin yanına Suffe mektebini kuran Hz. Peygamber, ilim öğrenmeyi ibadet saymış ve Bedir esirlerinin dahi okuma-yazma öğretme karşılığında serbest kalmasını sağlamıştır.",
+    details: "Faydalı bilgi üretmek, okumak ve öğrendiğini insanlığın hayrına sunmak nebevî mirasın özüdür.",
+    source: "İbn Mâce, Mukaddime, 17 & TDV İslâm Ansiklopedisi, 'Suffe'"
+  },
+  {
+    id: "ilim-2",
+    category: "İlim ve Çevre Bilinci",
+    icon: Users,
+    title: "İstişare Kültürü ve Ortak Akla Değer Vermek",
+    arabic: "وَشَاوِرْهُمْ فِي الْأَمْرِ",
+    text: "Vahiy aldığı halde toplumsal işlerde sahabeleriyle sürekli istişare eden Hz. Peygamber, Hendek'te Selmân-ı Fârisî'nin, Bedir'de Hubâb b. Münzir'in ve Hudeybiye'de Hz. Ümmü Seleme'nin görüşünü uygulamıştır.",
+    details: "Danışmak eksiklik değil, ortak aklı harekete geçiren ve hataları azaltan bir hikmet ve tevazu işaretidir.",
+    source: "Kur'an Yolu Tefsiri, Âl-i İmrân 159"
+  },
+  {
+    id: "ilim-3",
+    category: "İlim ve Çevre Bilinci",
+    icon: Leaf,
+    title: "Doğaya, Ağaca ve Canlılara Şefkat",
+    arabic: "إِنْ قَامَتِ السَّاعَةُ وَبِيَدِ أَحَدِكُمْ فَسِيلَةٌ فَلْيَغْرِسْهَا",
+    text: "'Kıyamet kopuyor olsa bile elinizdeki fidanı dikin' buyuran Hz. Muhammed (s.a.v.), ağaç dikmeyi sadaka-i câriye saymış; susuz bir köpeğe su veren kişinin bağışlandığını müjdelemiştir.",
+    details: "Her canlıyı Allah'ın emaneti görmek, doğayı korumak ve merhameti bütün mahlûkata yaymak dinî bir sorumluluktur.",
+    source: "Buhârî, Hars, 1; Hadislerle İslam, Cilt 7, s. 215"
+  },
+  {
+    id: "ilim-4",
+    category: "İlim ve Çevre Bilinci",
+    icon: Leaf,
+    title: "Suyu ve Nimetleri Korumak, İsraftan Kaçınmak",
+    arabic: "لَا تُسْرِفْ وَلَوْ كُنْتَ عَلَى نَهْرٍ جَارٍ",
+    text: "Akan bir nehrin kenarında abdest alırken dahi suyu ölçülü kullanmayı öğütleyen Peygamber Efendimiz, sofrada tek bir lokmanın bile ziyan edilmemesini ve kaynakların idareli kullanılmasını emretmiştir.",
+    details: "Su, gıda ve enerji israfından kaçınmak gelecek nesillerin hakkını ve yeryüzünün dengesini korumaktır.",
+    source: "İbn Mâce, Tahâret, 48 & TDV İslâm Ansiklopedisi, 'İsraf'"
   }
 ];
 

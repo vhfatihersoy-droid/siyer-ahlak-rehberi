@@ -1301,19 +1301,25 @@ function MainApp() {
                 {ahlakSubView === "tematik" && (
                   <div className="space-y-4">
                     <div className="flex flex-wrap gap-1.5">
-                      {["Tümü", ...Array.from(new Set(thematicData.map((t) => t.category)))].map((cat) => (
-                        <button
-                          key={cat}
-                          onClick={() => setThematicCategory(cat)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
-                            thematicCategory === cat
-                              ? "bg-[#0B4F3F] text-white border-[#0B4F3F]"
-                              : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-50"
-                          }`}
-                        >
-                          {cat}
-                        </button>
-                      ))}
+                      {["Tümü", ...Array.from(new Set(thematicData.map((t) => t.category)))].map((cat) => {
+                        const count =
+                          cat === "Tümü"
+                            ? thematicData.length
+                            : thematicData.filter((t) => t.category === cat).length;
+                        return (
+                          <button
+                            key={cat}
+                            onClick={() => setThematicCategory(cat)}
+                            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                              thematicCategory === cat
+                                ? "bg-[#0B4F3F] text-white border-[#0B4F3F]"
+                                : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-50"
+                            }`}
+                          >
+                            {cat} ({count})
+                          </button>
+                        );
+                      })}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
