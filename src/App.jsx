@@ -3,7 +3,7 @@ import {
   BookOpen, Heart, Compass, Clock, Calendar, CheckCircle2, Search,
   Sparkles, ShieldCheck, Users, Award, Moon, Sun, Download,
   Image, Volume2, VolumeX, Check, Trash2, ChevronRight, ChevronLeft,
-  AlertCircle, Upload, Printer, Bookmark, MapPin
+  AlertCircle, Upload, Printer, Bookmark, MapPin, Globe
 } from 'lucide-react';
 
 import {
@@ -35,6 +35,7 @@ import {
 import { GlossaryText, CitationFooter, PersonalReflectionNote } from './components/SharedUI';
 import { QuoteCardModal } from './components/QuoteCardModal';
 import { KidsModeView } from './components/KidsModeView';
+import { DiscoverIslamView } from './components/DiscoverIslamView';
 import { PortalLogo } from './components/PortalLogo';
 import { PrayerTimesDashboard } from './components/PrayerTimesSection';
 import { CITIES_LIST, getNextPrayerStatus } from './services/prayerTimesService';
@@ -84,6 +85,7 @@ class ErrorBoundary extends React.Component {
 
 function MainApp() {
   const [isKidsMode, setIsKidsMode] = useState(false);
+  const [isDiscoverMode, setIsDiscoverMode] = useState(false);
   const [readingTheme, setReadingTheme] = useState(() => safeStorage.get("siyer_reading_theme", "light"));
   const isDarkMode = readingTheme === "dark";
   const isSepiaMode = readingTheme === "sepia";
@@ -126,6 +128,7 @@ function MainApp() {
 
   const openPrayerTimesView = () => {
     setIsKidsMode(false);
+    setIsDiscoverMode(false);
     setCurrentTab("gunun-sunneti");
     setSunnetSubView("vakitler");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -479,6 +482,16 @@ function MainApp() {
     const q = cmdKQuery.trim().toLowerCase();
     const list = [
       {
+        id: "cmd-discover",
+        group: "International / Uluslararası",
+        title: "Discover Islam & Prophet Muhammad ﷺ (English / Türkçe)",
+        sub: "Meet the Prophet in 5 min, Heart Stories, Honest Q&A, Global Thinkers & First Steps",
+        run: () => {
+          setIsKidsMode(false);
+          setIsDiscoverMode(true);
+        }
+      },
+      {
         id: "cmd-namaz-vakitleri",
         group: "Hızlı Bölüm Geçişi",
         title: `Namaz Vakitleri, Canlı Geri Sayım & 7 Günlük İmsakiye (${selectedCity.name})`,
@@ -714,6 +727,7 @@ function MainApp() {
             <button
               onClick={() => {
                 setIsKidsMode(false);
+                setIsDiscoverMode(false);
                 setCurrentTab("gunun-sunneti");
                 setSunnetSubView("sunnet");
               }}
@@ -731,7 +745,7 @@ function MainApp() {
             </button>
 
             {/* Orta: Tek Sade Arama & Fihrist Butonu (⌘K) */}
-            {!isKidsMode && (
+            {!isKidsMode && !isDiscoverMode && (
               <button
                 onClick={() => setIsCmdKOpen(true)}
                 className="hidden md:flex items-center justify-between gap-3 bg-white/10 hover:bg-white/15 px-3.5 py-2 rounded-lg border border-white/15 w-72 lg:w-80 text-xs text-emerald-100/85 transition-all"
@@ -873,7 +887,26 @@ function MainApp() {
               </div>
 
               <button
-                onClick={() => setIsKidsMode(!isKidsMode)}
+                onClick={() => {
+                  setIsKidsMode(false);
+                  setIsDiscoverMode(!isDiscoverMode);
+                }}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all shrink-0 ${
+                  isDiscoverMode
+                    ? "bg-white text-[#0B4F3F] border-white font-bold"
+                    : "bg-white/10 hover:bg-white/20 text-white border-white/20"
+                }`}
+                title="Discover Islam & Prophet Muhammad ﷺ (EN / TR)"
+              >
+                <Globe className="w-3.5 h-3.5 text-amber-300" />
+                <span>{isDiscoverMode ? "Ana Portal" : "EN / Discover"}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsDiscoverMode(false);
+                  setIsKidsMode(!isKidsMode);
+                }}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${
                   isKidsMode
                     ? "bg-white text-[#0B4F3F]"
@@ -887,7 +920,7 @@ function MainApp() {
           </div>
 
           {/* 5 Ana Sekme Çubuğu — Sade Alt Çizgili Tasarım */}
-          {!isKidsMode && (
+          {!isKidsMode && !isDiscoverMode && (
             <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto no-scrollbar flex items-center justify-between gap-4">
                 <div className="flex items-center gap-1">
@@ -933,7 +966,9 @@ function MainApp() {
           )}
         </header>
 
-        {isKidsMode ? (
+        {isDiscoverMode ? (
+          <DiscoverIslamView onOpenCard={(card) => setCardModalData(card)} />
+        ) : isKidsMode ? (
           <KidsModeView />
         ) : (
           <main
