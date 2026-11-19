@@ -16,6 +16,7 @@ import {
 } from '../data/siyerData';
 import { safeStorage, speakTurkish, stopSpeaking } from '../services/storageService';
 import { PortalLogo } from './PortalLogo';
+import { KidsThirtyTwoFards } from './KidsThirtyTwoFards';
 
 export function KidsModeView() {
   const [activeKidsTab, setActiveKidsTab] = useState("kissalar");
@@ -290,6 +291,7 @@ export function KidsModeView() {
 
   const kidsTabs = [
     { id: "kissalar", label: `Siyer Kıssaları & Radyo (${kidsStoriesData.length})`, icon: BookOpen },
+    { id: "32farz", label: "32 Farz Atölyesi & Testi", icon: Sparkles },
     { id: "gorevler", label: `İyilik Görevlerim (${completedTasks.length}/${kidsDailyTasks.length})`, icon: CheckCircle2 },
     { id: "kahramanlar", label: "Genç Sahabeler & Kavramlar", icon: Users },
     { id: "senaryolar", label: "Ahlak & Eşleştirme Oyunu", icon: HelpCircle },
@@ -1303,6 +1305,15 @@ export function KidsModeView() {
           </div>
           </div>
         </div>
+      )}
+
+      {/* =================================================================
+          SEKME 6: ÇOCUKLAR İÇİN 32 FARZ ÖĞRENME & SORU-CEVAP ATÖLYESİ
+         ================================================================= */}
+      {activeKidsTab === "32farz" && (
+        <KidsThirtyTwoFards
+          onAwardStars={(delta) => setStars((s) => Math.max(0, s + delta))}
+        />
       )}
     </div>
   );

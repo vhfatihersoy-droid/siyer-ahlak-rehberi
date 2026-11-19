@@ -563,8 +563,8 @@ function MainApp() {
       {
         id: "cmd-cocuk",
         group: "Hızlı Bölüm Geçişi",
-        title: "Çocuk Portalı • 30 Günlük Sünnet Takvimi & Siyer Bilmeceleri",
-        sub: "12 Sesli Kıssa, Siyer Radyosu, 30 Günlük Takvim, Ben Kimim Bilmeceleri, Berat",
+        title: "Çocuk Portalı • 32 Farz Atölyesi, 30 Günlük Takvim & Siyer Bilmeceleri",
+        sub: "32 Farz Öğrenme ve Soru-Cevap Testi, 12 Sesli Kıssa, Siyer Radyosu, 30 Günlük Takvim, Berat",
         run: () => {
           setIsKidsMode(true);
         }
