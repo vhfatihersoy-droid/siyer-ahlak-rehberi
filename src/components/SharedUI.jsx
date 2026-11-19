@@ -105,15 +105,15 @@ export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
         <BookMarked className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400 shrink-0" />
         <span>{source}</span>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         {rightAction}
         {speakText && (
           <button
             onClick={handleToggleSpeak}
-            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md font-medium border transition-colors ${
+            className={`inline-flex items-center gap-1 px-2 py-1 rounded-md font-medium transition-colors ${
               speaking
-                ? "bg-rose-600 text-white border-rose-600"
-                : "bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+                ? "bg-rose-600 text-white"
+                : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
             {speaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
@@ -123,11 +123,11 @@ export function CitationFooter({ source, onOpenCard, speakText, rightAction }) {
         {onOpenCard && (
           <button
             onClick={onOpenCard}
-            className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
+            className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-2 py-1 rounded-md font-medium transition-colors"
             title="Alıntı Kartı İndir"
           >
             <Image className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
-            <span>Kart İndir</span>
+            <span>Kart</span>
           </button>
         )}
       </div>
