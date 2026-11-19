@@ -1,4 +1,4 @@
-const CACHE_NAME = 'siyer-rehberi-v3';
+const CACHE_NAME = 'siyer-rehberi-v4';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
