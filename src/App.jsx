@@ -271,14 +271,28 @@ function MainApp() {
     return map;
   }, []);
 
-  const sahabeGroups = [
-    { key: "Tümü", label: "Tüm Sahabeler", count: 31 },
-    { key: "Hulefâ-yi Râşidîn", label: "Hulefâ-yi Râşidîn", count: 4 },
-    { key: "Ehl-i Beyt & Annelerimiz", label: "Ehl-i Beyt & Annelerimiz", count: 7 },
-    { key: "Aşere-i Mübeşşere", label: "Aşere-i Mübeşşere", count: 6 },
-    { key: "İlim & Suffe Ashâbı", label: "İlim & Suffe Ashâbı", count: 9 },
-    { key: "Ensar & Fedakârlık Öncüleri", label: "Ensar & Fedakârlık Öncüleri", count: 5 }
-  ];
+  const allSahabesList = useMemo(
+    () => Object.entries(glossaryAndSahabeData).filter(([, item]) => item.type === "Sahabe Profili"),
+    []
+  );
+
+  const sahabeGroups = useMemo(() => {
+    const groupKeys = [
+      "Hulefâ-yi Râşidîn",
+      "Ehl-i Beyt & Annelerimiz",
+      "Aşere-i Mübeşşere",
+      "İlim & Suffe Ashâbı",
+      "Ensar & Fedakârlık Öncüleri"
+    ];
+    return [
+      { key: "Tümü", label: "Tüm Sahabeler", count: allSahabesList.length },
+      ...groupKeys.map((g) => ({
+        key: g,
+        label: g,
+        count: allSahabesList.filter(([, item]) => item.group === g).length
+      }))
+    ];
+  }, [allSahabesList]);
 
   const globalSearchResults = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -533,7 +547,7 @@ function MainApp() {
       {
         id: "cmd-sahabe",
         group: "Hızlı Bölüm Geçişi",
-        title: "Ashâb-ı Kirâm Ansiklopedik Fihristi (31 Sahabe)",
+        title: `Ashâb-ı Kirâm Ansiklopedik Fihristi (${allSahabesList.length} Sahabe)`,
         sub: "Hulefâ-yi Râşidîn, Ehl-i Beyt, Aşere-i Mübeşşere, Suffe Ashâbı, Ensar",
         run: () => {
           setIsKidsMode(false);
@@ -677,7 +691,7 @@ function MainApp() {
   const tabs = [
     { id: "gunun-sunneti", label: "Sünnet & Rehberlik", icon: Sparkles },
     { id: "ahlak-meseleler", label: "Ahlak & Çağdaş Meseleler", icon: BookOpen },
-    { id: "sahabeler", label: "Ashâb-ı Kirâm (31)", icon: Users },
+    { id: "sahabeler", label: `Ashâb-ı Kirâm (${allSahabesList.length})`, icon: Users },
     { id: "semail-siyer", label: "Şemâil-i Şerîf & Siyer", icon: Award },
     { id: "muhasebe", label: "Çalışma & Muhasebe", icon: CheckCircle2 }
   ];

@@ -1058,6 +1058,169 @@ export const glossaryAndSahabeData = {
     desc: "Hz. Ebû Bekir'in kızı ve Hz. Âişe'nin ablası. Cömertliği, metaneti ve Hicret yolculuğuna yaptığı hizmetle tanınmıştır.",
     story: "Sevr Mağarası'na gizlice azık taşırken belindeki kuşağı (nitâk) ikiye bölerek birini yemek çıkınına, diğerini su tulumuna bağladığı için Peygamberimiz tarafından 'Zâtü'n-Nitâkayn' (İki Kuşaklı) lakabıyla müjdelenmiştir.",
     source: "TDV İslâm Ansiklopedisi, 'Esmâ bint Ebû Bekir' Maddesi, Cilt 11"
+  },
+  // --- YENİ EKLENEN 18 ASHÂB-I KİRÂM (TOPLAM 50 SAHABE) ---
+  "Hz. Zeyneb bint Huzeyme": {
+    type: "Sahabe Profili",
+    group: "Ehl-i Beyt & Annelerimiz",
+    title: "Hz. Zeyneb bint Huzeyme (r.anhâ)",
+    badge: "Ümmü'l-Mesâkîn (Yoksulların Annesi)",
+    desc: "Müminlerin annelerinden olup henüz İslam'dan önce dahi yoksullara ve yetimlere kol kanat germesiyle tanınan merhamet timsali hanım sahabe.",
+    story: "Elinde ne varsa ihtiyaç sahipleriyle paylaştığı için toplum içinde 'Ümmü'l-Mesâkîn' (Yoksulların Annesi) unvanıyla anılmış; vefatında cenaze namazını bizzat Hz. Peygamber kıldırmıştır.",
+    source: "TDV İslâm Ansiklopedisi, 'Zeyneb bint Huzeyme' Maddesi, Cilt 44"
+  },
+  "Hz. Sevde bint Zem'a": {
+    type: "Sahabe Profili",
+    group: "Ehl-i Beyt & Annelerimiz",
+    title: "Hz. Sevde bint Zem'a (r.anhâ)",
+    badge: "Müminlerin Annesi • İsar ve Cömertlik Örneği",
+    desc: "Hz. Hatice'nin vefatının ardından Hz. Peygamber'in evliliğini yaptığı, Habeşistan hicretine katılan fedakâr ve güler yüzlü annemiz.",
+    story: "Hz. Ömer'in halifeliğinde kendisine gönderilen bir kese dirhemi 'Bu da hurma gibi kese içinde mi gelmiş?' diyerek aynı gün kuruşuna kadar yoksullara dağıtmıştır.",
+    source: "TDV İslâm Ansiklopedisi, 'Sevde bint Zem'a' Maddesi, Cilt 37"
+  },
+  "Hz. Abbas b. Abdülmuttalib": {
+    type: "Sahabe Profili",
+    group: "Ehl-i Beyt & Annelerimiz",
+    title: "Hz. Abbas b. Abdülmuttalib (r.a.)",
+    badge: "Peygamberimizin Amcası • Kâbe Sikâye Hizmetkârı",
+    desc: "Hz. Peygamber'in amcası; İkinci Akabe Biatı'nda yeğeninin güvenliği için Medinelilerle ilk sözü kesen, cömertliği ve dirayetiyle tanınan büyük sahabe.",
+    story: "Huneyn gününde saflar dağılınca gür sesiyle 'Ey semüre ağacı altında biat edenler!' diye seslenerek sahabelerin yeniden Resûlullah'ın etrafında toplanmasına vesile olmuştur.",
+    source: "TDV İslâm Ansiklopedisi, 'Abbas b. Abdülmuttalib' Maddesi, Cilt 1"
+  },
+  "Hz. Safiyye bint Abdülmuttalib": {
+    type: "Sahabe Profili",
+    group: "Ehl-i Beyt & Annelerimiz",
+    title: "Hz. Safiyye bint Abdülmuttalib (r.anhâ)",
+    badge: "Peygamberimizin Halası • Metanet ve Cesaret Örneği",
+    desc: "Hz. Hamza'nın öz kardeşi, Zübeyr b. Avvâm'ın annesi ve Hz. Peygamber'in ilk iman eden halası.",
+    story: "Hendek kuşatması sırasında kadınların ve çocukların bulunduğu kaleye sızmaya çalışan düşmanı soğukkanlılığı ve cesaretiyle etkisiz hale getirerek kaleyi korumuştur.",
+    source: "TDV İslâm Ansiklopedisi, 'Safiyye bint Abdülmuttalib' Maddesi, Cilt 35"
+  },
+  "Abdullah b. Abbas": {
+    type: "Sahabe Profili",
+    group: "İlim & Suffe Ashâbı",
+    title: "Abdullah b. Abbas (r.a.)",
+    badge: "Tercümânü'l-Kur'ân • İlim Okyanusu (Bahr)",
+    desc: "Hz. Peygamber'in amcasının oğlu; genç yaşına rağmen Kur'an tefsiri, fıkıh ve hadis ilminde zirveye ulaşan en büyük sahabe âlimlerinden.",
+    story: "Peygamber Efendimiz onu bağrına basıp 'Allah'ım! Ona kitabı (Kur'an'ı) ve hikmeti öğret, dinde derin anlayış ver' diye dua etmiş; Hz. Ömer önemli meselelerde onun görüşüne başvurmuştur.",
+    source: "TDV İslâm Ansiklopedisi, 'Abdullah b. Abbas' Maddesi, Cilt 1"
+  },
+  "Abdullah b. Ömer": {
+    type: "Sahabe Profili",
+    group: "İlim & Suffe Ashâbı",
+    title: "Abdullah b. Ömer (r.a.)",
+    badge: "Sünnete Bağlılık, Takva ve Hadis Hafızı",
+    desc: "Hz. Ömer'in oğlu olup en çok hadis rivayet eden (Müksirûn) yedi sahabeden biri; Hz. Peygamber'in her adımını titizlikle takip etmesiyle tanınır.",
+    story: "Hac veya yolculuk sırasında Resûlullah'ın (s.a.v.) bir ağacın altında dinlendiğini hatırlasa, sünnete muhabbetinden dolayı aynı yerde durup namaz kılar ve o ağacı sulardı.",
+    source: "TDV İslâm Ansiklopedisi, 'Abdullah b. Ömer' Maddesi, Cilt 1"
+  },
+  "Übey b. Kâ'b": {
+    type: "Sahabe Profili",
+    group: "İlim & Suffe Ashâbı",
+    title: "Übey b. Kâ'b (r.a.)",
+    badge: "Seyyidü'l-Kurrâ • Kur'an Kıraatinin Üstadı",
+    desc: "Vahiy kâtiplerinden olup Kur'an-ı Kerim'i en güzel okuyan ve öğreten Medineli (Ensar) sahabe âlimi.",
+    story: "Hz. Peygamber ona 'Allah bana Beyyine suresini sana okumamı emretti' buyurunca, Übey b. Kâ'b (r.a.) 'Allah benim adımı mı andı yâ Resûlallah?' diyerek sevinçten gözyaşlarına boğulmuştur.",
+    source: "TDV İslâm Ansiklopedisi, 'Übey b. Kâ'b' Maddesi, Cilt 42"
+  },
+  "Huzeyfe b. Yemân": {
+    type: "Sahabe Profili",
+    group: "İlim & Suffe Ashâbı",
+    title: "Huzeyfe b. Yemân (r.a.)",
+    badge: "Sâhibü's-Sır (Resûlullah'ın Sırdaşı)",
+    desc: "Derin feraseti, fitnelerden korunma bilinci ve sır saklama konusundaki güvenilirliğiyle tanınan büyük sahabe.",
+    story: "'İnsanlar Resûlullah'a hep hayrı sorardı, ben ise bana bulaşmasın diye şerri sorardım' diyerek tedbir ve basiret ilminin öncülerinden olmuş; Medâin valiliğinde sade bir hayat yaşamıştır.",
+    source: "TDV İslâm Ansiklopedisi, 'Huzeyfe b. Yemân' Maddesi, Cilt 18"
+  },
+  "Ebü'd-Derdâ": {
+    type: "Sahabe Profili",
+    group: "İlim & Suffe Ashâbı",
+    title: "Ebü'd-Derdâ (r.a.)",
+    badge: "Hakîmü'l-Ümme (Ümmetin Hikmetli Âlimi)",
+    desc: "Ticaretten ilme ve hikmete yönelen, Şam'da kurduğu Kur'an ve hadis halkalarında binlerce öğrenci yetiştiren Ensar âlimi.",
+    story: "'Ya öğreten ol, ya öğrenen ol, ya dinleyen ol, ya da ilmi seven ol; sakın beşincisi olma!' sözüyle İslam eğitim ahlakının temel ilkesini özetlemiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Ebü'd-Derdâ' Maddesi, Cilt 10"
+  },
+  "Şifâ bint Abdullah": {
+    type: "Sahabe Profili",
+    group: "İlim & Suffe Ashâbı",
+    title: "Şifâ bint Abdullah (r.anhâ)",
+    badge: "İlk Kadın Muallim ve Çarşı Denetçisi",
+    desc: "İslam'ın ilk yıllarında okuma-yazma bilen nadir hanımlardan olup Medine'de kadınlara yazı öğreten ve tıbbi bilgisiyle tanınan öncü sahabe.",
+    story: "Hz. Peygamber'in teşvikiyle Hz. Hafsa'ya yazı ve şifa bilgisi öğretmiş; Hz. Ömer döneminde Medine çarşısının ticari denetim ve ihtisab görevini üstlenmiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Şifâ bint Abdullah' Maddesi, Cilt 39"
+  },
+  "Hâlid b. Velîd": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Hâlid b. Velîd (r.a.)",
+    badge: "Seyfullah (Allah'ın Kılıcı)",
+    desc: "Üstün strateji zekâsı, cesareti ve hiçbir savaşta yenilgi yüzü görmemesiyle tanınan büyük İslam komutanı.",
+    story: "Mûte'de üç komutanın şehit olmasının ardından sancağı devralıp orduyu ustaca kurtarmış; Hz. Peygamber bu başarısından dolayı ona 'Seyfullah' (Allah'ın Kılıcı) unvanını vermiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Hâlid b. Velîd' Maddesi, Cilt 15"
+  },
+  "Zeyd b. Hârise": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Zeyd b. Hârise (r.a.)",
+    badge: "Hibbü Resûlillah • Kur'an'da Adı Geçen Tek Sahabe",
+    desc: "Hz. Hatice'nin hediye etmesi üzerine Hz. Peygamber'in azat edip bağrına bastığı ve Kur'an-ı Kerim'de (Ahzâb, 37) ismi açıkça anılan ilk Müslümanlardan.",
+    story: "Öz babası ve amcası kendisini geri götürmeye geldiğinde 'Ben Muhammed'i (s.a.v.) hiç kimseye değişmem!' diyerek Peygamberimizin şefkat yuvasında kalmayı seçmiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Zeyd b. Hârise' Maddesi, Cilt 44"
+  },
+  "Üsâme b. Zeyd": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Üsâme b. Zeyd (r.a.)",
+    badge: "Genç Yaşta Ordu Komutanı",
+    desc: "Zeyd b. Hârise'nin oğlu olup çocukluğundan itibaren Hz. Peygamber'in hususi sevgisi ve terbiyesiyle yetişen genç sahabe.",
+    story: "Henüz 18-20 yaşlarındayken Hz. Peygamber tarafından aralarında büyük sahabelerin de bulunduğu ordunun komutanlığına tayin edilerek gençlere duyulan güvenin sembolü olmuştur.",
+    source: "TDV İslâm Ansiklopedisi, 'Üsâme b. Zeyd' Maddesi, Cilt 42"
+  },
+  "Ammâr b. Yâsir": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Ammâr b. Yâsir (r.a.)",
+    badge: "Sabır, Samimiyet ve İman Direnişi",
+    desc: "Ailesiyle birlikte Mekke'de en ağır işkencelere direnen, Medine'de Mescid-i Nebevî'nin inşasında ikişer kerpiç taşıyan fedakâr sahabe.",
+    story: "Mekke'de ailesiyle eziyet görürken Hz. Peygamber yanlarına gelip 'Sabredin ey Yâsir ailesi! Sizin buluşma yeriniz cennettir' müjdesini vermiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Ammâr b. Yâsir' Maddesi, Cilt 3"
+  },
+  "Sümeyye Hatun": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Sümeyye bint Hubbât (r.anhâ)",
+    badge: "İslam Tarihinin İlk Şehidi",
+    desc: "Ammâr b. Yâsir'in annesi olup imanından asla taviz vermeyerek canını Hak yolunda feda eden ilk şehit hanım sahabe.",
+    story: "Mekke'nin en ağır baskı günlerinde tüm tehditlere rağmen tevhid inancından dönmeyerek iman sebatının ve kadın cesaretinin ebedî sembolü olmuştur.",
+    source: "TDV İslâm Ansiklopedisi, 'Sümeyye bint Hubbât' Maddesi, Cilt 38"
+  },
+  "Suheyb-i Rûmî": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Suheyb b. Sinân er-Rûmî (r.a.)",
+    badge: "İmanı Uğruna Tüm Servetini Feda Eden Muhacir",
+    desc: "İlk Müslümanlardan olup Medine'ye hicret ederken tüm mal varlığını Mekke'de bırakarak imanını her şeyin üstünde tutan sahabe.",
+    story: "Müşrikler hicretini engellemek isteyince tüm malının yerini gösterip canıyla Medine'ye ulaştığında Hz. Peygamber onu 'Ey Ebû Yahyâ, bu alışveriş çok kârlı oldu!' diyerek müjdelemiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Suheyb b. Sinân' Maddesi, Cilt 37"
+  },
+  "Sa'd b. Ubâde": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Sa'd b. Ubâde (r.a.)",
+    badge: "Hazrec'in Efendisi • Cömertlik ve İkram Simgesi",
+    desc: "Akabe Biatı'nda Medinelilerin temsilcisi seçilen, Suffe talebelerine her akşam sofralar kuran cömert Ensar lideri.",
+    story: "Her akşam Suffe'de kalan sahabelerden onlarcasını evine davet edip ağırlaması ve 'Allah'ım bana iyilik ve ikram imkânı ver' diye dua etmesiyle tanınmıştır.",
+    source: "TDV İslâm Ansiklopedisi, 'Sa'd b. Ubâde' Maddesi, Cilt 35"
+  },
+  "Habbâb b. Eret": {
+    type: "Sahabe Profili",
+    group: "Ensar & Fedakârlık Öncüleri",
+    title: "Habbâb b. Eret (r.a.)",
+    badge: "İlk Müslümanlardan • Sabır ve Kur'an Muallimi",
+    desc: "Mekke'de demircilik yapan, ağır işkencelere sabreden ve gizlice evlerde Kur'an öğreten ilk altı Müslümandan biri.",
+    story: "Hz. Ömer'in kız kardeşi Fâtıma ve eniştesi Saîd b. Zeyd'e Tâhâ suresini okutup öğreterek Hz. Ömer'in İslam'a girmesine vesile olan gizli ilim kahramanıdır.",
+    source: "TDV İslâm Ansiklopedisi, 'Habbâb b. Eret' Maddesi, Cilt 14"
   }
 };
 
