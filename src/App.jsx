@@ -561,7 +561,7 @@ function MainApp() {
       {
         id: "cmd-cocuk",
         group: "Hızlı Bölüm Geçişi",
-        title: "Diyanet Çocuk Portalı • 30 Günlük Sünnet Takvimi & Siyer Bilmeceleri",
+        title: "Çocuk Portalı • 30 Günlük Sünnet Takvimi & Siyer Bilmeceleri",
         sub: "12 Sesli Kıssa, Siyer Radyosu, 30 Günlük Takvim, Ben Kimim Bilmeceleri, Berat",
         run: () => {
           setIsKidsMode(true);
@@ -670,7 +670,7 @@ function MainApp() {
                   Siyer ve Ahlak Portalı
                 </h1>
                 <p className="text-xs text-emerald-100/80 hidden sm:block">
-                  Diyanet İşleri Başkanlığı & Türkiye Diyanet Vakfı Kaynaklı Rehber
+                  Sahih Kaynaklı Dijital Siyer ve Ahlak Rehberi
                 </p>
               </div>
             </div>
@@ -1087,7 +1087,7 @@ function MainApp() {
                       <PersonalReflectionNote itemId={currentSunnah.id} notes={notes} onSaveNote={handleSaveNote} />
 
                       <CitationFooter
-                        source={`${currentSunnah.source} • ${currentSunnah.publisher}`}
+                        source={currentSunnah.source}
                         speakText={`${currentSunnah.title}. ${currentSunnah.translation}. ${currentSunnah.description}`}
                         rightAction={
                           <button
@@ -1100,7 +1100,7 @@ function MainApp() {
                                 body: currentSunnah.description,
                                 vurud: currentSunnah.vurudStory,
                                 practice: currentSunnah.application,
-                                source: `${currentSunnah.source} • ${currentSunnah.publisher}`
+                                source: currentSunnah.source
                               })
                             }
                             className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
@@ -2058,11 +2058,11 @@ function MainApp() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-2.5">
               <PortalLogo className="w-7 h-7" />
-              <p>© 2026 Siyer ve Ahlak Portalı • Diyanet İşleri Başkanlığı ve TDV yayınları kaynak alınmıştır.</p>
+              <p>© 2026 Siyer ve Ahlak Portalı • Kaynakçada temel hadis ve siyer eserleri ile TDV ve Diyanet yayınlarından yararlanılmıştır.</p>
             </div>
             <div className="flex items-center gap-3">
               <span className="text-[#0B4F3F] dark:text-emerald-400 font-semibold">
-                Kurumsal Dijital Rehber
+                Bağımsız Dijital Eğitim Portalı
               </span>
               <span>•</span>
               <span>Hadislerle İslam & TDV İslâm Ansiklopedisi</span>

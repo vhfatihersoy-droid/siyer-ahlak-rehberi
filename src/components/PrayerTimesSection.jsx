@@ -175,7 +175,7 @@ export function PrayerTimesDashboard({ city, onSelectCity, now, status }) {
           </thead>
           <tbody>${rowsHtml}</tbody>
         </table>
-        <div class="foot">Diyanet İşleri Başkanlığı hesaplama açıları (İmsak 18°, Yatsı 17° ve temkin vakitleri) esas alınmıştır.</div>
+        <div class="foot">Türkiye standart astronomik hesaplama açıları (İmsak 18°, Yatsı 17° ve temkin vakitleri) esas alınmıştır.</div>
         <script>window.print();</script>
       </body>
       </html>
@@ -377,7 +377,7 @@ export function PrayerTimesDashboard({ city, onSelectCity, now, status }) {
             </h4>
           </div>
           <span className="text-xs text-slate-500 dark:text-slate-400">
-            Diyanet Hesaplama Yöntemi (İmsak 18° • Yatsı 17° • Temkinli)
+            Standart Hesaplama Yöntemi (İmsak 18° • Yatsı 17° • Temkinli)
           </span>
         </div>
 

@@ -129,7 +129,7 @@ export function QuoteCardModal({ data, onClose }) {
 
     ctx.fillStyle = t.sub;
     ctx.font = "20px system-ui, sans-serif";
-    ctx.fillText("Diyanet İşleri Başkanlığı & TDV Kaynaklı", width / 2, height - 95);
+    ctx.fillText("Siyer ve Ahlak Portalı • Sahih Kaynaklı Dijital Rehber", width / 2, height - 95);
   }, [data, theme, aspect, showArabic, showOrnament, fontStyle]);
 
   function wrapText(ctx, text, maxWidth) {

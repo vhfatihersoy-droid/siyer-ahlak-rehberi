@@ -1,7 +1,7 @@
 {
-  "name": "Siyer & Ahlak Rehberi | Diyanet & TDV Kaynaklı",
-  "short_name": "Siyer Rehberi",
-  "description": "Hz. Muhammed'in (s.a.v.) ahlakını ve günlük yaşantısını konu edinen Diyanet ve TDV kaynaklı interaktif rehber.",
+  "name": "Siyer ve Ahlak Portalı",
+  "short_name": "Siyer Portalı",
+  "description": "Hz. Muhammed'in (s.a.v.) hayatını, ahlakını ve günlük sünnetlerini konu edinen sahih kaynaklı dijital rehber.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FBF9F5",

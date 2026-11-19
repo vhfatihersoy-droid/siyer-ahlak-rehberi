@@ -842,7 +842,7 @@ export function CorporateQuizAndCertificateSection() {
     ctx.fillStyle = "#0B4F3F";
     ctx.font = "bold 22px system-ui, sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("SİYER VE AHLAK PORTALI • DİYANET & TDV KAYNAKLI REHBER", width / 2, 145);
+    ctx.fillText("SİYER VE AHLAK PORTALI • İLMİ VE AHLAKİ REHBER", width / 2, 145);
 
     ctx.fillStyle = "#B4833E";
     ctx.font = "bold 46px Georgia, serif";

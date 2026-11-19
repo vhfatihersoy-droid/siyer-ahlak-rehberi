@@ -105,7 +105,7 @@ export function printReflectionJournal({ favoritesCount, completedCount, habitSc
   </head>
   <body>
     <h1>Siyer & Ahlak Rehberi — Tefekkür Günlüğüm</h1>
-    <div class="sub">Diyanet İşleri Başkanlığı & TDV Kaynaklı Kişisel Muhasebe Raporu • Tarih: ${new Date().toLocaleDateString("tr-TR")}</div>
+    <div class="sub">Kişisel Siyer ve Ahlak Muhasebe Raporu • Tarih: ${new Date().toLocaleDateString("tr-TR")}</div>
     <div class="stats">
       <div class="stat-box"><div class="stat-val">${completedCount}</div><div class="stat-lbl">Tamamlanan Okuma</div></div>
       <div class="stat-box"><div class="stat-val">%${habitScore}</div><div class="stat-lbl">Haftalık İstikrar Skoru</div></div>
@@ -128,7 +128,7 @@ export function printTopicHandout({
   vurud = "",
   practice = "",
   discussion = "",
-  source = "Diyanet İşleri Başkanlığı & TDV Yayınları"
+  source = "Siyer ve Ahlak Portalı • Temel Kaynakça"
 }) {
   const win = window.open("", "_blank", "width=850,height=920");
   if (!win) return;

@@ -229,7 +229,7 @@ export function KidsModeView() {
     ctx.fillStyle = "#0B4F3F";
     ctx.font = "bold 24px system-ui, sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("DİYANET ÇOCUK • PEYGAMBERİMİZİN GÜZEL AHLAK BAHÇESİ", width / 2, 145);
+    ctx.fillText("SİYER VE AHLAK PORTALI • GÜZEL AHLAK BAHÇESİ", width / 2, 145);
 
     ctx.fillStyle = "#B4833E";
     ctx.font = "bold 50px Georgia, serif";
@@ -311,7 +311,7 @@ export function KidsModeView() {
                   Peygamberimizin Güzel Ahlak Bahçesi
                 </h2>
                 <span className="text-xs font-semibold bg-[#B4833E] text-white px-2.5 py-0.5 rounded-full">
-                  Diyanet Çocuk
+                  Çocuk Portalı
                 </span>
               </div>
               <p className="text-xs text-emerald-100/85">
@@ -350,7 +350,7 @@ export function KidsModeView() {
               </button>
             </div>
             <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-              Diyanet Çocuk yayınları pedagojik ilkelerine göre hazırlanan bu modülde her kıssanın altında{" "}
+              Çocuk gelişimi ve değerler eğitimi pedagojik ilkelerine göre hazırlanan bu modülde her kıssanın altında{" "}
               <strong>"Ailemle Sohbet Sorusu"</strong> ve <strong>"Şimdi Sıra Sende"</strong> adımı yer alır. Çocuğunuzla kıssayı okuduktan sonra yargılamadan, açık uçlu sorularla kendi duygularını ifade etmesine alan açabilirsiniz.
             </p>
           </div>
@@ -767,7 +767,7 @@ export function KidsModeView() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
-                  Diyanet Çocuk Aylık Sünnet Maratonu
+                  Aylık Sünnet ve İyilik Maratonu
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                   📅 30 Günlük Sünnet ve İyilik Takvimim (+5 ⭐ / Gün)
@@ -1214,7 +1214,7 @@ export function KidsModeView() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
-                  Diyanet Çocuk Sünnet Pasaportu
+                  Sünnet ve Kıssa Pasaportu
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                   🛂 Benim Sünnet ve Kıssa Pasaportum
@@ -1263,7 +1263,7 @@ export function KidsModeView() {
           <div className="lg:col-span-5 space-y-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block mb-1">
-                Diyanet Çocuk Başarı Belgesi
+                Çocuk Portalı Başarı Belgesi
               </span>
               <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
                 İsme Özel Güzel Ahlak ve Sünnet Beratı
