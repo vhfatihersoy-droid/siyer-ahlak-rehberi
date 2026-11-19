@@ -17,7 +17,11 @@ import {
   semailAndSpecialData,
   defaultHabits,
   weekDays,
-  crossReferencesMap
+  crossReferencesMap,
+  quranPropheticMoralsData,
+  esmaiNebiData,
+  socialRolesSunnahData,
+  propheticLettersData
 } from './data/siyerData';
 
 import {
@@ -40,7 +44,9 @@ import {
   UniversalDeclarationsSection,
   WeeklyCurriculumSection,
   CorporateQuizAndCertificateSection,
-  FivePrayerAnchorsSection
+  FivePrayerAnchorsSection,
+  QuranAndEsmaiNebiSection,
+  SocialRolesSunnahSection
 } from './components/DesignInnovations';
 
 class ErrorBoundary extends React.Component {
@@ -94,6 +100,22 @@ function MainApp() {
   const [muhasebeSubView, setMuhasebeSubView] = useState("cetele");
   const [fontScale, setFontScale] = useState("normal");
   const [cardModalData, setCardModalData] = useState(null);
+  const [isFocusMode, setIsFocusMode] = useState(false);
+  const [isCmdKOpen, setIsCmdKOpen] = useState(false);
+  const [cmdKQuery, setCmdKQuery] = useState("");
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCmdKOpen((prev) => !prev);
+      } else if (e.key === "Escape") {
+        setIsCmdKOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   const [sunnahIndex, setSunnahIndex] = useState(() => {
     const dayOfMonth = new Date().getDate();
@@ -349,8 +371,237 @@ function MainApp() {
       }
     });
 
+    quranPropheticMoralsData.forEach((ay) => {
+      if (ay.title.toLowerCase().includes(q) || ay.translation.toLowerCase().includes(q) || ay.surah.toLowerCase().includes(q)) {
+        results.push({
+          id: ay.id,
+          badge: `Kur'an'da Ahlak • ${ay.surah}`,
+          title: ay.title,
+          snippet: ay.translation,
+          source: ay.source,
+          onSelect: () => {
+            setSunnetSubView("kuran-esma");
+            setCurrentTab("gunun-sunneti");
+            setSearchQuery("");
+          }
+        });
+      }
+    });
+
+    esmaiNebiData.forEach((es) => {
+      if (es.name.toLowerCase().includes(q) || es.meaning.toLowerCase().includes(q) || es.reflection.toLowerCase().includes(q)) {
+        results.push({
+          id: es.id,
+          badge: "Esmâ-i Nebî",
+          title: `${es.name} (${es.meaning})`,
+          snippet: es.reflection,
+          source: es.reference,
+          onSelect: () => {
+            setSunnetSubView("kuran-esma");
+            setCurrentTab("gunun-sunneti");
+            setSearchQuery("");
+          }
+        });
+      }
+    });
+
+    socialRolesSunnahData.forEach((rl) => {
+      if (rl.role.toLowerCase().includes(q) || rl.hadith.toLowerCase().includes(q) || rl.sahabeModel.toLowerCase().includes(q)) {
+        results.push({
+          id: rl.id,
+          badge: `Sosyal Rol • ${rl.badge}`,
+          title: rl.role,
+          snippet: rl.hadith,
+          source: rl.source,
+          onSelect: () => {
+            setAhlakSubView("roller");
+            setCurrentTab("ahlak-meseleler");
+            setSearchQuery("");
+          }
+        });
+      }
+    });
+
+    propheticLettersData.forEach((lt) => {
+      if (lt.title.toLowerCase().includes(q) || lt.excerpt.toLowerCase().includes(q) || lt.recipient.toLowerCase().includes(q)) {
+        results.push({
+          id: lt.id,
+          badge: `Nebevî Vesika • ${lt.year}`,
+          title: lt.title,
+          snippet: lt.excerpt,
+          source: lt.source,
+          onSelect: () => {
+            setSemailSubView("beyanname");
+            setCurrentTab("semail-siyer");
+            setSearchQuery("");
+          }
+        });
+      }
+    });
+
     return results;
   }, [searchQuery]);
+
+  const cmdKQuickActions = useMemo(() => {
+    const q = cmdKQuery.trim().toLowerCase();
+    const list = [
+      {
+        id: "cmd-kuran",
+        group: "Hızlı Bölüm Geçişi",
+        title: "Kur'an-ı Kerim'de Peygamber Ahlakı & Esmâ-i Nebî (6 Ayet & 8 İsim)",
+        sub: "Ahzâb 21, Kalem 4, Âl-i İmrân 159, Tevbe 128 • Kur'an Yolu Tefsiri",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("gunun-sunneti");
+          setSunnetSubView("kuran-esma");
+        }
+      },
+      {
+        id: "cmd-roller",
+        group: "Hızlı Bölüm Geçişi",
+        title: "Benim Rolümde Sünnet • Meslek ve Sosyal Rol Rehberi (6 Rol)",
+        sub: "Anne-Baba, Öğretmen, Esnaf & İşveren, Genç & Öğrenci, Yönetici, Komşu",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("ahlak-meseleler");
+          setAhlakSubView("roller");
+        }
+      },
+      {
+        id: "cmd-mektuplar",
+        group: "Hızlı Bölüm Geçişi",
+        title: "Veda Hutbesi, Medine Vesikası ve Nebevî Mektuplar / Ahitnameler",
+        sub: "Necaşi, Herakleios, Muâz b. Cebel Yemen Talimatnamesi, Necran Ahitnamesi",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("semail-siyer");
+          setSemailSubView("beyanname");
+        }
+      },
+      {
+        id: "cmd-dualar",
+        group: "Hızlı Bölüm Geçişi",
+        title: "Nebevî Dualar ve Zikirler Rehberi (8 Sahih Dua)",
+        sub: "Sabah-Akşam, Huzur & Sıkıntı Anı, İlim ve Aile Duaları",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("gunun-sunneti");
+          setSunnetSubView("dualar");
+        }
+      },
+      {
+        id: "cmd-kirkhadis",
+        group: "Hızlı Bölüm Geçişi",
+        title: "40 Hadis Seçkisi & Esbâb-ı Vürûd Hikayeleri",
+        sub: "Temel ahlak hadisleri, vurûd arka planı ve PDF ders föyü çıktısı",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("gunun-sunneti");
+          setSunnetSubView("kirkhadis");
+        }
+      },
+      {
+        id: "cmd-sahabe",
+        group: "Hızlı Bölüm Geçişi",
+        title: "Ashâb-ı Kirâm Ansiklopedik Fihristi (31 Sahabe)",
+        sub: "Hulefâ-yi Râşidîn, Ehl-i Beyt, Aşere-i Mübeşşere, Suffe Ashâbı, Ensar",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("sahabeler");
+        }
+      },
+      {
+        id: "cmd-vakitler",
+        group: "Hızlı Bölüm Geçişi",
+        title: "5 Vakit Namaz Eksenli Sünnet Durakları & Tesbih Sayacı",
+        sub: "Sabah, Öğle, İkindi, Akşam, Yatsı ve Gün Sonu 3 Nefis Muhasebesi",
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("muhasebe");
+          setMuhasebeSubView("vakitler");
+        }
+      },
+      {
+        id: "cmd-cocuk",
+        group: "Hızlı Bölüm Geçişi",
+        title: "Diyanet Çocuk Portalı • 30 Günlük Sünnet Takvimi & Siyer Bilmeceleri",
+        sub: "12 Sesli Kıssa, Siyer Radyosu, 30 Günlük Takvim, Ben Kimim Bilmeceleri, Berat",
+        run: () => {
+          setIsKidsMode(true);
+        }
+      }
+    ];
+
+    quranPropheticMoralsData.forEach((ay) => {
+      list.push({
+        id: `cmd-ay-${ay.id}`,
+        group: "Kur'an'da Peygamber Ahlakı",
+        title: `${ay.surah} • ${ay.title}`,
+        sub: ay.translation,
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("gunun-sunneti");
+          setSunnetSubView("kuran-esma");
+        }
+      });
+    });
+
+    socialRolesSunnahData.forEach((rl) => {
+      list.push({
+        id: `cmd-rl-${rl.id}`,
+        group: "Sosyal Rol & Meslek Rehberi",
+        title: `${rl.role} (${rl.badge})`,
+        sub: rl.hadith,
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("ahlak-meseleler");
+          setAhlakSubView("roller");
+        }
+      });
+    });
+
+    propheticLettersData.forEach((lt) => {
+      list.push({
+        id: `cmd-lt-${lt.id}`,
+        group: "Nebevî Mektuplar & Ahitnameler",
+        title: lt.title,
+        sub: lt.diplomaticPrinciple,
+        run: () => {
+          setIsKidsMode(false);
+          setCurrentTab("semail-siyer");
+          setSemailSubView("beyanname");
+        }
+      });
+    });
+
+    Object.entries(glossaryAndSahabeData).forEach(([key, item]) => {
+      list.push({
+        id: `cmd-gl-${key}`,
+        group: item.type,
+        title: item.title,
+        sub: `${item.badge} • ${item.desc}`,
+        run: () => {
+          setIsKidsMode(false);
+          if (item.type === "Sahabe Profili") {
+            setSahabeGroupFilter("Tümü");
+            setSahabeSearch(key);
+            setCurrentTab("sahabeler");
+          } else {
+            setSemailSubView("kavramlar");
+            setCurrentTab("semail-siyer");
+          }
+        }
+      });
+    });
+
+    if (!q) return list.slice(0, 14);
+    return list.filter(
+      (item) =>
+        item.title.toLowerCase().includes(q) ||
+        item.sub.toLowerCase().includes(q) ||
+        item.group.toLowerCase().includes(q)
+    );
+  }, [cmdKQuery]);
 
   // Sadeleştirilmiş 5 Ana Kurumsal Modül
   const tabs = [
@@ -390,27 +641,51 @@ function MainApp() {
             </div>
 
             {!isKidsMode && (
-              <div className="hidden md:flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15 w-72 focus-within:bg-white focus-within:text-slate-900 transition-all">
-                <Search className="w-4 h-4 opacity-70 shrink-0" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Portalda hadis, sahabe, kavram ara..."
-                  className="bg-transparent text-xs w-full focus:outline-none placeholder:text-emerald-100/70 focus:placeholder:text-slate-400"
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery("")}
-                    className="text-xs opacity-75 hover:opacity-100"
-                  >
-                    Temizle
-                  </button>
-                )}
+              <div className="hidden md:flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15 w-64 focus-within:bg-white focus-within:text-slate-900 transition-all">
+                  <Search className="w-4 h-4 opacity-70 shrink-0" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Hadis, ayet, sahabe, rol ara..."
+                    className="bg-transparent text-xs w-full focus:outline-none placeholder:text-emerald-100/70 focus:placeholder:text-slate-400"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="text-xs opacity-75 hover:opacity-100"
+                    >
+                      Temizle
+                    </button>
+                  )}
+                </div>
+                <button
+                  onClick={() => setIsCmdKOpen(true)}
+                  className="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-emerald-50 px-2.5 py-1.5 rounded-lg border border-white/20 text-xs font-semibold transition-all"
+                  title="Hızlı Fihrist Komut Paleti (⌘K / Ctrl+K)"
+                >
+                  <span>Fihrist</span>
+                  <kbd className="bg-black/25 px-1.5 py-0.5 rounded text-xs font-bold text-amber-300">⌘K</kbd>
+                </button>
               </div>
             )}
 
             <div className="flex items-center gap-2">
+              {!isKidsMode && (
+                <button
+                  onClick={() => setIsFocusMode(!isFocusMode)}
+                  className={`hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                    isFocusMode
+                      ? "bg-amber-300 text-[#0B4F3F] border-amber-300 font-bold"
+                      : "bg-white/10 text-emerald-100 border-white/15 hover:text-white"
+                  }`}
+                  title="Odaklanmış Kitap Okuma Modu"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>{isFocusMode ? "Odak Açık" : "Odak Modu"}</span>
+                </button>
+              )}
               {!isKidsMode && (
                 <div className="hidden lg:flex items-center bg-white/10 p-0.5 rounded-lg border border-white/15">
                   {[
@@ -525,10 +800,25 @@ function MainApp() {
           <KidsModeView />
         ) : (
           <main
-            className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 ${
+            className={`${
+              isFocusMode ? "max-w-4xl" : "max-w-7xl"
+            } mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 transition-all ${
               fontScale === "large" ? "text-base" : fontScale === "xlarge" ? "text-lg" : ""
             }`}
           >
+            {isFocusMode && (
+              <div className="bg-amber-50/90 dark:bg-slate-900 border border-[#B4833E]/40 rounded-xl px-4 py-2.5 flex items-center justify-between text-xs">
+                <span className="font-semibold text-[#0B4F3F] dark:text-emerald-400">
+                  📖 Odaklanmış Kitap Okuma Modu aktif • Göz yormayan daraltılmış sütun genişliğiyle okuyorsunuz.
+                </span>
+                <button
+                  onClick={() => setIsFocusMode(false)}
+                  className="font-bold text-[#9A6B28] dark:text-amber-300 hover:underline"
+                >
+                  Normal Görünüme Dön
+                </button>
+              </div>
+            )}
             {/* GLOBAL ARAMA SONUÇ PANELİ */}
             {searchQuery.trim() !== "" && (
               <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-300 dark:border-slate-700 shadow-md space-y-4">
@@ -591,6 +881,7 @@ function MainApp() {
                   <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                     {[
                       { id: "sunnet", label: "Günün Sünneti & Rehberlik" },
+                      { id: "kuran-esma", label: "Kur'an'da Ahlak & Esmâ-i Nebî" },
                       { id: "dualar", label: "Nebevî Dualar Rehberi (8)" },
                       { id: "kirkhadis", label: "40 Hadis Seçkisi (8)" }
                     ].map((sub) => (
@@ -608,6 +899,10 @@ function MainApp() {
                     ))}
                   </div>
                 </div>
+
+                {sunnetSubView === "kuran-esma" && (
+                  <QuranAndEsmaiNebiSection onOpenCard={(card) => setCardModalData(card)} />
+                )}
 
                 {sunnetSubView === "dualar" && (
                   <PropheticPrayersSection onOpenCard={(card) => setCardModalData(card)} />
@@ -861,9 +1156,10 @@ function MainApp() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                  <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                     {[
                       { id: "tematik", label: "Tematik Ahlak (6)" },
+                      { id: "roller", label: "Meslek & Sosyal Roller (6)" },
                       { id: "cagdas", label: "Çağdaş Sorunlar (6)" },
                       { id: "vaka", label: "Vaka Analizi (3)" }
                     ].map((sub) => (
@@ -881,6 +1177,10 @@ function MainApp() {
                     ))}
                   </div>
                 </div>
+
+                {ahlakSubView === "roller" && (
+                  <SocialRolesSunnahSection onOpenCard={(card) => setCardModalData(card)} />
+                )}
 
                 {ahlakSubView === "tematik" && (
                   <div className="space-y-4">
@@ -1230,7 +1530,7 @@ function MainApp() {
                   <div className="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
                     {[
                       { id: "semail", label: "Hilye & Şemâil-i Şerîf" },
-                      { id: "beyanname", label: "Veda Hutbesi & Medine Vesikası" },
+                      { id: "beyanname", label: "Veda Hutbesi, Vesika & Mektuplar" },
                       { id: "kronoloji", label: "Siyer Kronolojisi" },
                       { id: "yasam", label: "24 Saatlik Yaşantı" },
                       { id: "kavramlar", label: "Siyer Kavramları" }
@@ -1704,6 +2004,80 @@ function MainApp() {
         </footer>
 
         <QuoteCardModal data={cardModalData} onClose={() => setCardModalData(null)} />
+
+        {/* HIZLI FİHRİST KOMUT PALETİ (⌘K / Ctrl+K) */}
+        {isCmdKOpen && (
+          <div
+            className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-2xs flex items-start justify-center p-4 pt-16 sm:pt-24"
+            onClick={() => setIsCmdKOpen(false)}
+          >
+            <div
+              className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="bg-[#0B4F3F] text-white px-5 py-3.5 flex items-center justify-between border-b border-[#B4833E]">
+                <div className="flex items-center gap-2">
+                  <Search className="w-4 h-4 text-amber-300" />
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    Hızlı Fihrist & Komut Paleti (⌘K)
+                  </span>
+                </div>
+                <button
+                  onClick={() => setIsCmdKOpen(false)}
+                  className="text-xs bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-md font-semibold"
+                >
+                  ESC • Kapat
+                </button>
+              </div>
+
+              <div className="p-4 border-b border-slate-200 dark:border-slate-800">
+                <input
+                  type="text"
+                  autoFocus
+                  value={cmdKQuery}
+                  onChange={(e) => setCmdKQuery(e.target.value)}
+                  placeholder="Ayet, hadis, sahabe, sosyal rol (öğretmen, esnaf, anne-baba) veya mektup ara..."
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:border-[#0B4F3F]"
+                />
+              </div>
+
+              <div className="max-h-96 overflow-y-auto p-3 space-y-1.5">
+                {cmdKQuickActions.length === 0 ? (
+                  <p className="text-xs text-slate-500 text-center py-6">
+                    Eşleşen fihrist başlığı bulunamadı.
+                  </p>
+                ) : (
+                  cmdKQuickActions.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        item.run();
+                        setIsCmdKOpen(false);
+                        setCmdKQuery("");
+                      }}
+                      className="w-full text-left p-3 rounded-xl hover:bg-emerald-50/80 dark:hover:bg-slate-800 border border-transparent hover:border-[#0B4F3F]/30 transition-all flex items-start justify-between gap-3"
+                    >
+                      <div className="space-y-0.5">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block">
+                          {item.group}
+                        </span>
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                          {item.title}
+                        </h4>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
+                          {item.sub}
+                        </p>
+                      </div>
+                      <span className="text-xs font-bold text-[#0B4F3F] dark:text-emerald-400 shrink-0 pt-1">
+                        Git →
+                      </span>
+                    </button>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

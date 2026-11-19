@@ -10,7 +10,9 @@ import {
   kidsYoungSahabesData,
   kidsScenariosData,
   kidsGlossaryCards,
-  kidsMatchingPairsData
+  kidsMatchingPairsData,
+  kidsThirtyDayCalendarData,
+  kidsRiddlesData
 } from '../data/siyerData';
 import { safeStorage, speakTurkish, stopSpeaking } from '../services/storageService';
 
@@ -28,12 +30,16 @@ export function KidsModeView() {
   const [scenarioAnswers, setScenarioAnswers] = useState({});
   const [showParentCorner, setShowParentCorner] = useState(false);
 
-  // Eşleştirme Oyunu ve Güzel Ahlak Beratı State'leri
+  // Eşleştirme Oyunu, 30 Günlük Takvim, Bilmeceler ve Güzel Ahlak Beratı State'leri
   const [selectedLeftId, setSelectedLeftId] = useState(null);
   const [matchedIds, setMatchedIds] = useState(() => safeStorage.get("siyer_kids_matched", []));
   const [wrongMatchFlash, setWrongMatchFlash] = useState(false);
   const [childName, setChildName] = useState("Zeynep");
   const beratCanvasRef = useRef(null);
+  const [calendarDoneDays, setCalendarDoneDays] = useState(() => safeStorage.get("siyer_kids_calendar", []));
+  const [selectedCalDay, setSelectedCalDay] = useState(1);
+  const [riddleAnswers, setRiddleAnswers] = useState({});
+  const [solvedRiddles, setSolvedRiddles] = useState(() => safeStorage.get("siyer_kids_riddles", []));
 
   useEffect(() => {
     safeStorage.set("siyer_kids_stars", stars);
@@ -54,6 +60,32 @@ export function KidsModeView() {
   useEffect(() => {
     safeStorage.set("siyer_kids_matched", matchedIds);
   }, [matchedIds]);
+
+  useEffect(() => {
+    safeStorage.set("siyer_kids_calendar", calendarDoneDays);
+  }, [calendarDoneDays]);
+
+  useEffect(() => {
+    safeStorage.set("siyer_kids_riddles", solvedRiddles);
+  }, [solvedRiddles]);
+
+  const toggleCalendarDay = (dayNo) => {
+    if (calendarDoneDays.includes(dayNo)) {
+      setCalendarDoneDays((prev) => prev.filter((d) => d !== dayNo));
+      setStars((s) => Math.max(0, s - 5));
+    } else {
+      setCalendarDoneDays((prev) => [...prev, dayNo]);
+      setStars((s) => s + 5);
+    }
+  };
+
+  const handleRiddleAnswer = (riddle, optionIdx) => {
+    setRiddleAnswers((prev) => ({ ...prev, [riddle.id]: optionIdx }));
+    if (optionIdx === riddle.correctIndex && !solvedRiddles.includes(riddle.id)) {
+      setSolvedRiddles((prev) => [...prev, riddle.id]);
+      setStars((s) => s + 10);
+    }
+  };
 
   useEffect(() => {
     return () => stopSpeaking();
@@ -728,6 +760,86 @@ export function KidsModeView() {
               );
             })}
           </div>
+
+          {/* 30 GÜNLÜK SÜNNET VE İYİLİK TAKVİMİ (İNTERAKTİF 30 GÜN) */}
+          <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block">
+                  Diyanet Çocuk Aylık Sünnet Maratonu
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                  📅 30 Günlük Sünnet ve İyilik Takvimim (+5 ⭐ / Gün)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Her güne bir iyilik ve sünnet görevi! Bir güne tıklayarak görevi gör ve tamamladığında işaretle.
+                </p>
+              </div>
+              <span className="text-xs font-bold bg-emerald-50 dark:bg-emerald-950 text-[#0B4F3F] dark:text-emerald-300 px-3.5 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                Tamamlanan Gün: {calendarDoneDays.length} / 30
+              </span>
+            </div>
+
+            {(() => {
+              const currentDayObj =
+                kidsThirtyDayCalendarData.find((d) => d.day === selectedCalDay) || kidsThirtyDayCalendarData[0];
+              const isDayDone = calendarDoneDays.includes(currentDayObj.day);
+              return (
+                <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border-2 border-[#0B4F3F]/30 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-[#0B4F3F] text-white flex flex-col items-center justify-center shrink-0">
+                      <span className="text-xs font-semibold leading-none">GÜN</span>
+                      <span className="text-base font-extrabold">{currentDayObj.day}</span>
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-[#9A6B28] dark:text-amber-400 block">
+                        {currentDayObj.emoji} {currentDayObj.day}. Gün Sünnet Görevi
+                      </span>
+                      <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                        {currentDayObj.task}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => toggleCalendarDay(currentDayObj.day)}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                      isDayDone
+                        ? "bg-emerald-100 dark:bg-emerald-950 text-[#0B4F3F] dark:text-emerald-300 border border-[#0B4F3F]"
+                        : "bg-[#0B4F3F] hover:bg-[#08382C] text-white"
+                    }`}
+                  >
+                    {isDayDone ? "✓ Bugün Tamamlandı (+5 ⭐)" : "Görevi Yaptım (+5 ⭐ Kazan)"}
+                  </button>
+                </div>
+              );
+            })()}
+
+            <div className="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-10 gap-2">
+              {kidsThirtyDayCalendarData.map((d) => {
+                const done = calendarDoneDays.includes(d.day);
+                const selected = selectedCalDay === d.day;
+                return (
+                  <button
+                    key={d.day}
+                    onClick={() => setSelectedCalDay(d.day)}
+                    className={`p-2.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-0.5 ${
+                      selected
+                        ? "border-2 border-[#0B4F3F] bg-emerald-50/90 dark:bg-emerald-950/60 shadow-2xs"
+                        : done
+                        ? "bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800"
+                        : "bg-[#FAF9F6] dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:border-[#0B4F3F]"
+                    }`}
+                  >
+                    <span className="text-base">{d.emoji}</span>
+                    <span className="text-xs font-bold text-slate-800 dark:text-slate-100">{d.day}. Gün</span>
+                    <span className="text-xs font-extrabold text-[#0B4F3F] dark:text-emerald-400">
+                      {done ? "✓" : "•"}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       )}
 
@@ -994,6 +1106,98 @@ export function KidsModeView() {
                   );
                 })}
               </div>
+            </div>
+          </div>
+
+          {/* "BEN KİMİM / BEN NEYİM?" SİYER BİLMECELERİ (4 İPUÇLU BİLMECE) */}
+          <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block">
+                  3 İpucu 1 Cevap • Siyer Dedektifi
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                  🕵️ "Ben Kimim / Ben Neyim?" Siyer Bilmeceleri (+10 ⭐)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  3 ipucunu dikkatlice oku ve hangi sahabe, mekan veya mucizevi hatıra olduğunu tahmin et!
+                </p>
+              </div>
+              <span className="text-xs font-bold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-3.5 py-1.5 rounded-lg border border-amber-200 dark:border-amber-800">
+                Çözülen Bilmece: {solvedRiddles.length} / {kidsRiddlesData.length}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {kidsRiddlesData.map((rd, idx) => {
+                const pickedIdx = riddleAnswers[rd.id];
+                const isAnswered = pickedIdx !== undefined;
+                const isCorrect = pickedIdx === rd.correctIndex;
+                return (
+                  <div
+                    key={rd.id}
+                    className="bg-[#FAF9F6] dark:bg-slate-800/60 rounded-xl p-5 border border-slate-200 dark:border-slate-700 flex flex-col justify-between space-y-4"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                          {rd.emoji} Bilmece {idx + 1} • {rd.category}
+                        </span>
+                        {solvedRiddles.includes(rd.id) && (
+                          <span className="text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 px-2.5 py-0.5 rounded-full">
+                            ✓ +10 ⭐
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="space-y-1.5 bg-white dark:bg-slate-900 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-700">
+                        {rd.clues.map((clue, cIdx) => (
+                          <p key={cIdx} className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">
+                            <strong className="text-[#9A6B28] dark:text-amber-400">{cIdx + 1}. İpucu: </strong>
+                            {clue}
+                          </p>
+                        ))}
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-2 pt-1">
+                        {rd.options.map((opt, oIdx) => {
+                          const selectedThis = pickedIdx === oIdx;
+                          let style =
+                            "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:border-[#0B4F3F]";
+                          if (isAnswered) {
+                            if (oIdx === rd.correctIndex) {
+                              style = "bg-[#0B4F3F] text-white border-[#0B4F3F]";
+                            } else if (selectedThis) {
+                              style = "bg-amber-100 dark:bg-amber-950 border-amber-500 text-amber-900 dark:text-amber-200";
+                            }
+                          }
+                          return (
+                            <button
+                              key={oIdx}
+                              onClick={() => handleRiddleAnswer(rd, oIdx)}
+                              className={`w-full text-left px-3.5 py-2.5 rounded-xl border text-xs font-bold transition-all ${style}`}
+                            >
+                              {opt}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {isAnswered && (
+                      <div
+                        className={`p-3 rounded-xl border text-xs font-medium ${
+                          isCorrect
+                            ? "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-200"
+                            : "bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800 text-amber-950 dark:text-amber-200"
+                        }`}
+                      >
+                        {rd.explanation}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

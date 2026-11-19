@@ -11,7 +11,11 @@ import {
   weeklyCurriculumData,
   siyerQuizData,
   fivePrayerAnchorsData,
-  eveningMuhasabaQuestions
+  eveningMuhasabaQuestions,
+  quranPropheticMoralsData,
+  esmaiNebiData,
+  socialRolesSunnahData,
+  propheticLettersData
 } from '../data/siyerData';
 import { GlossaryText, CitationFooter } from './SharedUI';
 import { safeStorage, printTopicHandout } from '../services/storageService';
@@ -386,62 +390,141 @@ export function FortyHadithSection({ completedItems, onToggleComplete, onOpenCar
   );
 }
 
-// 5. VEDA HUTBESİ VE MEDİNE VESİKASI (EVRENSEL BEYANNAMELER - SESLİ OKUMA YOK)
+// 5. VEDA HUTBESİ, MEDİNE VESİKASI VE NEBEVÎ MEKTUPLAR / AHİTNAMELER (SESLİ OKUMA YOK)
 export function UniversalDeclarationsSection({ onOpenCard }) {
   return (
-    <div className="space-y-5">
-      <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-          Temel İnsan Hakları ve Hukuk Metinleri
-        </span>
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-          Veda Hutbesi ve Medine Sözleşmesi'nde Evrensel İlkeler
-        </h3>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Hz. Peygamber'in (s.a.v.) insan onuru, eşitlik, kadın hakları ve bir arada yaşama hukukunu tesis eden tarihi beyannameleri.
-        </p>
-      </div>
+    <div className="space-y-8">
+      <div className="space-y-5">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
+            Temel İnsan Hakları ve Hukuk Metinleri
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Veda Hutbesi ve Medine Sözleşmesi'nde Evrensel İlkeler
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Hz. Peygamber'in (s.a.v.) insan onuru, eşitlik, kadın hakları ve bir arada yaşama hukukunu tesis eden tarihi beyannameleri.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {universalDeclarationsData.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                  {item.document}
-                </span>
-                <span className="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-[#9A6B28] dark:text-amber-400 px-2.5 py-0.5 rounded-md">
-                  {item.articleNo}
-                </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {universalDeclarationsData.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                    {item.document}
+                  </span>
+                  <span className="text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-[#9A6B28] dark:text-amber-400 px-2.5 py-0.5 rounded-md">
+                    {item.articleNo}
+                  </span>
+                </div>
+
+                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{item.title}</h4>
+
+                <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#0B4F3F] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
+                  "{item.quote}"
+                </blockquote>
+
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <strong className="text-slate-900 dark:text-slate-100">Evrensel Hukuk İlkesi: </strong>
+                  {item.principle}
+                </p>
               </div>
 
-              <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{item.title}</h4>
-
-              <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#0B4F3F] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
-                "{item.quote}"
-              </blockquote>
-
-              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                <strong className="text-slate-900 dark:text-slate-100">Evrensel Hukuk İlkesi: </strong>
-                {item.principle}
-              </p>
+              <CitationFooter
+                source={item.source}
+                onOpenCard={() =>
+                  onOpenCard({
+                    title: `${item.document} • ${item.title}`,
+                    quote: item.quote,
+                    source: item.source
+                  })
+                }
+              />
             </div>
+          ))}
+        </div>
+      </div>
 
-            <CitationFooter
-              source={item.source}
-              onOpenCard={() =>
-                onOpenCard({
-                  title: `${item.document} • ${item.title}`,
-                  quote: item.quote,
-                  source: item.source
-                })
-              }
-            />
-          </div>
-        ))}
+      {/* YENİ BÖLÜM: NEBEVÎ MEKTUPLAR VE AHİTNAMELER (DİPLOMATİK NEZAKET & HUKUK DİLİ - SESLİ OKUMA YOK) */}
+      <div className="space-y-5">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block mb-1">
+            Diplomatik Nezaket, Kamu Yönetimi ve İnanç Özgürlüğü Belgeleri
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Nebevî Mektuplar, Vali Talimatnameleri ve Ahitnameler (4 Tarihi Vesika)
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Hz. Peygamber'in (s.a.v.) devlet başkanlarına gönderdiği davet mektupları, valilere verdiği idari-ahlaki talimatlar ve gayrimüslim tebaaya tanıdığı ahitnameler.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {propheticLettersData.map((lt) => (
+            <div
+              key={lt.id}
+              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                    {lt.recipient}
+                  </span>
+                  <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
+                    {lt.year} • {lt.envoy}
+                  </span>
+                </div>
+
+                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{lt.title}</h4>
+
+                <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#B4833E] p-4 rounded-r-lg text-xs sm:text-sm text-slate-700 dark:text-slate-200 italic leading-relaxed">
+                  "{lt.excerpt}"
+                </blockquote>
+
+                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+                    Diplomatik ve Hukuki İlke:
+                  </strong>
+                  <GlossaryText text={lt.diplomaticPrinciple} />
+                </div>
+              </div>
+
+              <CitationFooter
+                source={lt.source}
+                rightAction={
+                  <button
+                    onClick={() =>
+                      printTopicHandout({
+                        title: lt.title,
+                        badge: `${lt.recipient} (${lt.year})`,
+                        quote: lt.excerpt,
+                        body: lt.diplomaticPrinciple,
+                        source: lt.source
+                      })
+                    }
+                    className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
+                    title="Vesikayı Ders Föyü Olarak Yazdır (PDF)"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
+                    <span>Ders Föyü</span>
+                  </button>
+                }
+                onOpenCard={() =>
+                  onOpenCard({
+                    title: lt.title,
+                    quote: lt.excerpt,
+                    source: lt.source
+                  })
+                }
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -956,6 +1039,273 @@ export function CorporateQuizAndCertificateSection() {
             className="w-full max-w-lg h-auto rounded-lg shadow-md border border-slate-200 dark:border-slate-700"
           />
         </div>
+      </div>
+    </div>
+  );
+}
+
+// 9. KUR'AN-I KERİM'DE PEYGAMBER AHLAKI (ÜSVE-İ HASENE AYETLERİ) & ESMÂ-İ NEBÎ MODÜLÜ
+export function QuranAndEsmaiNebiSection({ onOpenCard }) {
+  return (
+    <div className="space-y-8">
+      {/* Üsve-i Hasene Ayetleri */}
+      <div className="space-y-5">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
+            Kur'an-ı Kerim & Tefsir Bütünlüğü
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Kur'an-ı Kerim'de Peygamber Ahlakı (Üsve-i Hasene Ayetleri)
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Hz. Âişe'nin (r.a.) "Onun ahlakı Kur'an'dı" buyurduğu üzere, Resûl-i Ekrem'in (s.a.v.) şahsiyetini ve örnekliğini anlatan temel ayetler ve Kur'an Yolu Tefsiri şerhleri.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {quranPropheticMoralsData.map((ayet) => (
+            <div
+              key={ayet.id}
+              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                    {ayet.surah}
+                  </span>
+                  <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
+                    {ayet.virtue}
+                  </span>
+                </div>
+
+                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{ayet.title}</h4>
+
+                <div className="bg-[#FAF9F6] dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2.5">
+                  <p className="text-right font-serif text-lg sm:text-xl text-[#0B4F3F] dark:text-emerald-400 leading-loose">
+                    {ayet.arabic}
+                  </p>
+                  <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 italic border-t border-slate-200/80 dark:border-slate-700 pt-2">
+                    Meali: "{ayet.translation}"
+                  </p>
+                </div>
+
+                <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#0B4F3F] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                  <span className="font-bold text-slate-900 dark:text-slate-100 block mb-0.5">
+                    Kur'an Yolu Tefsiri'nden Hikmet & Siyer Yansıması:
+                  </span>
+                  <GlossaryText text={ayet.tafsirNote} />
+                </div>
+              </div>
+
+              <CitationFooter
+                source={ayet.source}
+                speakText={`${ayet.surah}. ${ayet.title}. Meali: ${ayet.translation}. ${ayet.tafsirNote}`}
+                rightAction={
+                  <button
+                    onClick={() =>
+                      printTopicHandout({
+                        title: `${ayet.surah} • ${ayet.title}`,
+                        badge: ayet.virtue,
+                        arabic: ayet.arabic,
+                        quote: ayet.translation,
+                        body: ayet.tafsirNote,
+                        source: ayet.source
+                      })
+                    }
+                    className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
+                    title="Ders Föyü Olarak Yazdır (PDF)"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
+                    <span>Ders Föyü</span>
+                  </button>
+                }
+                onOpenCard={() =>
+                  onOpenCard({
+                    title: `${ayet.surah} • ${ayet.title}`,
+                    arabic: ayet.arabic,
+                    quote: ayet.translation,
+                    source: ayet.source
+                  })
+                }
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Esmâ-i Nebî (Peygamberimizin Güzel İsim ve Vasıfları) */}
+      <div className="space-y-5">
+        <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block mb-1">
+            Şemâil ve Siyer Geleneği
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Esmâ-i Nebî • Hz. Peygamber'in (s.a.v.) Güzel İsimleri ve Ahlaki Vasıfları (8 İsim)
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Kur'an-ı Kerim ve sahih hadislerde yer alan mübarek isimlerin anlamları ve müminin şahsiyetine kazandırdığı ölçüler.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {esmaiNebiData.map((esma) => (
+            <div
+              key={esma.id}
+              className="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-3"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-[#9A6B28] dark:text-amber-400">
+                    {esma.reference}
+                  </span>
+                  <span className="text-xl font-serif text-[#0B4F3F] dark:text-emerald-400">
+                    {esma.arabic}
+                  </span>
+                </div>
+                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{esma.name}</h4>
+                <p className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400">
+                  {esma.meaning}
+                </p>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {esma.reflection}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// 10. "BENİM ROLÜMDE SÜNNET" — SOSYAL ROL VE MESLEK REHBERİ (6 ROL)
+export function SocialRolesSunnahSection({ onOpenCard }) {
+  const [selectedRoleId, setSelectedRoleId] = useState("Tümü");
+
+  const visibleRoles =
+    selectedRoleId === "Tümü"
+      ? socialRolesSunnahData
+      : socialRolesSunnahData.filter((r) => r.id === selectedRoleId);
+
+  return (
+    <div className="space-y-5">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
+            Meslek ve Sosyal Sorumluluk Ahlakı
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            "Benim Rolümde Sünnet" • Sosyal Rol ve Meslek Rehberi
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Toplum içerisindeki rol ve sorumluluk alanınıza göre temel nebevî ölçüyü, örnek sahabeyi ve 3 pratik uygulama adımını inceleyin.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5">
+          <button
+            onClick={() => setSelectedRoleId("Tümü")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+              selectedRoleId === "Tümü"
+                ? "bg-[#0B4F3F] text-white border-[#0B4F3F]"
+                : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+            }`}
+          >
+            Tüm Roller (6)
+          </button>
+          {socialRolesSunnahData.map((r) => (
+            <button
+              key={r.id}
+              onClick={() => setSelectedRoleId(r.id)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                selectedRoleId === r.id
+                  ? "bg-[#0B4F3F] text-white border-[#0B4F3F]"
+                  : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+              }`}
+            >
+              {r.role}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {visibleRoles.map((role) => (
+          <div
+            key={role.id}
+            className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
+                  {role.role}
+                </span>
+                <span className="text-xs font-semibold bg-amber-50 dark:bg-amber-950/60 text-[#9A6B28] dark:text-amber-300 px-2.5 py-0.5 rounded-md border border-[#B4833E]/30">
+                  {role.badge}
+                </span>
+              </div>
+
+              <blockquote className="bg-[#FAF9F6] dark:bg-slate-800/70 border-l-4 border-[#0B4F3F] p-3.5 rounded-r-lg text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 italic leading-relaxed">
+                "{role.hadith}"
+              </blockquote>
+
+              <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-lg border border-slate-200/80 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300">
+                <strong className="text-[#9A6B28] dark:text-amber-400">Örnek Sahabe Modeli: </strong>
+                <GlossaryText text={role.sahabeModel} />
+              </div>
+
+              <div className="space-y-1.5">
+                <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block">
+                  Bu Rolde 3 Nebevî Uygulama Adımı:
+                </span>
+                <ul className="space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                  {role.principles.map((pr, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-[#0B4F3F] dark:text-emerald-400 font-bold">{idx + 1}.</span>
+                      <span>{pr}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/60 rounded-lg p-3 text-xs text-slate-700 dark:text-slate-300">
+                <strong className="text-[#9A6B28] dark:text-amber-400">Kaçınılması Gereken Tutum: </strong>
+                {role.avoid}
+              </div>
+            </div>
+
+            <CitationFooter
+              source={role.source}
+              speakText={`${role.role}. ${role.hadith}. Örnek sahabe: ${role.sahabeModel}`}
+              rightAction={
+                <button
+                  onClick={() =>
+                    printTopicHandout({
+                      title: `${role.role} • Sünnet Rehberi`,
+                      badge: role.badge,
+                      quote: role.hadith,
+                      body: `Örnek Sahabe: ${role.sahabeModel} • İlkeler: ${role.principles.join(" / ")}`,
+                      practice: `Sakınılacak Tutum: ${role.avoid}`,
+                      source: role.source
+                    })
+                  }
+                  className="inline-flex items-center gap-1 bg-white dark:bg-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded-md font-medium border border-slate-200 dark:border-slate-700 transition-colors"
+                  title="Ders Föyü Olarak Yazdır (PDF)"
+                >
+                  <Printer className="w-3.5 h-3.5 text-[#0B4F3F] dark:text-emerald-400" />
+                  <span>Ders Föyü</span>
+                </button>
+              }
+              onOpenCard={() =>
+                onOpenCard({
+                  title: `${role.role} • Sünnet Ölçüsü`,
+                  quote: role.hadith,
+                  source: role.source
+                })
+              }
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

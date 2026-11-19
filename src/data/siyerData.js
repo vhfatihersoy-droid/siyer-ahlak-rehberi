@@ -1919,3 +1919,352 @@ export const crossReferencesMap = {
   "İstişare": ["Selmân-ı Fârisî", "Hz. Ümmü Seleme", "Tevekkül"],
   "Tevekkül": ["Hz. Ebû Bekir", "İstişare", "Esma bint Ebû Bekir"]
 };
+
+// ==========================================
+// 22. KUR'AN-I KERİM'DE PEYGAMBER AHLAKI (ÜSVE-İ HASENE AYETLERİ)
+// ==========================================
+export const quranPropheticMoralsData = [
+  {
+    id: "ay-1",
+    surahVerse: "Kalem Suresi, 4. Ayet",
+    theme: "Yüce Ahlak (Huluk-ı Azîm)",
+    arabic: "وَإِنَّكَ لَعَلَىٰ خُلُقٍ عَظِيمٍ",
+    translation: "Ve şüphesiz sen pek yüce bir ahlak üzeresin.",
+    tafsir: "Hz. Âişe validemize Peygamber Efendimiz'in ahlakı sorulduğunda bu ayete işaret ederek 'Onun ahlakı Kur'an idi; Kur'an'ın hoşnut olduğu şeyden hoşnut olur, sakındırdığından uzak dururdu' cevabını vermiştir.",
+    source: "Kur'an Yolu Tefsiri, Cilt 5, Kalem Suresi 4. Ayet"
+  },
+  {
+    id: "ay-2",
+    surahVerse: "Ahzâb Suresi, 21. Ayet",
+    theme: "En Güzel Örnek (Üsve-i Hasene)",
+    arabic: "لَقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ",
+    translation: "Andolsun, Allah'ın Resûlü'nde sizin için; Allah'a ve ahiret gününe kavuşmayı uman, Allah'ı çok zikreden kimseler için güzel bir örnek (üsve-i hasene) vardır.",
+    tafsir: "Hz. Peygamber'in örnekliği yalnızca ibadet hayatıyla sınırlı olmayıp; zorluklara sabırda, aile hayatında, ticarette, dostlukta ve toplumsal barışta her mümin için yaşayan rehberdir.",
+    source: "Kur'an Yolu Tefsiri, Cilt 4, Ahzâb Suresi 21. Ayet"
+  },
+  {
+    id: "ay-3",
+    surahVerse: "Âl-i İmrân Suresi, 159. Ayet",
+    theme: "Yumuşak Huyluluk (Hilm), Af ve İstişare",
+    arabic: "فَبِمَا رَحْمَةٍ مِنَ اللَّهِ لِنْتَ لَهُمْ وَلَوْ كُنْتَ فَظًّا غَلِيظَ الْقَلْبِ لَانْفَضُّوا مِنْ حَوْلِكَ",
+    translation: "Allah'tan bir rahmet sayesindedir ki sen onlara yumuşak davrandın. Eğer kaba ve katı yürekli olsaydın, hiç şüphesiz etrafından dağılıp giderlerdi. Öyleyse onları affet, bağışlanmaları için dua et ve iş hakkında onlarla istişare et.",
+    tafsir: "Uhud Savaşı gibi en ağır bir imtihanın ardından dahi Efendimizin hata yapan ashabını azarlamayıp şefkatle kucakladığını ve ortak akıldan (İstişare) vazgeçmediğini bildiren temel iletişim ayetidir.",
+    source: "Kur'an Yolu Tefsiri, Cilt 1, Âl-i İmrân Suresi 159. Ayet"
+  },
+  {
+    id: "ay-4",
+    surahVerse: "Tevbe Suresi, 128. Ayet",
+    theme: "Müminlere Düşkünlük, Şefkat ve Merhamet",
+    arabic: "لَقَدْ جَاءَكُمْ رَسُولٌ مِنْ أَنْفُسِكُمْ عَزِيزٌ عَلَيْهِ مَا عَنِتُّمْ حَرِيصٌ عَلَيْكُمْ بِالْمُؤْمِنِينَ رَءُوفٌ رَحِيمٌ",
+    translation: "Andolsun, size kendi içinizden öyle bir peygamber gelmiştir ki, sizin sıkıntıya düşmeniz ona çok ağır gelir; o size çok düşkündür, müminlere karşı çok şefkatli ve merhametlidir.",
+    tafsir: "Yüce Allah bu ayette kendi isimlerinden olan 'Raûf' (çok şefkatli) ve 'Rahîm' (çok merhametli) sıfatlarını Hz. Peygamber'in ümmetine olan derin sevgisini anlatmak için kullanmıştır.",
+    source: "Kur'an Yolu Tefsiri, Cilt 3, Tevbe Suresi 128. Ayet"
+  },
+  {
+    id: "ay-5",
+    surahVerse: "Enbiyâ Suresi, 107. Ayet",
+    theme: "Evrensel Rahmet (Rahmeten li'l-Âlemîn)",
+    arabic: "وَمَا أَرْسَلْنَاكَ إِلَّا رَحْمَةً لِلْعَالَمِينَ",
+    translation: "(Ey Muhammed!) Biz seni ancak âlemlere rahmet olarak gönderdik.",
+    tafsir: "Hz. Peygamber'in getirdiği ahlak ve hukuk düzeni; mümin-inkârcı, kadın-erkek, çocuk-yaşlı, hatta hayvanlar ve tabiat dahil bütün varlık âlemi için bir merhamet ve emniyet şemsiyesidir.",
+    source: "Kur'an Yolu Tefsiri, Cilt 3, Enbiyâ Suresi 107. Ayet"
+  },
+  {
+    id: "ay-6",
+    surahVerse: "Duhâ Suresi, 9-11. Ayetler",
+    theme: "Yetime Şefkat ve Nimeti Anlatarak Şükür",
+    arabic: "فَأَمَّا الْيَتِيمَ فَلَا تَقْهَرْ وَأَمَّا السَّائِلَ فَلَا تَنْهَرْ وَأَمَّا بِنِعْمَةِ رَبِّكَ فَحَدِّثْ",
+    translation: "Öyleyse sakın yetimi ezme! El açıp isteyeni de sakın azarlama! Ve Rabbinin nimetini minnet ve şükranla anlat!",
+    tafsir: "Kendi yetimliğini unutmayarak toplumdaki kimsesizleri ve ihtiyaç sahiplerini incitmeden koruma altına almayı emreden nebevî sosyal adalet ilkesidir.",
+    source: "Kur'an Yolu Tefsiri, Cilt 5, Duhâ Suresi 9-11. Ayetler"
+  }
+];
+
+// ==========================================
+// 23. ESMÂ-İ NEBÎ (PEYGAMBERİMİZİN GÜZEL İSİMLERİ VE SIFATLARI)
+// ==========================================
+export const esmaiNebiData = [
+  {
+    id: "es-1",
+    name: "Muhammed (s.a.v.)",
+    arabic: "مُحَمَّدٌ",
+    meaning: "Çokça Övülen, Güzel Ahlakıyla Senâ Edilen",
+    reference: "Âl-i İmrân, 144 • Muhammed, 2 • Fetih, 29",
+    reflection: "Bütün güzel huyları ve erdemleri şahsında topladığı için hem yerde hem gökte övgüye layık görülmüştür."
+  },
+  {
+    id: "es-2",
+    name: "Ahmed (s.a.v.)",
+    arabic: "أَحْمَدُ",
+    meaning: "Rabbine En Çok ve En Güzel Şekilde Hamdeden",
+    reference: "Saf Suresi, 6. Ayet",
+    reflection: "Bollukta da darlıkta da dilinden hamd ve şükrü düşürmeyen kulluk zirvesini temsil eder."
+  },
+  {
+    id: "es-3",
+    name: "El-Emîn",
+    arabic: "الْأَمِينُ",
+    meaning: "Sözünde, Özünde ve Emanette En Güvenilir İnsan",
+    reference: "TDV İslâm Ansiklopedisi, 'El-Emîn' Maddesi",
+    reflection: "İnanmayanların bile en kıymetli emanetlerini gözü kapalı teslim ettiği sarsılmaz dürüstlük sıfatıdır."
+  },
+  {
+    id: "es-4",
+    name: "Mustafâ",
+    arabic: "الْمُصْطَفَى",
+    meaning: "Seçilmiş, Arındırılmış ve Güzide Kılınmış",
+    reference: "Hac Suresi, 75. Ayet & Hadislerle İslam",
+    reflection: "Kalbi, dili ve yaşantısı her türlü cahiliye kirinden arındırılmış saf ve berrak fıtratı ifade eder."
+  },
+  {
+    id: "es-5",
+    name: "Hâtemü'n-Nebiyyîn",
+    arabic: "خَاتَمُ النَّبِيِّينَ",
+    meaning: "Peygamberler Zincirinin Son Halkası ve Mührü",
+    reference: "Ahzâb Suresi, 40. Ayet",
+    reflection: "Tevhid ve güzel ahlak binasını tamamlayan son ilahi elçi olduğunu bildirir."
+  },
+  {
+    id: "es-6",
+    name: "Sirâcen Münîrâ",
+    arabic: "سِرَاجًا مُنِيرًا",
+    meaning: "Etrafını Aydınlatan Parlak Kandil",
+    reference: "Ahzâb Suresi, 46. Ayet",
+    reflection: "Cehalet karanlığını yakıp yıkmadan, tıpkı bir kandil gibi gönülleri ısıtarak aydınlatan hikmet dilini simgeler."
+  },
+  {
+    id: "es-7",
+    name: "Mübeşşir ve Nezîr",
+    arabic: "مُبَشِّرًا وَنَذِيرًا",
+    meaning: "İyilikleri Müjdeleyen ve Kötülüklerden Sakındıran",
+    reference: "Ahzâb Suresi, 45. Ayet",
+    reflection: "İnsanları ümitsizliğe düşürmeden rahmetle müjdeleyen, aynı zamanda kötülüklerden şefkatle uyaran rehberlik sıfatıdır."
+  },
+  {
+    id: "es-8",
+    name: "Nebiyyü'r-Rahme",
+    arabic: "نَبِيُّ الرَّحْمَةِ",
+    meaning: "Merhamet ve Şefkat Peygamberi",
+    reference: "Müslim, Fedâil, 126 & Hadislerle İslam",
+    reflection: "Bizzat kendisinin 'Ben rahmet peygamberiyim' buyurarak tanıttığı kuşatıcı şefkat kimliğidir."
+  }
+];
+
+// ==========================================
+// 24. "BENİM ROLÜMDE SÜNNET" — SOSYAL ROL VE MESLEK REHBERİ
+// ==========================================
+export const socialRolesSunnahData = [
+  {
+    id: "rol-ebeveyn",
+    roleTitle: "Anne & Baba Olarak",
+    subtitle: "Aile yuvasında şefkat, adalet ve örnek şahsiyet",
+    hadith: "Çocuklarınız arasında adaletli davranın; hatta onları öperken bile eşitlik gözetin. (Hadislerle İslam, Cilt 4)",
+    sahabeExample: "Hz. Fâtıma (r.anhâ) ve Enes b. Mâlik (r.a.) — Sevgi ve saygıyla büyütülen çocuklar",
+    principles: [
+      "Çocukları başkalarının yanında azarlamamak, hatalarını baş başa ve tatlı dille düzeltmek.",
+      "Ev işlerini sadece bir kişinin üzerine yıkmayıp Peygamberimiz gibi aile içi yardımlaşmaya katılmak.",
+      "Çocuklara sadece öğüt vermekle kalmayıp doğruluk ve ibadette bizzat rol model olmak."
+    ],
+    avoid: "Kardeşler arasında kıyaslama yapmak ve öfke anında kırıcı söz söylemek.",
+    source: "Diyanet Aile İlmihali & Hadislerle İslam, Cilt 4, s. 305-320"
+  },
+  {
+    id: "rol-egitimci",
+    roleTitle: "Öğretmen & Eğitimci Olarak",
+    subtitle: "Kolaylaştırıcı, sevdirici ve tedrici eğitim metodu",
+    hadith: "Allah beni zorlaştırıcı ve şaşırtıcı olarak değil; muallim (öğretici) ve kolaylaştırıcı olarak gönderdi. (Müslim, Talâk, 29)",
+    sahabeExample: "Mus'ab b. Umeyr (r.a.) ve Muâz b. Cebel (r.a.) — Gönülleri fetheden genç muallimler",
+    principles: [
+      "Muhatabın seviyesine ve hazırbulunuşluğuna göre adım adım (tedrici) öğretim yapmak.",
+      "Soru soranı küçümsememek; Mescid'de kaba davranan bedevîye dahi sabırla açıklama yapmak.",
+      "Bilgiyi kuru bir ezber olarak değil, bizzat yaşayarak ve sevdirerek aktarmak."
+    ],
+    avoid: "Öğrenciyi mahcup etmek, zorlaştırmak ve ümit kırıcı bir dil kullanmak.",
+    source: "TDV İslâm Ansiklopedisi, 'Talim ve Terbiye' & Hadislerle İslam, Cilt 1"
+  },
+  {
+    id: "rol-ticaret",
+    roleTitle: "Esnaf, İşveren & Çalışan Olarak",
+    subtitle: "Helal kazanç, işçi hakkı, itkan (özen) ve ahde vefa",
+    hadith: "İşçiye ücretini, alın teri kurumadan önce veriniz. • Allah birinizin yaptığı işi sağlam yapmasından (itkan) hoşnut olur. (İbn Mâce, Ruhûn, 4)",
+    sahabeExample: "Hz. Ebû Bekir (r.a.) ve Abdurrahman b. Avf (r.a.) — Dürüst ticaret ve infak öncüleri",
+    principles: [
+      "Satılan malın veya sunulan hizmetin kusurunu gizlememek, ölçü ve tartıda tam adil olmak.",
+      "Çalışanın emeğini, ücretini ve insani çalışma şartlarını geciktirmeden gözetmek.",
+      "Üstlenilen görevi kimse denetlemese bile emanet bilinciyle en sağlam biçimde (itkan) teslim etmek."
+    ],
+    avoid: "Aşırı kâr hırsıyla yemin etmek, kusuru örtbas etmek ve mesai emanetini savsaklamak.",
+    source: "Hadislerle İslam, Cilt 6, s. 40-95 & TDV İslâm Ansiklopedisi, 'Ticaret'"
+  },
+  {
+    id: "rol-genc",
+    roleTitle: "Genç & Öğrenci Olarak",
+    subtitle: "İlim gayreti, iffet, özgüven ve sosyal sorumluluk",
+    hadith: "Beş şey gelmeden önce beş şeyin kıymetini bil: İhtiyarlığından önce gençliğinin, meşguliyetinden önce boş vaktinin... (Hâkim, Müstedrek, IV, 341)",
+    sahabeExample: "Hz. Ali (r.a.), Zeyd b. Sâbit (r.a.) ve Üsâme b. Zeyd (r.a.) — İlim ve cesaret gençliği",
+    principles: [
+      "Gençlik enerjisini faydalı ilim, yabancı dil, sanat ve ahlaki gelişim için değerlendirmek.",
+      "Haksızlıklar karşısında Hilfü'l-Fudûl ruhuyla erdemli ve ilkeli bir duruş sergilemek.",
+      "Dijital mecralarda zamanı, gözü ve dili anlamsız tartışmalardan koruyup hayırda öncü olmak."
+    ],
+    avoid: "Erteleme alışkanlığı, gayesizlik ve sosyal medya kıyaslamalarıyla ümitsizliğe kapılmak.",
+    source: "Diyanet Gençlik Rehberi & Hadislerle İslam, Cilt 2"
+  },
+  {
+    id: "rol-yonetici",
+    roleTitle: "Yönetici & Kamu Görevlisi Olarak",
+    subtitle: "Emanet, liyakat, istişare ve ulaşılabilirlik",
+    hadith: "Hepiniz çobansınız ve hepiniz yönettiğiniz kimselerden sorumlusunuz. (Buhârî, Cum'a, 11)",
+    sahabeExample: "Hz. Ömer (r.a.) ve Ebû Ubeyde b. Cerrâh (r.a.) — Adalet ve tevazu yöneticileri",
+    principles: [
+      "Görev ve yetkiyi bir ayrıcalık değil, ahirette hesabı verilecek ağır bir emanet görmek.",
+      "Atama ve görevlendirmelerde yakınlığı değil ehliyet ve liyakati esas almak.",
+      "Karar süreçlerinde ortak akla (İstişare) başvurmak ve mazlumun/vatandaşın sesine kapıyı açık tutmak."
+    ],
+    avoid: "Kibirlenmek, halktan kopmak, istişareyi terk etmek ve kamu malında gevşeklik göstermek.",
+    source: "Kur'an Yolu Tefsiri, Nisâ Suresi 58. Ayet & TDV İslâm Ansiklopedisi"
+  },
+  {
+    id: "rol-komsu",
+    roleTitle: "Komşu, Dost & Akraba Olarak",
+    subtitle: "Sıla-i rahim, komşuluk hukuku ve iyi günde/kötü günde vefa",
+    hadith: "Komşusu açken tok yatan bizden değildir. • Allah'a ve ahiret gününe iman eden komşusuna ikram etsin. (Buhârî, Edeb, 31)",
+    sahabeExample: "Ebû Eyyûb el-Ensârî (r.a.) ve Sa'd b. Muâz (r.a.) — Mihmandarlık ve kardeşlik",
+    principles: [
+      "Komşunun sevincine ve cenazesine/hastalığına ortak olmak, gürültü veya davranışla eziyet vermemek.",
+      "Akrabalık bağlarını (Sıla-i Rahim) küslüklere kurban etmeyip barıştırıcı olmak.",
+      "Dostların gıyabında onurunu savunmak ve kusurlarını araştırıp yaymamak."
+    ],
+    avoid: "Apartmanda selamı kesmek, komşuyu rahatsız etmek ve küçük kırgınlıkları küslüğe dönüştürmek.",
+    source: "Hadislerle İslam, Cilt 4, s. 190-210"
+  }
+];
+
+// ==========================================
+// 25. NEBEVÎ MEKTUPLAR VE AHİTNAMELER (DİPLOMATİK NEZAKET & HUKUK DİLİ)
+// ==========================================
+export const propheticLettersData = [
+  {
+    id: "mkt-1",
+    recipient: "Habeşistan Hükümdarı Necaşi Ashame'ye Mektup",
+    date: "M. 628 (H. 6-7)",
+    category: "Adalet & Mazlumları Koruma Diplomasisi",
+    excerpt: "Bismillâhirrahmânirrahîm. Allah'ın Resûlü Muhammed'den Habeş Meliki Necaşi Ashame'ye... Ben kendisinden başka ilah olmayan, Melik, Kuddûs, Selâm ve Mü'min olan Allah'a hamdederim. Amcam oğlu Ca'fer ile beraberindeki Müslümanları senin ülkenin adaletine gönderdim; onlara misafirperverlik göster...",
+    diplomaticLesson: "Farklı inançtaki adil bir yöneticiye saygılı, vakur ve ortak insani değerleri öne çıkaran bir üslupla hitap edilmiş; Necaşi bu nezaket karşısında büyük hürmet göstermiştir.",
+    source: "TDV İslâm Ansiklopedisi, 'Necâşî' Maddesi, Cilt 32"
+  },
+  {
+    id: "mkt-2",
+    recipient: "Bizans (Doğu Roma) İmparatoru Herakleios'a Davet Mektubu",
+    date: "M. 628 (Hudeybiye Sonrası)",
+    category: "Barışçıl Tebliğ & Ortak Kelime Çağrısı",
+    excerpt: "Bismillâhirrahmânirrahîm. Allah'ın kulu ve Resûlü Muhammed'den Rumların büyüğü Herakleios'a! Hidayete uyanlara selam olsun. Seni İslam davetine çağırıyorum... 'Ey Ehl-i Kitap! Sizinle bizim aramızda ortak olan bir kelimeye (yalnız Allah'a kulluk etmeye) gelin...' (Âl-i İmrân, 64)",
+    diplomaticLesson: "Muhatabın konumunu tanıyan ('Rumların büyüğü'), hakaret veya tehdit içermeyen, Kur'an'ın 'ortak kelime' ilkesine dayalı yüksek bir diplomatik nezaket örneğidir.",
+    source: "Buhârî, Bed'ü'l-Vahy, 6 & TDV İslâm Ansiklopedisi, 'Herakleios' Maddesi"
+  },
+  {
+    id: "mkt-3",
+    recipient: "Muâz b. Cebel'e Yemen Görev ve Yargı Talimatnamesi",
+    date: "M. 631 (H. 10)",
+    category: "Kamu Yönetimi & Mazlumun Hakkı",
+    excerpt: "Ey Muâz! Ehl-i Kitap bir topluma gidiyorsun. Onları önce kademeli olarak tevhide davet et... Mallarının en kıymetlilerini zekât olarak alma; mazlumun bedduasından şiddetle sakın, çünkü mazlumun duası ile Allah arasında hiçbir perde yoktur. Kolaylaştır, zorlaştırma; müjdele, nefret ettirme!",
+    diplomaticLesson: "Kamu görevlilerine halkın malına ve onuruna saygı duymayı, vergi/zekât toplarken bile adaletli olmayı ve mazlumun ahından korkmayı emreden idari rehberdir.",
+    source: "Buhârî, Zekât, 63 & TDV İslâm Ansiklopedisi, 'Muâz b. Cebel' Maddesi"
+  },
+  {
+    id: "mkt-4",
+    recipient: "Necran Hıristiyanlarına Verilen Ahitname (Güvence Belgesi)",
+    date: "M. 631 (H. 9-10)",
+    category: "İnanç Hürriyeti & Birlikte Yaşama Hukuku",
+    excerpt: "Necran halkının ve çevresindekilerin malları, canları, dinî hayatları, kiliseleri ve mevcut durumları Allah'ın garantisi ve Peygamberi Muhammed'in zimmeti (koruması) altındadır. Hiçbir piskopos kendi görevinden, hiçbir rahip kendi manastırından uzaklaştırılmayacak ve kendilerine hiçbir haksızlık yapılmayacaktır.",
+    diplomaticLesson: "Gayrimüslim vatandaşların can, mal, mabed ve din özgürlüğünü bizzat Peygamber zimmetiyle güvence altına alan tarihi insan hakları vesikasıdır.",
+    source: "Ebû Ubeyd, Kitâbü'l-Emvâl & TDV İslâm Ansiklopedisi, 'Necran' Maddesi"
+  }
+];
+
+// ==========================================
+// 26. ÇOCUK MODÜLÜ: 30 GÜNLÜK SÜNNET TAKVİMİ VE BİLMECELER
+// ==========================================
+export const kidsThirtyDayCalendarData = [
+  { day: 1, title: "Bismillah Günü", task: "Bugün her güzel işe ve yemeğe 'Bismillah' diyerek başla.", emoji: "🌟" },
+  { day: 2, title: "Tebessüm Günü", task: "Sabah gördüğün herkese kocaman gülümseyerek selam ver.", emoji: "😊" },
+  { day: 3, title: "Su İkramı Günü", task: "Ailenden birine veya arkadaşına bir bardak su ikram et.", emoji: "💧" },
+  { day: 4, title: "Kuşları Sevindirme Günü", task: "Pencere önüne veya bahçeye kuşlar için ekmek kırıntısı/su koy.", emoji: "🐦" },
+  { day: 5, title: "Teşekkür Günü", task: "Senin için yemek hazırlayan ve emek veren herkese teşekkür et.", emoji: "💐" },
+  { day: 6, title: "Paylaşma Günü", task: "Sevdiğin bir oyuncağını veya boya kalemini kardeşinle paylaş.", emoji: "🎁" },
+  { day: 7, title: "Sofra Sünneti Günü", task: "Yemeğini tabağında hiç kırıntı bırakmadan bitirip Elhamdülillah de.", emoji: "🍽️" },
+  { day: 8, title: "Dede & Nine Arama Günü", task: "Dedeni, nineni veya bir akrabanı arayıp halini hatırını sor.", emoji: "📞" },
+  { day: 9, title: "Odamı Toplama Günü", task: "Kimse söylemeden yatağını ve çalışma masanı tertemiz topla.", emoji: "🛏️" },
+  { day: 10, title: "Doğru Söz Günü", task: "El-Emîn olan Peygamberimiz gibi bugün her konuda dürüst ol.", emoji: "🛡️" },
+  { day: 11, title: "Sabır & Sakinlik Günü", task: "Canın sıkıldığında hiç bağırmadan derin nefes alıp sakin kal.", emoji: "🌿" },
+  { day: 12, title: "Kitap Okuma Günü", task: "İlk emir 'Oku!' sünnetine uyarak bugün 15 dakika kitap oku.", emoji: "📖" },
+  { day: 13, title: "Çiçek Sulama Günü", task: "Evdeki veya bahçedeki bir çiçeği şefkatle sula.", emoji: "🌱" },
+  { day: 14, title: "Misafirperverlik Günü", task: "Eve gelen misafire veya komşuya güler yüzle 'Hoş geldiniz' de.", emoji: "🏡" },
+  { day: 15, title: "Sır Tutma Günü", task: "Genç sahabe Enes b. Mâlik gibi sana verilen emaneti koru.", emoji: "🗝️" },
+  { day: 16, title: "İsraf Etmeme Günü", task: "Diş fırçalarken ve el yıkarken suyu boşa akıtma.", emoji: "🚰" },
+  { day: 17, title: "Tatlı Dil Günü", task: "Bugün konuşurken 'Lütfen' ve 'Rica ederim' kelimelerini kullan.", emoji: "💬" },
+  { day: 18, title: "Kedi Dostluğu Günü", task: "Ebû Hüreyre gibi sokaktaki bir kediye şefkatle yaklaş.", emoji: "🐱" },
+  { day: 19, title: "Anne-Baba Yardımı Günü", task: "Sofrayı kurarken veya toplarken annene/babana yardım et.", emoji: "🤝" },
+  { day: 20, title: "Dinleme Edebi Günü", task: "Birisi seninle konuşurken sözünü hiç kesmeden sonuna kadar dinle.", emoji: "👂" },
+  { day: 21, title: "Çevreyi Koruma Günü", task: "Yerde gördüğün bir çöpü veya engeli kaldırıp çöp kutusuna at.", emoji: "🌍" },
+  { day: 22, title: "Kardeşlik Günü", task: "Oyun oynarken yalnız kalan bir arkadaşını oyuna davet et.", emoji: "🛝" },
+  { day: 23, title: "Özür Dileme Cesareti", task: "Yanlışlıkla bir hata yaparsan hemen özür dileyip gönül al.", emoji: "❤️" },
+  { day: 24, title: "Cuma Nezaketi Günü", task: "Tertemiz giyin, tırnaklarını kes ve ailene 'Hayırlı Cumalar' de.", emoji: "🕌" },
+  { day: 25, title: "Kıssa Anlatma Günü", task: "Bu portalda öğrendiğin bir siyer kıssasını akşam ailene anlat.", emoji: "🗣️" },
+  { day: 26, title: "Büyüklere Saygı Günü", task: "Yaşlı bir komşuna veya büyüğüne kapıyı açıp yer ver.", emoji: "👵" },
+  { day: 27, title: "Hediyeleşme Günü", task: "Kendi çizdiğin güzel bir resmi kardeşine veya arkadaşına hediye et.", emoji: "🎨" },
+  { day: 28, title: "Dua Günü", task: "Yatmadan önce ailen, arkadaşların ve tüm çocuklar için dua et.", emoji: "🤲" },
+  { day: 29, title: "Şükür Defteri Günü", task: "Seni mutlu eden üç güzel nimeti sayıp Allah'a şükret.", emoji: "✨" },
+  { day: 30, title: "Güzel Ahlak Bayramı", task: "30 günlük sünnet yolculuğunu tamamladın! Beratını indir.", emoji: "🏆" }
+];
+
+export const kidsRiddlesData = [
+  {
+    id: "blm-1",
+    clues: [
+      "1. İpucu: Peygamber Efendimiz'in Mekke'deki en yakın dostu ve Hicret arkadaşıyım.",
+      "2. İpucu: Sevr Mağarası'nda Peygamberimiz bana 'Üzülme, Allah bizimle beraberdir' dedi.",
+      "3. İpucu: Her zaman doğruyu onayladığım için bana 'Es-Sıddîk' unvanı verildi."
+    ],
+    question: "Ben hangi sahabeyim?",
+    options: ["Hz. Ebû Bekir (r.a.)", "Bilâl-i Habeşî (r.a.)", "Zeyd b. Sâbit (r.a.)"],
+    correctIndex: 0,
+    explanation: "Doğru! Hz. Ebû Bekir (r.a.), Peygamberimizin en sadık dostu ve ilk halifesidir."
+  },
+  {
+    id: "blm-2",
+    clues: [
+      "1. İpucu: Ben küçük bir yavru kediyi üşümesin diye cübbemin yeninde taşırdım.",
+      "2. İpucu: Peygamberimiz hayvan sevgimi görünce bana 'Kediciğin Babası' ismini verdi.",
+      "3. İpucu: Suffe okulunda yetişip Peygamberimizden en çok hadis ezberleyen sahabe oldum."
+    ],
+    question: "Ben hangi sahabeyim?",
+    options: ["Mus'ab b. Umeyr (r.a.)", "Ebû Hüreyre (r.a.)", "Hz. Ömer (r.a.)"],
+    correctIndex: 1,
+    explanation: "Harika! Ebû Hüreyre (r.a.) hem hayvan sevgisiyle hem de hadis hafızlığıyla tanınır."
+  },
+  {
+    id: "blm-3",
+    clues: [
+      "1. İpucu: Ben Mescid-i Nebevî'nin yanında kurulan ilk İslam okuluyum.",
+      "2. İpucu: Genç sahabeler burada bizzat Peygamberimizden okuma, yazma ve güzel ahlak öğrendi.",
+      "3. İpucu: Burada okuyan öğrencilere 'Ashâb-ı Suffe' denildi."
+    ],
+    question: "Ben hangi güzel mekânım?",
+    options: ["Suffe Mektebi", "Hira Mağarası", "Sevr Mağarası"],
+    correctIndex: 0,
+    explanation: "Tebrikler! Suffe Mektebi, İslam tarihinin ilk eğitim kurumudur."
+  },
+  {
+    id: "blm-4",
+    clues: [
+      "1. İpucu: Ben hiç para harcamadan her gün yapabileceğin çok kolay bir iyiliğim.",
+      "2. İpucu: Beni yaptığında karşındaki insanın kalbi ısınır ve yüzü aydınlanır.",
+      "3. İpucu: Peygamberimiz benim için 'Kardeşinin yüzüne gülümsemen sadakadır' buyurdu."
+    ],
+    question: "Ben hangi güzel sünnetim?",
+    options: ["Tebessüm (Gülümseme)", "Kaylûle", "İstişare"],
+    correctIndex: 0,
+    explanation: "Süpersin! Tebessüm etmek Peygamberimizin hiç terk etmediği en güzel sünnettir."
+  }
+];
