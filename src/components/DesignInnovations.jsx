@@ -15,7 +15,9 @@ import {
   quranPropheticMoralsData,
   esmaiNebiData,
   socialRolesSunnahData,
-  propheticLettersData
+  propheticLettersData,
+  propheticBalanceData,
+  moralRemediesData
 } from '../data/siyerData';
 import { GlossaryText, CitationFooter } from './SharedUI';
 import { safeStorage, printTopicHandout } from '../services/storageService';
@@ -124,7 +126,7 @@ export function AdultVakaSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {adultVakaScenarios.map((vaka) => {
           const picked = selectedOptions[vaka.id];
           return (
@@ -1306,6 +1308,107 @@ export function SocialRolesSunnahSection({ onOpenCard }) {
             />
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// 11. NEBEVÎ DENGE (İTİDAL) PUSULASI & KALBİ YORAN 6 AHLAK ZAFİYETİNE NEBEVÎ REÇETELER
+export function MoralBalanceAndRemediesSection({ onOpenCard }) {
+  return (
+    <div className="space-y-8">
+      {/* Nebevî Denge (İtidal) Pusulası */}
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5">
+        <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
+            İslam Ahlakında Vasat ve Ölçü
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Nebevî Denge (İtidal) Pusulası — Tefrit, İtidal ve İfrat
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Klasik İslam ahlak geleneğinde her erdem, iki aşırılık arasındaki dengedir.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {propheticBalanceData.map((b) => (
+            <div
+              key={b.id}
+              className="bg-[#FAF9F6] dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 space-y-3"
+            >
+              <div className="grid grid-cols-3 gap-2 items-center text-center text-xs">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2">
+                  <span className="text-slate-400 block">Eksiklik</span>
+                  <span className="font-semibold text-slate-600 dark:text-slate-300">{b.tefrit}</span>
+                </div>
+                <div className="bg-[#0B4F3F] text-white rounded-lg p-2.5 shadow-2xs">
+                  <span className="text-amber-300 text-xs font-bold block">Nebevî Denge</span>
+                  <span className="font-bold">{b.itidal}</span>
+                </div>
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2">
+                  <span className="text-slate-400 block">Aşırılık</span>
+                  <span className="font-semibold text-slate-600 dark:text-slate-300">{b.ifrat}</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{b.note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Kalbi Yoran 6 Ahlak Zafiyetine Nebevî Reçeteler */}
+      <div className="space-y-4">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#9A6B28] dark:text-amber-400 block">
+            Manevî Öz-Farkındalık & Pratik İlaçlar
+          </span>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+            Kalbi Yoran 6 Ahlak Zafiyetine Nebevî Reçeteler
+          </h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {moralRemediesData.map((r) => (
+            <div
+              key={r.id}
+              className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">{r.affliction}</h4>
+
+                <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-xs text-slate-600 dark:text-slate-300">
+                  <strong className="text-slate-900 dark:text-slate-100 block mb-0.5">Belirtisi:</strong>
+                  {r.symptom}
+                </div>
+
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                  <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">Nebevî Teşhis:</strong>
+                  <GlossaryText text={r.propheticDiagnosis} />
+                </p>
+
+                <div className="bg-emerald-50/60 dark:bg-emerald-950/30 border-l-4 border-[#0B4F3F] p-3 rounded-r-lg text-xs text-slate-800 dark:text-slate-200 leading-relaxed">
+                  <strong className="text-[#0B4F3F] dark:text-emerald-400 block mb-0.5">
+                    Hemen Uygulanabilir Pratik İlaç:
+                  </strong>
+                  {r.remedy}
+                </div>
+              </div>
+
+              <CitationFooter
+                source={r.source}
+                speakText={`${r.affliction}. ${r.propheticDiagnosis} Pratik ilaç: ${r.remedy}`}
+                onOpenCard={() =>
+                  onOpenCard({
+                    title: `${r.affliction} • Nebevî Reçete`,
+                    quote: r.remedy,
+                    source: r.source
+                  })
+                }
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

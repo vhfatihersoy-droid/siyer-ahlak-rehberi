@@ -48,7 +48,8 @@ import {
   CorporateQuizAndCertificateSection,
   FivePrayerAnchorsSection,
   QuranAndEsmaiNebiSection,
-  SocialRolesSunnahSection
+  SocialRolesSunnahSection,
+  MoralBalanceAndRemediesSection
 } from './components/DesignInnovations';
 
 class ErrorBoundary extends React.Component {
@@ -1269,10 +1270,11 @@ function MainApp() {
                 {/* Ferah Alt Sekme Şeridi */}
                 <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
                   {[
-                    { id: "tematik", label: "Tematik Ahlak" },
-                    { id: "roller", label: "Meslek & Sosyal Roller" },
-                    { id: "cagdas", label: "Çağdaş Sorunlar" },
-                    { id: "vaka", label: "Vaka Analizi" }
+                    { id: "tematik", label: `Tematik Ahlak (${thematicData.length})` },
+                    { id: "cagdas", label: `Çağdaş Sorunlar (${contemporaryIssuesData.length})` },
+                    { id: "roller", label: "Meslek & Sosyal Roller (6)" },
+                    { id: "receteler", label: "Denge & Ahlak Reçeteleri" },
+                    { id: "vaka", label: "Vaka Analizi (6)" }
                   ].map((sub) => (
                     <button
                       key={sub.id}
@@ -1288,6 +1290,10 @@ function MainApp() {
                   ))}
                 </div>
 
+                {ahlakSubView === "receteler" && (
+                  <MoralBalanceAndRemediesSection onOpenCard={(card) => setCardModalData(card)} />
+                )}
+
                 {ahlakSubView === "roller" && (
                   <SocialRolesSunnahSection onOpenCard={(card) => setCardModalData(card)} />
                 )}
@@ -1295,15 +1301,7 @@ function MainApp() {
                 {ahlakSubView === "tematik" && (
                   <div className="space-y-4">
                     <div className="flex flex-wrap gap-1.5">
-                      {[
-                        "Tümü",
-                        "Ticaret Ahlakı",
-                        "Aile Hayatı",
-                        "Çocuklarla İletişim",
-                        "Adalet ve Merhamet",
-                        "Çevre Bilinci",
-                        "İlim ve Hikmet"
-                      ].map((cat) => (
+                      {["Tümü", ...Array.from(new Set(thematicData.map((t) => t.category)))].map((cat) => (
                         <button
                           key={cat}
                           onClick={() => setThematicCategory(cat)}

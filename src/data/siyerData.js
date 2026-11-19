@@ -229,6 +229,66 @@ export const thematicData = [
     text: "Medine'ye hicret edildiğinde ilk iş olarak Mescid-i Nebevî'nin yanına Suffe mektebini kuran Hz. Peygamber, ilim öğrenmeyi ibadet saymış ve Mus'ab b. Umeyr'i Medine'ye ilk muallim olarak göndermiştir.",
     details: "Faydalı bilgi üretmek, okumak ve öğrendiğini toplumun hayrına sunmak nebevî mirasın özüdür.",
     source: "TDV İslâm Ansiklopedisi, 'Suffe' Maddesi, Cilt 37"
+  },
+  {
+    id: "hilm",
+    category: "Hilm ve Nezaket",
+    icon: ShieldCheck,
+    title: "Öfke Anında Sükûnet ve Yumuşak Huyluluk (Hilm)",
+    arabic: "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ",
+    text: "Taif'te taşlanıp ayakları kan revan içinde kaldığında dahi beddua etmeyip 'Rabbim, kavmime hidayet ver; çünkü onlar bilmiyorlar' diye dua eden Resûlullah (s.a.v.), gerçek gücün öfke anında nefsine hâkim olmak olduğunu göstermiştir.",
+    details: "Hilm; zayıflık değil, gücü elinde tutarken bile nezaketle ve soğukkanlılıkla hareket edebilme olgunluğudur.",
+    source: "Buhârî, Edeb, 76 & Hadislerle İslam, Cilt 3, s. 245"
+  },
+  {
+    id: "tevazu",
+    category: "Tevazu ve Kanaat",
+    icon: Heart,
+    title: "Kibirden Uzak Tevazu ve Sade Yaşayış",
+    arabic: "مَا تَوَاضَعَ أَحَدٌ لِلَّهِ إِلَّا رَفَعَهُ اللَّهُ",
+    text: "Huzuruna geldiğinde heybetinden titreyen bir adama 'Sakin ol! Ben kral değilim, kuru et yiyen Kureyşli bir kadının oğluyum' diyerek onu teskin eden Peygamberimiz, kendi elbisesini diker, ayakkabısını onarır ve meclislerde en boş yere otururdu.",
+    details: "Allah için alçakgönüllü olanı Allah yüceltir; kibir ise kalbi hakikate ve insanlara kapatır.",
+    source: "Müslim, Birr, 69; İbn Mâce, Et'ime, 30"
+  },
+  {
+    id: "af",
+    category: "Affedicilik ve Hoşgörü",
+    icon: Sparkles,
+    title: "Güçlüyken Affetmek ve Gönül Genişliği",
+    arabic: "لَا تَثْرِيبَ عَلَيْكُمُ الْيَوْمَ اذْهَبُوا فَأَنْتُمُ الطُّلَقَاءُ",
+    text: "Yıllarca kendisine ve ashabına eziyet eden Mekkeliler karşısında fethin zafer gününde 'Bugün size hiçbir kınama yoktur; gidiniz, hepiniz serbestsiniz' buyurarak insanlık tarihinin en büyük merhamet ve genel af örneğini sergilemiştir.",
+    details: "İntikam anlık bir rahatlama, affetmek ise kalbi hafifleten ve düşmanlıkları dostluğa çeviren kalıcı bir erdemdir.",
+    source: "İbn Hişâm, es-Sîre & TDV İslâm Ansiklopedisi, 'Fetih' Maddesi"
+  },
+  {
+    id: "vefa",
+    category: "Vefa ve Dostluk",
+    icon: Users,
+    title: "Ahde Vefa ve Kadim Dostlukları Unutmamak",
+    arabic: "حُسْنُ الْعَهْدِ مِنَ الْإِيمَانِ",
+    text: "Hz. Hatice'nin vefatından yıllar sonra bile evinde bir koyun kesildiğinde 'Şunu Hatice'nin arkadaşlarına gönderin' buyurması ve sütannesi Halîme'yi gördüğünde cübbesini yere serip oturtması, vefanın imandan bir parça olduğunu gösterir.",
+    details: "Vefa; sadece varlık ve kolaylık zamanlarında değil, zor günlerde ve ayrılıklardan sonra da emeği ve dostluğu unutmamaktır.",
+    source: "Buhârî, Menâkıbü'l-Ensâr, 20 & Hadislerle İslam, Cilt 3"
+  },
+  {
+    id: "haya",
+    category: "Hayâ ve İncelik",
+    icon: Award,
+    title: "Edep, Hayâ ve Kimseyi Yüzüne Karşı Utandırmamak",
+    arabic: "الْحَيَاءُ شُعْبَةٌ مِنَ الْإِيمَانِ",
+    text: "Peygamber Efendimiz (s.a.v.) bir kişide hoş olmayan bir davranış gördüğünde asla adını vererek toplum içinde mahcup etmez, 'Bazı kimselere ne oluyor ki şöyle şöyle yapıyorlar?' diyerek hem hatayı düzeltir hem insan onurunu korurdu.",
+    details: "Hayâ; sözde, bakışta, giyimde ve davranışta ölçülü olmak, başkasının mahremiyetine ve onuruna özen göstermektir.",
+    source: "Buhârî, Îmân, 3; Ebû Dâvûd, Edeb, 5"
+  },
+  {
+    id: "comertlik",
+    category: "Cömertlik ve Paylaşma",
+    icon: Leaf,
+    title: "İsar, Cömertlik ve Veren El Olmak",
+    arabic: "الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى",
+    text: "Hz. Peygamber (s.a.v.) kendisinden bir şey istendiğinde asla 'hayır' demez, elinde olanı paylaşır, yoksa borç alarak ya da yönlendirerek ihtiyaç sahibinin gönlünü alırdı. 'Veren el alan elden üstündür' buyurarak paylaşma kültürünü yerleştirmiştir.",
+    details: "Cömertlik yalnız parayla değil; bilgiyi, zamanı, güleryüzü ve imkânları gönülden paylaşmakla yaşanır.",
+    source: "Buhârî, Zekât, 18; Müslim, Fedâil, 56"
   }
 ];
 
@@ -289,6 +349,60 @@ export const contemporaryIssuesData = [
     propheticApproach: "Peygamber Efendimiz en kaba muamelelere bile yumuşaklıkla (hilm) karşılık vermiş, 'Mümin; kınayan, lanet eden, kaba ve çirkin konuşan kimse değildir' buyurmuştur.",
     actionStep: "Fikir ayrılıklarında kişiliği hedef almadan, ses tonunuzu yükseltmeden ve nezaketi koruyarak konuşun.",
     source: "Kur'an Yolu Tefsiri, Âl-i İmrân Suresi 159. Ayet"
+  },
+  {
+    id: "cagdas-7",
+    tag: "Ekran & İrade Terbiyesi",
+    title: "Dijital Bağımlılık ve Zaman İsrafı",
+    dilemma: "Saatlerce amaçsız ekran kaydırma, dikkat dağınıklığı, namaz ve ibadet vaktinin telefona kurban edilmesi.",
+    propheticApproach: "Hz. Peygamber 'İki nimet vardır ki insanların çoğu bunlar hususunda aldanmıştır: sağlık ve boş vakit' buyurmuş; kıyamet gününde ömrün ve gençliğin nerede tüketildiğinden sorulacağını hatırlatmıştır.",
+    actionStep: "Telefonunuzda sosyal medya için günlük süre sınırı koyun ve sabah uyandıktan sonraki ilk 20 dakikayı ekransız geçirin.",
+    source: "Buhârî, Rikâk, 1; Tirmizî, Kıyâmet, 1"
+  },
+  {
+    id: "cagdas-8",
+    tag: "Dijital Kul Hakkı",
+    title: "Siber Zorbalık, Alay ve İtibar Suikastı",
+    dilemma: "İnternet yorumlarında insanları küçümsemek, lakap takmak, anonim hesaplarla kırıcı sözler yazmak.",
+    propheticApproach: "Kur'an-ı Kerim 'Bir topluluk diğerini alaya almasın; birbirinizi kötü lakaplarla çağırmayın' (Hucurât, 11) emrini verir. Resûlullah (s.a.v.) 'Müslüman, elinden ve dilinden insanların güvende olduğu kimsedir' buyurmuştur.",
+    actionStep: "Bir kişinin yüzüne karşı nezaketle söyleyemeyeceğiniz hiçbir yorumu veya paylaşımı klavyeden de yazmayın.",
+    source: "Kur'an Yolu Tefsiri, Hucurât 11; Buhârî, Îmân, 4"
+  },
+  {
+    id: "cagdas-9",
+    tag: "Aile & Kuşaklar",
+    title: "Büyükleri İhmal ve Kuşaklar Arası Kopukluk",
+    dilemma: "Yoğun hayat temposu içinde anne-babayı, yaşlı yakınları ve akrabaları aramayı ertelemek, sıla-i rahmi zayıflatmak.",
+    propheticApproach: "Hz. Peygamber 'Küçüklerimize merhamet etmeyen, büyüklerimize saygı göstermeyen bizden değildir' buyurmuş; anne-babaya iyiliği ve akraba ziyaretini rızkın ve ömrün bereket sebebi saymıştır.",
+    actionStep: "Her hafta düzenli bir gün belirleyerek anne-babanızı veya yaşlı bir akrabanızı bizzat ziyaret edin ya da gönül alıcı bir telefon açın.",
+    source: "Tirmizî, Birr, 15; Buhârî, Edeb, 12"
+  },
+  {
+    id: "cagdas-10",
+    tag: "Finansal Ahlak",
+    title: "Kolay Kazanç Tutkusu, Kumar ve Haksız Gelir",
+    dilemma: "Emeksiz zengin olma hevesi, şans oyunları, sanal bahis, faiz ve başkasının sırtından haksız kazanç arayışı.",
+    propheticApproach: "Peygamberimiz 'Hiç kimse kendi elinin emeğinden daha hayırlı bir yemek yememiştir' buyurmuş; kumarı, aldatmayı ve faizi kesin biçimde yasaklayarak helal ve alın teri kazancı bereketin anahtarı kılmıştır.",
+    actionStep: "Gelir ve yatırımlarınızı helal-haram ölçüsüyle gözden geçirin; şans ve bahis içeren her türlü dijital oyundan uzak durun.",
+    source: "Buhârî, Büyû', 15 & Hadislerle İslam, Cilt 6"
+  },
+  {
+    id: "cagdas-11",
+    tag: "Kamusal Alan & Trafik",
+    title: "Trafikte Sabır, Kul Hakkı ve Yol Edebi",
+    dilemma: "Trafikte öfke patlamaları, emniyet şeridi ihlali, hatalı park ile engelli ve yayaların geçiş hakkını gasp etmek.",
+    propheticApproach: "Hz. Peygamber 'Yolun hakkını verin!' buyurmuş; yolun hakkını 'eziyet vermemek, yoldaki engeli kaldırmak, selam almak ve iyiliği tavsiye etmek' olarak açıklamıştır.",
+    actionStep: "Direksiyon başında sabırlı olun, yayalara öncelik verin ve park ederken kimsenin geçişini engellemediğinizden emin olun.",
+    source: "Buhârî, Mezâlim, 22; Müslim, Îmân, 58"
+  },
+  {
+    id: "cagdas-12",
+    tag: "İç Huzur & Anlam",
+    title: "Ruhsal Yalnızlık, Kıyaslama ve Şükür Bilinci",
+    dilemma: "Sosyal medyada başkalarının vitrin hayatlarıyla kendini kıyaslamak, sürekli yetersizlik ve tatminsizlik hissi yaşamak.",
+    propheticApproach: "Resûlullah (s.a.v.) 'Zenginlik mal çokluğu değil, gönül zenginliğidir' ve 'Dünya işlerinde sizden daha zor durumda olanlara bakın ki Allah'ın size verdiği nimetleri küçümsemeyin' buyurmuştur.",
+    actionStep: "Kendinizi başkalarının vitriniyle kıyaslamayı bırakın; her akşam şükrettiğiniz 3 nimeti zihninizden geçirip hamdedin.",
+    source: "Buhârî, Rikâk, 15; Müslim, Zühd, 9"
   }
 ];
 
@@ -1386,6 +1500,81 @@ export const adultVakaScenarios = [
         citation: "Hadislerle İslam, Cilt 3, s. 245"
       }
     ]
+  },
+  {
+    id: "vaka-4",
+    tag: "Aile İçi İletişim & Kırgınlık",
+    title: "Evde Yorgunluk Anında Yaşanan Gerginlik",
+    situation:
+      "Çok yorucu bir iş gününün ardından eve geldiniz ve küçük bir mesele yüzünden eşiniz veya aile bireylerinizle sesler yükselmeye başladı. Haklı olduğunuzu düşünüyorsunuz.",
+    options: [
+      {
+        id: "opt-4a",
+        label: "Tartışmayı o an durdurur, kırıcı bir söz çıkmadan su içip sakinleşmeyi ve ortam yumuşayınca konuşmayı tercih ederim.",
+        isProphetic: true,
+        analysis:
+          "Nebevî aile ahlakı! Hz. Peygamber 'Sizin en hayırlınız, ailesine karşı en hayırlı olanınızdır' buyurmuş; öfke anında ayaktaysa oturmayı, konuşmadan önce susup sükûnet bulmayı tavsiye etmiştir.",
+        citation: "Tirmizî, Menâkıb, 63; Ebû Dâvûd, Edeb, 3"
+      },
+      {
+        id: "opt-4b",
+        label: "Haklı olduğum için o an son sözü söyleyip konuyu kesin biçimde kapatırım.",
+        isProphetic: false,
+        analysis:
+          "Tartışmada haklı çıkmak uğruna kalp kırmak aile huzurunu zedeler. Efendimiz 'Haklı olduğu halde tartışmayı terk eden kimseye cennetin ortasında bir köşk vardır' buyurmuştur.",
+        citation: "Ebû Dâvûd, Edeb, 7 & Hadislerle İslam, Cilt 4"
+      }
+    ]
+  },
+  {
+    id: "vaka-5",
+    tag: "Kamu Malı & Emanet Bilinci",
+    title: "İş Yerinde Mesai Saati ve Kurum İmkânlarının Kullanımı",
+    situation:
+      "Çalıştığınız kurumda kimsenin denetlemediği bir saatte işyerinin yazıcısını, aracını veya mesai vaktini kendi özel işiniz için kullanma imkânı doğdu.",
+    options: [
+      {
+        id: "opt-5a",
+        label: "Kurumun açık izni olmadan kamu/işveren imkânını şahsi işimde kullanmam; mesai vaktini emanet bilirim.",
+        isProphetic: true,
+        analysis:
+          "İhsan ve emanet şuuru! Hz. Ömer'in (r.a.) devlet işleriyle özel işlerini ayırırken mumları dahi değiştirmesi ve Peygamberimizin 'Emanete riayet etmeyenin imanı kâmil değildir' uyarısı bu hassasiyeti öğretir.",
+        citation: "Ahmed b. Hanbel, Müsned, III, 135 & TDV İslâm Ansiklopedisi, 'Emanet'"
+      },
+      {
+        id: "opt-5b",
+        label: "Herkes ufak tefek işlerini hallediyor, benim bir kerelik kullanmamdan kimseye zarar gelmez.",
+        isProphetic: false,
+        analysis:
+          "Yanlışın yaygın olması onu meşru kılmaz. İslam'da kul hakkı ve kamu malı (beytülmal) en hassas sorumluluk alanlarından biridir.",
+        citation: "Hadislerle İslam, Cilt 6, s. 42"
+      }
+    ]
+  },
+  {
+    id: "vaka-6",
+    tag: "Komşuluk & Saygı Hukuku",
+    title: "Apartmanda Gürültü ve Komşu Rahatsızlığı",
+    situation:
+      "Üst katınızdaki komşunuz geç saatlerde sık sık gürültü yapıyor. Apartman grubuna sert ve herkesin içinde mahcup edici bir mesaj yazmak ile yüz yüze nazikçe konuşmak arasında kaldınız.",
+    options: [
+      {
+        id: "opt-6a",
+        label: "Herkesin içinde rencide etmeden, ertesi gün kapısını çalıp güler yüzle ve yumuşak bir dille durumu iletirim.",
+        isProphetic: true,
+        analysis:
+          "Nebevî nezaket ve komşuluk hukuku! Peygamberimiz insanların kusurunu toplum içinde ifşa etmek yerine özelde ve incitmeden uyarmayı, komşuluk bağlarını korumayı esas almıştır.",
+        citation: "Buhârî, Edeb, 28 & Hadislerle İslam, Cilt 4, s. 198"
+      },
+      {
+        id: "opt-6b",
+        label: "Apartman WhatsApp grubuna herkesin göreceği sert bir uyarı yazarım ki bir daha yapmasın.",
+        isProphetic: false,
+        analysis:
+          "Topluluk içinde sert tepki göstermek sorunu çözmek yerine kalıcı küskünlük üretir. Yumuşaklık (rıfk) girdiği her işi güzelleştirir.",
+        citation: "Müslim, Birr, 78"
+      }
+    ]
   }
 ];
 
@@ -2266,5 +2455,107 @@ export const kidsRiddlesData = [
     options: ["Tebessüm (Gülümseme)", "Kaylûle", "İstişare"],
     correctIndex: 0,
     explanation: "Süpersin! Tebessüm etmek Peygamberimizin hiç terk etmediği en güzel sünnettir."
+  }
+];
+
+// ==========================================
+// 24. NEBEVÎ DENGE (İTİDAL) PUSULASI (İFRAT - İTİDAL - TEFRİT)
+// ==========================================
+export const propheticBalanceData = [
+  {
+    id: "bal-1",
+    tefrit: "Cimrilik & Bencillik",
+    itidal: "Cömertlik (Sehâ) ve İktisat",
+    ifrat: "İsraf & Gösteriş Tüketimi",
+    note: "Ne elini boynuna bağla ne de büsbütün açıp saç; ölçülü, bereketli ve paylaşımcı ol. (İsrâ, 29)"
+  },
+  {
+    id: "bal-2",
+    tefrit: "Zillet & Kendi Değerini Yok Saymak",
+    itidal: "Tevazu ve Vakar",
+    ifrat: "Kibir & Üstünlük Taslamak",
+    note: "Mümin ne kibirle başkasını küçümser ne de hak karşısında onurundan taviz verir."
+  },
+  {
+    id: "bal-3",
+    tefrit: "Korkaklık & Sorumluluktan Kaçmak",
+    itidal: "Şecaat (Hikmetli Cesaret)",
+    ifrat: "Saldırganlık & Öfke Kontrolsüzlüğü",
+    note: "Gerçek cesaret, zulme ve yanlışa karşı aklıselimle ve adaletle dik durabilmektir."
+  },
+  {
+    id: "bal-4",
+    tefrit: "Duyarsızlık & Kayıtsızlık",
+    itidal: "Hilm ve Merhamet",
+    ifrat: "Sertlik & Kırıcı Katılık",
+    note: "Yumuşak huyluluk (rıfk) bir şeye girdiğinde onu mutlaka güzelleştirir. (Müslim, Birr, 78)"
+  },
+  {
+    id: "bal-5",
+    tefrit: "Kaba Patavatsızlık",
+    itidal: "Sıdk (Doğruluk) & Nezaket",
+    ifrat: "Riyakârlık & Dalkavukluk",
+    note: "Her doğruyu söylemek gerekir ama her doğruyu incitici bir üslupla söylemek nebevî edebe uymaz."
+  },
+  {
+    id: "bal-6",
+    tefrit: "Tembellik & Tedbirsizlik",
+    itidal: "Tevekkül ve Gayret",
+    ifrat: "Kaygı Esareti & Dünya Hırsı",
+    note: "Önce elinden gelen en sağlam tedbiri al, sonra sonucu huzurla Allah'a emanet et."
+  }
+];
+
+// ==========================================
+// 25. KALBİ YORAN 6 AHLAK ZAFİYETİNE NEBEVÎ REÇETELER
+// ==========================================
+export const moralRemediesData = [
+  {
+    id: "rem-1",
+    affliction: "Öfke ve Hiddet",
+    symptom: "Ani ses yükselmesi, pişmanlık doğuran sert sözler ve kalp kırıklığı.",
+    propheticDiagnosis: "Öfke anında nefis aklın önüne geçer; 'Öfkelendiğinde sus!' (Ahmed b. Hanbel, Müsned, I, 239).",
+    remedy: "Konuşmadan önce 10 saniye susun, ayaktaysanız oturun, 'Eûzü billâhi mine'ş-şeytânirracîm' deyin ve imkân varsa abdest alın.",
+    source: "Ebû Dâvûd, Edeb, 3 & Hadislerle İslam, Cilt 3"
+  },
+  {
+    id: "rem-2",
+    affliction: "Haset ve Kıskançlık",
+    symptom: "Başkasının başarısına veya nimetine için için üzülmek, onun elinden gitmesini arzulamak.",
+    propheticDiagnosis: "'Ateşin odunu yiyip bitirdiği gibi haset de iyilikleri yer bitirir.' (Ebû Dâvûd, Edeb, 44).",
+    remedy: "Kıskançlık hissettiğiniz kişiye gıyabında 'Allah'ım onun nimetini bereketlendir, bana da hayırlısını nasip et' diye dua edin.",
+    source: "Ebû Dâvûd, Edeb, 44 & Kur'an Yolu Tefsiri"
+  },
+  {
+    id: "rem-3",
+    affliction: "Gıybet ve Dedikodu",
+    symptom: "Bir kimsenin arkasından duyduğunda hoşlanmayacağı kusurlarını sohbet konusu yapmak.",
+    propheticDiagnosis: "Kur'an gıybeti ölmüş kardeşinin etini yemeye benzetir (Hucurât, 12); güven ve kardeşliği içeriden çürütür.",
+    remedy: "Gıybet açıldığında konuyu nazikçe değiştirin veya o kişinin bir güzel yönünü anarak onurunu savunun.",
+    source: "Kur'an Yolu Tefsiri, Hucurât 12"
+  },
+  {
+    id: "rem-4",
+    affliction: "Kibir ve Üstünlük Duygusu",
+    symptom: "İnsanları küçümsemek, eleştiriye kapanmak, hakkı kabul etmekten kaçınmak.",
+    propheticDiagnosis: "'Kibir, hakkı inkâr etmek ve insanları küçümsemektir.' (Müslim, Îmân, 147).",
+    remedy: "Karşılaştığınız kişilere ilk selamı siz verin, kendi işinizi bizzat görün ve hata yaptığınızda açıkça özür dileyin.",
+    source: "Müslim, Îmân, 147 & Hadislerle İslam, Cilt 3"
+  },
+  {
+    id: "rem-5",
+    affliction: "Acelecilik ve Tahammülsüzlük",
+    symptom: "Dinlemeden hüküm vermek, trafikte veya işlerde sabırsızlıkla hata yapmak.",
+    propheticDiagnosis: "'Teenni (temkinli ve ölçülü davranmak) Allah'tan, acelecilik ise şeytandandır.' (Tirmizî, Birr, 66).",
+    remedy: "Önemli kararlarda ve mesaj yazarken göndermeden önce bir kez durup nefes alın, istişare edin.",
+    source: "Tirmizî, Birr, 66"
+  },
+  {
+    id: "rem-6",
+    affliction: "Gösteriş (Riyâ) ve Beğeni Tutkusu",
+    symptom: "İyiliği ve ibadeti Allah rızasından çok insanların övgüsü ve takdiri için yapmak.",
+    propheticDiagnosis: "'Ameller ancak niyetlere göredir.' (Buhârî, Bed'ü'l-vahy, 1).",
+    remedy: "Kimsenin bilmediği ve asla paylaşmayacağınız gizli bir iyilik (sadaka, dua, yardım) alışkanlığı edinin.",
+    source: "Buhârî, Bed'ü'l-vahy, 1 & TDV İslâm Ansiklopedisi, 'Riyâ'"
   }
 ];
