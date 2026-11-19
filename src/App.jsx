@@ -11,7 +11,6 @@ import {
   moodsData,
   thematicData,
   contemporaryIssuesData,
-  dailyRoutineData,
   chronologyData,
   glossaryAndSahabeData,
   semailAndSpecialData,
@@ -174,17 +173,11 @@ function MainApp() {
 
   const handleCrossReferenceClick = (termKey) => {
     const entry = glossaryAndSahabeData[termKey];
-    if (!entry) return;
-    if (entry.type === "Sahabe Profili") {
-      setSahabeGroupFilter("Tümü");
-      setSahabeSearch(termKey);
-      setCurrentTab("sahabeler");
-      recordVisit(entry.title, "sahabeler", "", termKey);
-    } else {
-      setSemailSubView("kavramlar");
-      setCurrentTab("semail-siyer");
-      recordVisit(entry.title, "semail-siyer", "kavramlar", termKey);
-    }
+    if (!entry || entry.type !== "Sahabe Profili") return;
+    setSahabeGroupFilter("Tümü");
+    setSahabeSearch(termKey);
+    setCurrentTab("sahabeler");
+    recordVisit(entry.title, "sahabeler", "", termKey);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -259,7 +252,7 @@ function MainApp() {
   };
 
   const totalTrackable =
-    dailySunnahList.length + thematicData.length + contemporaryIssuesData.length + dailyRoutineData.length;
+    dailySunnahList.length + thematicData.length + contemporaryIssuesData.length;
   const progressPercent = Math.min(100, Math.round((completedItems.length / totalTrackable) * 100));
 
   const habitTotalSlots = defaultHabits.length * weekDays.length;
@@ -361,6 +354,7 @@ function MainApp() {
     });
 
     Object.entries(glossaryAndSahabeData).forEach(([key, item]) => {
+      if (item.type !== "Sahabe Profili") return;
       if (item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || item.badge.toLowerCase().includes(q)) {
         results.push({
           id: key,
@@ -369,13 +363,9 @@ function MainApp() {
           snippet: item.desc,
           source: item.source,
           onSelect: () => {
-            if (item.type === "Sahabe Profili") {
-              setSahabeGroupFilter("Tümü");
-              setCurrentTab("sahabeler");
-            } else {
-              setSemailSubView("kavramlar");
-              setCurrentTab("semail-siyer");
-            }
+            setSahabeGroupFilter("Tümü");
+            setSahabeSearch(key);
+            setCurrentTab("sahabeler");
             setSearchQuery("");
           }
         });
@@ -658,6 +648,7 @@ function MainApp() {
     });
 
     Object.entries(glossaryAndSahabeData).forEach(([key, item]) => {
+      if (item.type !== "Sahabe Profili") return;
       list.push({
         id: `cmd-gl-${key}`,
         group: item.type,
@@ -665,14 +656,9 @@ function MainApp() {
         sub: `${item.badge} • ${item.desc}`,
         run: () => {
           setIsKidsMode(false);
-          if (item.type === "Sahabe Profili") {
-            setSahabeGroupFilter("Tümü");
-            setSahabeSearch(key);
-            setCurrentTab("sahabeler");
-          } else {
-            setSemailSubView("kavramlar");
-            setCurrentTab("semail-siyer");
-          }
+          setSahabeGroupFilter("Tümü");
+          setSahabeSearch(key);
+          setCurrentTab("sahabeler");
         }
       });
     });
@@ -1599,18 +1585,20 @@ function MainApp() {
                               {item.story}
                             </div>
 
-                            {crossReferencesMap[key] && (
+                            {crossReferencesMap[key]?.filter((relKey) => glossaryAndSahabeData[relKey]?.type === "Sahabe Profili").length > 0 && (
                               <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5">
-                                <span className="text-xs font-semibold text-slate-400">Bakınız (İlgili Maddeler):</span>
-                                {crossReferencesMap[key].map((relKey) => (
-                                  <button
-                                    key={relKey}
-                                    onClick={() => handleCrossReferenceClick(relKey)}
-                                    className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors"
-                                  >
-                                    {relKey} →
-                                  </button>
-                                ))}
+                                <span className="text-xs font-semibold text-slate-400">Bakınız (İlgili Sahabeler):</span>
+                                {crossReferencesMap[key]
+                                  .filter((relKey) => glossaryAndSahabeData[relKey]?.type === "Sahabe Profili")
+                                  .map((relKey) => (
+                                    <button
+                                      key={relKey}
+                                      onClick={() => handleCrossReferenceClick(relKey)}
+                                      className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors"
+                                    >
+                                      {relKey} →
+                                    </button>
+                                  ))}
                               </div>
                             )}
                           </div>
@@ -1645,9 +1633,7 @@ function MainApp() {
                   {[
                     { id: "semail", label: "Hilye & Şemâil-i Şerîf" },
                     { id: "beyanname", label: "Veda Hutbesi, Vesika & Mektuplar" },
-                    { id: "kronoloji", label: "Siyer Kronolojisi" },
-                    { id: "yasam", label: "24 Saatlik Yaşantı" },
-                    { id: "kavramlar", label: "Siyer Kavramları" }
+                    { id: "kronoloji", label: "Siyer Kronolojisi" }
                   ].map((sub) => (
                     <button
                       key={sub.id}
@@ -1770,99 +1756,6 @@ function MainApp() {
                           </div>
                         ))}
                     </div>
-                  </div>
-                )}
-
-                {/* Alt Bölüm 4C: 24 Saatlik Yaşantı */}
-                {semailSubView === "yasam" && (
-                  <div className="max-w-4xl mx-auto space-y-4">
-                    {dailyRoutineData.map((r, idx) => {
-                      const rId = `routine-${idx}`;
-                      const isDone = completedItems.includes(rId);
-                      return (
-                        <div
-                          key={idx}
-                          className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs"
-                        >
-                          <div className="flex items-center justify-between gap-2 mb-2">
-                            <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400">
-                              {r.time}
-                            </span>
-                            <button
-                              onClick={() => toggleComplete(rId)}
-                              className={`inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-md border ${
-                                isDone
-                                  ? "bg-[#0B4F3F] text-white border-[#0B4F3F]"
-                                  : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
-                              }`}
-                            >
-                              <Check className="w-3.5 h-3.5" />
-                              <span>{isDone ? "Tamamlandı" : "İşaretle"}</span>
-                            </button>
-                          </div>
-                          <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-1">{r.title}</h3>
-                          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                            <GlossaryText text={r.desc} />
-                          </p>
-                          <CitationFooter source={r.source} />
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
-
-                {/* Alt Bölüm 4D: Siyer Kavramları Sözlüğü */}
-                {semailSubView === "kavramlar" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {Object.entries(glossaryAndSahabeData)
-                      .filter(([, item]) => item.type === "Kavram")
-                      .map(([key, item]) => (
-                        <div
-                          key={key}
-                          className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between"
-                        >
-                          <div>
-                            <span className="text-xs font-bold uppercase tracking-wider text-[#0B4F3F] dark:text-emerald-400 block mb-1">
-                              Siyer Kavramı • {item.badge}
-                            </span>
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">{item.title}</h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-                              {item.desc}
-                            </p>
-                            <div className="bg-slate-50 dark:bg-slate-800/60 border-l-4 border-[#0B4F3F] p-3.5 rounded-r-lg text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                              <span className="font-semibold text-slate-900 dark:text-slate-100 block mb-0.5">
-                                Tarihî Örnek:
-                              </span>
-                              {item.story}
-                            </div>
-
-                            {crossReferencesMap[key] && (
-                              <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center gap-1.5">
-                                <span className="text-xs font-semibold text-slate-400">Bakınız (İlgili Maddeler):</span>
-                                {crossReferencesMap[key].map((relKey) => (
-                                  <button
-                                    key={relKey}
-                                    onClick={() => handleCrossReferenceClick(relKey)}
-                                    className="text-xs font-semibold text-[#0B4F3F] dark:text-emerald-400 bg-slate-100 dark:bg-slate-800 hover:bg-emerald-50 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 transition-colors"
-                                  >
-                                    {relKey} →
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                          <CitationFooter
-                            source={item.source}
-                            onOpenCard={() =>
-                              setCardModalData({
-                                title: item.title,
-                                quote: item.story,
-                                source: item.source
-                              })
-                            }
-                          />
-                        </div>
-                      ))}
                   </div>
                 )}
               </div>
